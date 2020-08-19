@@ -1,5 +1,5 @@
 <template>
-<ion-app>
+<!-- <ion-app> -->
   <div class="MainTest">
     <ion-header>
       <ion-toolbar>
@@ -10,7 +10,7 @@
       Hallo, das heir ist ein Test
     </ion-content>
   </div>
-  </ion-app>
+  <!-- </ion-app> -->
 </template>
 
 <script>

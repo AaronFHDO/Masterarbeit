@@ -1,6 +1,6 @@
 <template>
   <div class="MainRLWE">
-    <ion-app>
+    <!-- <ion-app> -->
       <ion-header>
         <ion-toolbar>
             <ion-title>RLWE</ion-title>
@@ -11,7 +11,7 @@
         <h1>Halloooooooooooooooooooooooooooooooooooooooooooooooooo</h1>
         <h1>Halloooooooooooooooooooooooooooooooooooooooooooooooooo</h1>
       
-    </ion-app>
+    <!-- </ion-app> -->
   </div>
 </template>
 

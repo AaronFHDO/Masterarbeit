@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <ion-app>      
+        <ion-app>
                     <ion-split-pane when="md">
                         <ion-menu type="push" side="start" menu-id="custom" content-id="main" class="myMenu">
                             <ion-header>
@@ -18,11 +18,12 @@
                                     </ion-menu-toggle>
                                 </ion-list>
                             </ion-content>
-                        </ion-menu>   
+                        </ion-menu>  
+
+                        <ion-vue-router main/>
                     </ion-split-pane>
-        
-                    <router-view/>
-                    <h1>TESTTESTTESTTESTTESTTESTTESTTESTTEST</h1>
+                    <!-- <router-view/> -->
+                    <!-- <h1>TESTTESTTESTTESTTESTTESTTESTTESTTEST</h1> -->
         </ion-app>
     </div>
 </template>
