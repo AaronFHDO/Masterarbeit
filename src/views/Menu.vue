@@ -2,7 +2,7 @@
     <div id="app">
         <ion-app>
                     <ion-split-pane when="md">
-                        <ion-menu type="push" side="start" menu-id="custom" content-id="main" class="myMenu">
+                        <ion-menu type="push" side="start" menu-id="start" content-id="main" class="myMenu">
                             <ion-header>
                                 <ion-toolbar color="primary">
                                     <ion-title>Menu</ion-title>
@@ -11,9 +11,9 @@
                             <ion-content>
                                 <ion-list>
                                     <ion-menu-toggle auto-hide="false">
-                                        <router-link to="/"><ion-item>Home</ion-item></router-link>
-                                        <router-link to="/Test"><ion-item>Test</ion-item></router-link>
-                                        <router-link to="/RLWE"><ion-item> RLWE </ion-item></router-link>
+                                        <router-link to="/"><ion-item router-direction="root">Home</ion-item></router-link>
+                                        <router-link to="/Test"><ion-item router-direction="root">Test</ion-item></router-link>
+                                        <router-link to="/RLWE"><ion-item router-direction="root"> RLWE </ion-item></router-link>
                                         <ion-item>NewHope</ion-item>
                                     </ion-menu-toggle>
                                 </ion-list>

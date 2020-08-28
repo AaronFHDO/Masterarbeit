@@ -26,8 +26,9 @@ const router = new IonicVueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes:[
-    { path: '/RLWE', name: MainRLWE, component: MainRLWE },
-    { path: '/Test', name: MainTest, component: MainTest }
+    { path: '/Test', name: MainTest, component: MainTest },
+    { path: '/RLWE', name: MainRLWE, component: MainRLWE }
+    
   ]
 })
 export default router
