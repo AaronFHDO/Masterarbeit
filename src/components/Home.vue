@@ -1,5 +1,5 @@
 <template>
-  <div class="MainRLWE">
+  <div class="MainHome">
       <ion-header>
         <ion-toolbar>
             <ion-title>RLWE</ion-title>
@@ -7,7 +7,7 @@
       </ion-header>
       <ion-card>
       <ion-card-header>
-        <ion-card-title>Willkommen bei RLWE</ion-card-title>
+        <ion-card-title>Willkommen bei Home</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
@@ -22,10 +22,11 @@
 </template>
 
 <script>
+// @ is an alias to /src
+
+
+
 export default {
-  name: 'MainRLWE',
-  props: {
-    
-  }
+  name: 'Home',
 }
 </script>

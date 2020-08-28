@@ -11,9 +11,9 @@
                             <ion-content>
                                 <ion-list>
                                     <ion-menu-toggle auto-hide="false">
-                                        <router-link to="/"><ion-item router-direction="root">Home</ion-item></router-link>
-                                        <router-link to="/Test"><ion-item router-direction="root">Test</ion-item></router-link>
-                                        <router-link to="/RLWE"><ion-item router-direction="root"> RLWE </ion-item></router-link>
+                                        <router-link to="/"><ion-item>Home</ion-item></router-link>
+                                        <router-link to="/Test"><ion-item>Test</ion-item></router-link>
+                                        <router-link to="/RLWE"><ion-item> RLWE </ion-item></router-link>
                                         <ion-item>NewHope</ion-item>
                                     </ion-menu-toggle>
                                 </ion-list>

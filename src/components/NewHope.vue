@@ -1,13 +1,13 @@
 <template>
-  <div class="MainRLWE">
+  <div class="MainNewHope">
       <ion-header>
         <ion-toolbar>
-            <ion-title>RLWE</ion-title>
+            <ion-title>NewHope</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-card>
       <ion-card-header>
-        <ion-card-title>Willkommen bei RLWE</ion-card-title>
+        <ion-card-title>Willkommen bei New Hope</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'MainRLWE',
+  name: 'MainNewHope',
   props: {
     
   }
