@@ -12,7 +12,7 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Willkommen</ion-card-title>
+        <ion-card-title>Willkommen bei Test</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>

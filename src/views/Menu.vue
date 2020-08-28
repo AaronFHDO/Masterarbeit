@@ -14,7 +14,7 @@
                                         <router-link to="/"><ion-item>Home</ion-item></router-link>
                                         <router-link to="/Test"><ion-item>Test</ion-item></router-link>
                                         <router-link to="/RLWE"><ion-item> RLWE </ion-item></router-link>
-                                        <ion-item>NewHope</ion-item>
+                                        <router-link to="/NewHope"><ion-item>NewHope</ion-item></router-link>
                                     </ion-menu-toggle>
                                 </ion-list>
                             </ion-content>
