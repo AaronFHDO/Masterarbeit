@@ -2,7 +2,7 @@
   <div class="MainHome">
       <ion-header>
         <ion-toolbar>
-            <ion-title>RLWE</ion-title>
+            <ion-title>Home</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-card>
