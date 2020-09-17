@@ -2,7 +2,10 @@
   <div class="MainHome">
       <ion-header>
         <ion-toolbar>
-            <ion-title>Home</ion-title>
+          <ion-buttons slot="start">
+            <ion-menu-button menu="start"></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Home</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-card>

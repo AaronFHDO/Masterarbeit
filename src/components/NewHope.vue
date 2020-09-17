@@ -2,7 +2,10 @@
   <div class="MainNewHope">
       <ion-header>
         <ion-toolbar>
-            <ion-title>NewHope</ion-title>
+          <ion-buttons slot="start">
+            <ion-menu-button menu="start"></ion-menu-button>
+          </ion-buttons>
+          <ion-title>NewHope</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-card>

@@ -1,14 +1,14 @@
 <template>
     <div id="app">
         <ion-app>
-                    <ion-split-pane when="md">
-                        <ion-menu type="push" side="start" menu-id="start" content-id="main" class="myMenu">
+                    <ion-split-pane content-id="main">
+                        <ion-menu type="overlay" side="start" menu-id="start" content-id="main" class="myMenu">
                             <ion-header>
                                 <ion-toolbar color="primary">
                                     <ion-title>Menu</ion-title>
                                 </ion-toolbar>
                             </ion-header>
-                            <ion-content>
+                            <ion-content id="main">
                                 <ion-list>
                                     <ion-menu-toggle auto-hide="false">
                                         <router-link to="/"><ion-item>Home</ion-item></router-link>
@@ -19,9 +19,9 @@
                                 </ion-list>
                             </ion-content>
                         </ion-menu>  
-
-                        <ion-vue-router main/>
+                        <ion-vue-router id="main"/>
                     </ion-split-pane>
+                    
                     <!-- <router-view/> -->
                     <!-- <h1>TESTTESTTESTTESTTESTTESTTESTTESTTEST</h1> -->
         </ion-app>
@@ -29,12 +29,39 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-  props: {
-    
-  }
-}
+/*import { 
+  IonContent, 
+  IonHeader, 
+  IonItem, 
+  IonList, 
+  IonMenu, 
+  IonRouterOutlet,
+  IonTitle, 
+  IonToolbar,
+  mentController
+} from '@ionic/vue';
+import { defineComponent } from 'vue';*/
+
+
+export default /*defineComponent(*/{
+    /*components: {
+        IonContent, 
+        IonHeader, 
+        IonItem, 
+        IonList, 
+        IonMenu, 
+        IonRouterOutlet,
+        IonTitle, 
+        IonToolbar
+    },*/
+    name: 'App',
+    /*methods: {
+        openFirst() {
+        mentController.enable(true, 'start');
+        mentController.open('start');
+        }
+    }*/
+}/*)*/;
 </script>
 
 <style>

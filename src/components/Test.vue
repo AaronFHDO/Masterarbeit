@@ -2,9 +2,9 @@
 <!-- <ion-app> -->
   <div class="MainTest">
     <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start" menu="start">
-            <ion-menu-button auto-hide="false"></ion-menu-button>
+      <ion-toolbar>    
+        <ion-buttons slot="start">
+            <ion-menu-button menu="start"></ion-menu-button>
         </ion-buttons>
         <ion-title>Test</ion-title>
       </ion-toolbar>
@@ -28,8 +28,15 @@
 </template>
 
 <script>
+//import {menuController} from '@ionic/core'
 export default {
-  name: 'MainTest'
+  name: 'MainTest',
+  /*methods: {
+        openMenu() {
+          menuController.enable(true, 'start');
+          menuController.open('start');
+        }
+  }*/
 }
 </script>
 
