@@ -12,23 +12,30 @@
     "@ionic/vue": "0.0.9",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.3.4",
     "vue-store": "^0.3.1-moved",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-pwa": "^4.5.6",
     "@vue/cli-plugin-router": "^4.4.4",
+    "@vue/cli-plugin-typescript": "^4.5.7",
     "@vue/cli-plugin-vuex": "^4.4.4",
     "@vue/cli-service": "~4.4.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-vue": "^6.2.2",
     "eslint-webpack-plugin": "^2.1.0",
     "ionicons": "^4.5.9-1",
+    "typescript": "~3.9.3",
     "vue": "^2.6.12",
     "vue-template-compiler": "^2.6.12"
   },
@@ -39,10 +46,11 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/typescript"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@typescript-eslint/parser"
     },
     "rules": {}
   },
