@@ -28,10 +28,10 @@ const router = new IonicVueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes:[
-    { path: '/', name: MainHome, component: MainHome},
-    { path: '/Test', name: MainTest, component: MainTest },
-    { path: '/RLWE', name: MainRLWE, component: MainRLWE },
-    { path: '/NewHope', name: MainNewHope, component: MainNewHope },
+    { path: '/', /*name: MainHome,*/ component: MainHome},
+    { path: '/Test', /*name: MainTest,*/ component: MainTest },
+    { path: '/RLWE', /*name: MainRLWE,*/ component: MainRLWE },
+    { path: '/NewHope', /*name: MainNewHope,*/ component: MainNewHope },
     
   ]
 })
