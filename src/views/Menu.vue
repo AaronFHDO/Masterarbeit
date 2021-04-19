@@ -67,7 +67,7 @@ export default /*defineComponent(*/{
 <style>
     ion-menu{
         
-        --background: green;
-        color: blue;
+        --background: black;
+        color:white;
     }
 </style>
