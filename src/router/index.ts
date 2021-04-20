@@ -4,7 +4,7 @@ import Vue from 'vue'
 import MainHome from '../components/Home.vue'
 import MainRLWE from '../components/RLWE.vue'
 import MainTest from '../components/Test.vue'
-import MainNewHope from '../components/NewHope.vue'
+import MainKyberInt from '../components/KyberInt.vue'
 import {IonicVueRouter} from "@ionic/vue"
 
 
@@ -31,7 +31,7 @@ const router = new IonicVueRouter({
     { path: '/', /*name: MainHome,*/ component: MainHome},
     { path: '/Test', /*name: MainTest,*/ component: MainTest },
     { path: '/RLWE', /*name: MainRLWE,*/ component: MainRLWE },
-    { path: '/NewHope', /*name: MainNewHope,*/ component: MainNewHope },
+    { path: '/KyberInt', /*name: MainNewHope,*/ component: MainKyberInt },
     
   ]
 })
