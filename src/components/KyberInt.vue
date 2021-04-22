@@ -32,7 +32,9 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> q: </ion-label>
-                  <ion-input type="number" :value="q" @change="q = +$event.target.value"></ion-input>
+                  <ion-input type="number" :value="q" 
+                  @change="q = +$event.target.value;
+                  validateQ($event.target.value)"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
@@ -68,13 +70,13 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> s[0]: </ion-label>
-                  <ion-input type="number" :value="s[0]" @change="s[0] = +$event.target.value"></ion-input>
+                  <ion-input type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value);"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> s[1]: </ion-label>
-                  <ion-input type="number" :value="s[1]" @change="s[1] = +$event.target.value"></ion-input>
+                  <ion-input type="number" :value="s[1]" @change="updateArray(s, 1, +$event.target.value);" ></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
@@ -88,18 +90,33 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> e[0]: </ion-label>
-                  <ion-input type="number" :value="e[0]" @change="e[0] = +$event.target.value"></ion-input>
+                  <ion-input type="number" :value="e[0]" @change="updateArray(e, 0, +$event.target.value);"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> e[1]: </ion-label>
-                  <ion-input type="number" :value="e[1]" @change="e[1] = +$event.target.value"></ion-input>
+                  <ion-input type="number" :value="e[1]" @change="updateArray(e, 1, +$event.target.value);"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <button v-on:click="calcT">Berechne t</button>
-                <div>Ergebnis: {{t}} </div>
+              </ion-col>
+              <ion-col>
+                <button v-on:click="generateAll">Generiere Alles</button>
+              </ion-col>
+              <ion-col>
+                <button v-on:click="generateQ">Generiere Q</button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <button v-on:click="generateS">Generiere S</button>
+              </ion-col>
+              <ion-col>
+                <button v-on:click="generateE">Generiere E</button>
+              </ion-col>
+              <ion-col>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -127,6 +144,7 @@ export default Vue.extend({
   data: function () {
     return {
       q: 97 as number,
+      qCheck: '' as String,
       a: [] as number[],
       a00: 42 as number,
       a01: 43 as number,
@@ -136,35 +154,77 @@ export default Vue.extend({
       e: [4,5] as number[],
       t: [] as number[],
       m: 0 as number,
+      mResult: 0 as number,
       r: [1,2] as number[], 
       e1: [3,4] as  number[], 
-      e2: 0 as number, 
+      e2: 3 as number, 
       u: [] as number[],
       v: 0 as number,
     }
   },
   methods: {
-    isPrime: function(num: number){
-      for(var i = 2; i < num; i++)
-        if(num % i === 0) return false;
-      return true;
+    generateAll: function(){
+      this.generateQ;
+      this.generateA;
+      this.generateS;
+      this.generateE;
+    },
+    generateQ: function(){
+      var randomValue = Math.ceil(Math.random()*350)
+      if(this.isPrime(randomValue)){
+        this.q=randomValue;
+        return;
+      } 
+      else return this.generateQ;
+    },
+    validateQ: function(num: number){
+      if(num>350){
+        //q ist größer als 350 (unerwünscht)
+        this.qCheck='q ist größer als 350 (unerwünscht)';
+      }
+      else if(!this.isPrime(num)){
+        //q muss eine Primzahl sein
+        this.qCheck='q muss eine Primzahl sein';
+      }
+      else {
+        //q ist okay 
+        this.qCheck='';
+      }
+    },
+    generateA: function(){
+      this.a00= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+      this.a01= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+      this.a10= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+      this.a11= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+    },
+    generateS: function(){
+      this.updateArray(this.s, 0, Math.ceil(Math.random()*4));
+      this.updateArray(this.s, 1, Math.ceil(Math.random()*4));
+    },
+    generateE: function(){
+      this.updateArray(this.e, 0, Math.ceil(Math.random()*4));
+      this.updateArray(this.e, 1, Math.ceil(Math.random()*4));
     },
     calcT: function(){
       var erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
-      this.t[0] = this.modX(erg0, this.q);
+      this.updateArray(this.t, 0, this.modX(erg0, this.q));
+      //this.t[0] = this.modX(erg0, this.q);
       var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
-      this.t[1] = this.modX(erg1, this.q);
+      this.updateArray(this.t, 1, this.modX(erg1, this.q));
     },
     calcU: function(){
       var erg0 = +(this.a00 * this.r[0] + this.a01 * this.r[1] + this.e1[0]);
-      this.u[0] = this.modX(erg0, this.q);
+      //this.u[0] = this.modX(erg0, this.q);
+      this.updateArray(this.u, 0, this.modX(erg0, this.q));
       var erg1 = +(this.a10 * this.r[0] + this.a11 * this.r[1] + this.e1[1]);
-      this.u[1] = this.modX(erg1, this.q);
+      this.updateArray(this.u, 1, this.modX(erg1, this.q));
     },
     calcv: function(){
-      
-
-
+      var erg0 = +(this.t[0] * this.r[0] + this.t[1] * this.r[1] + this.e2+ Math.round((this.q/2)*this.m));
+      this.v = this.modX(erg0, this.q);
+    },
+    updateArray: function(arr: number[], index: number, value: number){
+      Vue.set(arr, index, value);
     },
     modX: function(value:number, mod: number){
       while(value>mod){
@@ -174,7 +234,12 @@ export default Vue.extend({
         value+=mod;
       }
       return value;
-    }
+    },
+    isPrime: function(num: number){
+      for(var i = 2; i < num; i++)
+        if(num % i === 0) return false;
+      return true;
+    },
   }
 })
 </script>
