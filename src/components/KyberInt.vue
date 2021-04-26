@@ -100,7 +100,7 @@
                 </ion-item>
               </ion-col>
               <ion-col>
-                <button v-on:click="calcT">Berechne t</button>
+                <button v-on:click="calcAll">Berechne Alles</button>
               </ion-col>
               <ion-col>
                 <button v-on:click="generateAll">Generiere Alles</button>
@@ -117,6 +117,7 @@
                 <button v-on:click="generateE">Generiere E</button>
               </ion-col>
               <ion-col>
+                 
               </ion-col>
               <ion-col>
               </ion-col>
@@ -164,21 +165,24 @@ export default Vue.extend({
   },
   methods: {
     generateAll: function(){
-      this.generateQ;
-      this.generateA;
-      this.generateS;
-      this.generateE;
+      this.generateQ();
+      this.generateA();
+      this.generateS();
+      this.generateE();
+      this.generateE1();
+      this.generateE2();
+      this.generateM();
     },
     generateQ: function(){
-      var randomValue = Math.ceil(Math.random()*350)
+      var randomValue = Math.ceil(Math.random()*100);
       if(this.isPrime(randomValue)){
         this.q=randomValue;
         return;
       } 
-      else return this.generateQ;
+      else this.generateQ();
     },
     validateQ: function(num: number){
-      if(num>350){
+      if(num>100){
         //q ist größer als 350 (unerwünscht)
         this.qCheck='q ist größer als 350 (unerwünscht)';
       }
@@ -205,10 +209,26 @@ export default Vue.extend({
       this.updateArray(this.e, 0, Math.ceil(Math.random()*4));
       this.updateArray(this.e, 1, Math.ceil(Math.random()*4));
     },
+    generateE1: function(){
+      this.updateArray(this.e1, 0, Math.ceil(Math.random()*4));
+      this.updateArray(this.e1, 1, Math.ceil(Math.random()*4));
+    },
+    generateE2: function(){
+      this.e2 = Math.ceil(Math.random()*4);
+    },
+    generateM: function(){
+      this.m = Math.floor(Math.random()*2);
+    },
+    calcAll: function(){
+      this.calcT();
+      this.calcU();
+      this.calcV();
+      this.calcM();
+    },
     calcT: function(){
-      var erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
+      let erg0:number = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
       this.updateArray(this.t, 0, this.modX(erg0, this.q));
-      //this.t[0] = this.modX(erg0, this.q);
+      //this.t[0] = erg0;
       var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
       this.updateArray(this.t, 1, this.modX(erg1, this.q));
     },
@@ -219,9 +239,18 @@ export default Vue.extend({
       var erg1 = +(this.a10 * this.r[0] + this.a11 * this.r[1] + this.e1[1]);
       this.updateArray(this.u, 1, this.modX(erg1, this.q));
     },
-    calcv: function(){
+    calcV: function(){
       var erg0 = +(this.t[0] * this.r[0] + this.t[1] * this.r[1] + this.e2+ Math.round((this.q/2)*this.m));
       this.v = this.modX(erg0, this.q);
+    },
+    calcM: function(){
+      var comp: number = this.modX(this.v - (this.s[0]*this.u[0] * this.s[1]* this.u[1]), this.q);
+      if(comp>=Math.ceil(-this.q/4) && comp<=Math.floor(this.q/4)){
+        this.mResult = 0;
+      }
+      else{
+        this.mResult = 1;
+      }
     },
     updateArray: function(arr: number[], index: number, value: number){
       Vue.set(arr, index, value);
