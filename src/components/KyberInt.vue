@@ -1,5 +1,5 @@
 <template>
-  <ion-content>
+  <ion-content id="kyber2x2">
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
@@ -9,23 +9,25 @@
         </ion-toolbar>
       </ion-header>
       <ion-card>
-      <ion-card-header>
-        <ion-card-title>Willkommen bei KYBER (2x2 Integer)</ion-card-title>
-      </ion-card-header>
+        <ion-card-header>
+          <ion-card-title>Willkommen bei KYBER (2x2 Integer)</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content>
-        Das hier ist die Startseite meines Vue/Ionic-Prototypen der später für mein Masterseminar, <br>
-        meine F&E-Arbeit und meine Masterarbeit verwendet werden soll. <br>
-        <br>
-        Nutzern wird hier die Möglichkeit gegeben, sich mit den Grundlage zu Ring-based Learning With Errors (RLWE) und <br>
-        dem Postquanten-Verschlüsselungsalgorithmus NewHope auseinander zu setzen.<br>
-      </ion-card-content>
-    </ion-card>
+        <ion-card-content>
+          Das hier ist die Startseite meines Vue/Ionic-Prototypen der später für mein Masterseminar, <br>
+          meine F&E-Arbeit und meine Masterarbeit verwendet werden soll. <br>
+          <br>
+          Nutzern wird hier die Möglichkeit gegeben, sich mit den Grundlage zu Ring-based Learning With Errors (RLWE) und <br>
+          dem Postquanten-Verschlüsselungsalgorithmus NewHope auseinander zu setzen.<br>
+        </ion-card-content>
+      </ion-card>
 
-    <ion-card>
-      
+      <ion-card> 
         <ion-card-header>     
           <ion-card-title>KYBER (2x2 Integer)</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
           <ion-card-subtitle>Global gegeben:</ion-card-subtitle>
           <ion-grid>
             <ion-row>
@@ -80,8 +82,10 @@
                 </ion-item>
               </ion-col>
               <ion-col>
+                <ion-button v-on:click="generateAll">Generiere Alles</ion-button>
               </ion-col>
               <ion-col>
+                <ion-button v-on:click="calcAll">Berechne Alles</ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -100,21 +104,21 @@
                 </ion-item>
               </ion-col>
               <ion-col>
-                <button v-on:click="calcAll">Berechne Alles</button>
+                <ion-button v-on:click="generateQ">Generiere Q</ion-button>
               </ion-col>
               <ion-col>
-                <button v-on:click="generateAll">Generiere Alles</button>
+                <ion-button v-on:click="generateS">Generiere S</ion-button>
               </ion-col>
               <ion-col>
-                <button v-on:click="generateQ">Generiere Q</button>
+                <ion-button v-on:click="generateE">Generiere E</ion-button>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                <button v-on:click="generateS">Generiere S</button>
+                
               </ion-col>
               <ion-col>
-                <button v-on:click="generateE">Generiere E</button>
+                
               </ion-col>
               <ion-col>
                  
@@ -131,8 +135,24 @@
 
 
           </ion-grid>
-        </ion-card-header> 
-    </ion-card>       
+        </ion-card-content> 
+    </ion-card>   
+    <ion-card>
+      <ion-card-header> 
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-card-title>Ergebnisse</ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-button>Ergebnisse anzeigen</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+        
+      </ion-card-header> 
+    </ion-card>    
   </ion-content>
 </template>
 
@@ -140,6 +160,7 @@
 import Vue from 'vue';
 export default Vue.extend({
   name: 'MainRLWE',
+  el: '#kyber2x2',
   props: {
   },
   data: function () {
