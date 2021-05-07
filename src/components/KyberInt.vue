@@ -132,7 +132,34 @@
 
           <ion-card-subtitle>Bob</ion-card-subtitle>
           <ion-grid>
-
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> e1[0]: </ion-label>
+                  <ion-input type="number" :value="e1[0]" @change="updateArray(e1, 0, +$event.target.value);"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> e1[1]: </ion-label>
+                  <ion-input type="number" :value="e1[1]" @change="updateArray(e1, 1, +$event.target.value);"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> e2: </ion-label>
+                  <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> m: </ion-label>
+                  <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
 
           </ion-grid>
         </ion-card-content> 
@@ -145,10 +172,44 @@
               <ion-card-title>Ergebnisse</ion-card-title>
             </ion-col>
             <ion-col>
-              <ion-button>Ergebnisse anzeigen</ion-button>
+              <ion-button v-if="!showResults" v-on:click="showResults=true">Ergebnisse anzeigen</ion-button>
+              <ion-button v-if="showResults" v-on:click="showResults=false">Ergebnisse verbergen</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
+        <div v-if="showResults">
+        <ion-card-subtitle>Alice</ion-card-subtitle>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              t = {{t}}
+            </ion-col>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-card-subtitle>Bob</ion-card-subtitle>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              u = {{u}}
+            </ion-col>
+            <ion-col>
+              v = {{v}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-card-subtitle>Alice</ion-card-subtitle>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              m = {{mResult}}
+            </ion-col>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        </div>
         
         
       </ion-card-header> 
@@ -182,6 +243,7 @@ export default Vue.extend({
       e2: 3 as number, 
       u: [] as number[],
       v: 0 as number,
+      showResults: false as boolean,
     }
   },
   methods: {
@@ -190,6 +252,7 @@ export default Vue.extend({
       this.generateA();
       this.generateS();
       this.generateE();
+      this.generateR();
       this.generateE1();
       this.generateE2();
       this.generateM();
@@ -229,6 +292,10 @@ export default Vue.extend({
     generateE: function(){
       this.updateArray(this.e, 0, Math.ceil(Math.random()*4));
       this.updateArray(this.e, 1, Math.ceil(Math.random()*4));
+    },
+    generateR: function(){
+      this.updateArray(this.r, 0, Math.ceil(Math.random()*4));
+      this.updateArray(this.r, 1, Math.ceil(Math.random()*4));
     },
     generateE1: function(){
       this.updateArray(this.e1, 0, Math.ceil(Math.random()*4));
