@@ -82,10 +82,8 @@
                 </ion-item>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="generateAll">Generiere Alles</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="calcAll">Berechne Alles</ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -104,26 +102,8 @@
                 </ion-item>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="generateQ">Generiere Q</ion-button>
               </ion-col>
-              <ion-col>
-                <ion-button v-on:click="generateS">Generiere S</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button v-on:click="generateE">Generiere E</ion-button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                
-              </ion-col>
-              <ion-col>
-                
-              </ion-col>
-              <ion-col>
-                 
-              </ion-col>
-              <ion-col>
+              <ion-col> 
               </ion-col>
               <ion-col>
               </ion-col>
@@ -152,6 +132,24 @@
                 </ion-item>
               </ion-col>
               <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> r[0]: </ion-label>
+                  <ion-input type="number" :value="r[0]" @change="updateArray(r, 0, +$event.target.value);"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> r[1]: </ion-label>
+                  <ion-input type="number" :value="r[1]" @change="updateArray(r, 1, +$event.target.value);"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> m: </ion-label>
                   <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
@@ -159,11 +157,27 @@
               </ion-col>
               <ion-col>
               </ion-col>
+              <ion-col>
+              </ion-col>
             </ion-row>
-
+            <ion-row>
+              <ion-col>
+                <ion-button v-on:click="generateAll(); calcAll()">Generiere Alles</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q</ion-button>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
           </ion-grid>
         </ion-card-content> 
     </ion-card>   
+
     <ion-card>
       <ion-card-header> 
         <ion-grid>
@@ -172,7 +186,7 @@
               <ion-card-title>Ergebnisse</ion-card-title>
             </ion-col>
             <ion-col>
-              <ion-button v-if="!showResults" v-on:click="showResults=true">Ergebnisse anzeigen</ion-button>
+              <ion-button v-if="!showResults" v-on:click="showResults=true; calcAll()">Ergebnisse anzeigen</ion-button>
               <ion-button v-if="showResults" v-on:click="showResults=false">Ergebnisse verbergen</ion-button>
             </ion-col>
           </ion-row>
@@ -210,8 +224,6 @@
           </ion-row>
         </ion-grid>
         </div>
-        
-        
       </ion-card-header> 
     </ion-card>    
   </ion-content>
@@ -257,6 +269,15 @@ export default Vue.extend({
       this.generateE2();
       this.generateM();
     },
+    generateAfterQ: function(){
+      this.generateA();
+      this.generateS();
+      this.generateE();
+      this.generateR();
+      this.generateE1();
+      this.generateE2();
+      this.generateM();
+    },
     generateQ: function(){
       var randomValue = Math.ceil(Math.random()*100);
       if(this.isPrime(randomValue)){
@@ -277,6 +298,17 @@ export default Vue.extend({
       else {
         //q ist okay 
         this.qCheck='';
+      }
+    },
+    validateParam: function(param: number){
+      if(param<0){
+        //param muss positiv sein
+      } 
+      else if(param>=this.q){
+        //param muss kleiner als q sein 
+      }
+      else {
+        //param ist okay
       }
     },
     generateA: function(){
@@ -344,7 +376,7 @@ export default Vue.extend({
       Vue.set(arr, index, value);
     },
     modX: function(value:number, mod: number){
-      while(value>mod){
+      while(value>=mod){
         value-=mod;
       }
       while(value<0){
