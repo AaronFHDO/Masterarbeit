@@ -5,6 +5,7 @@ import MainHome from '../components/Home.vue'
 import MainRLWE from '../components/RLWE.vue'
 import MainTest from '../components/Test.vue'
 import MainKyberInt from '../components/KyberInt.vue'
+import Settings from '../components/Settings.vue'
 import {IonicVueRouter} from "@ionic/vue"
 
 
@@ -28,10 +29,17 @@ const router = new IonicVueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes:[
-    { path: '/', /*name: MainHome,*/ component: MainHome},
-    { path: '/Test', /*name: MainTest,*/ component: MainTest },
-    { path: '/RLWE', /*name: MainRLWE,*/ component: MainRLWE },
-    { path: '/KyberInt', /*name: MainNewHope,*/ component: MainKyberInt },
+    { path: '/', /*name: MainHome,*/ component: MainHome,
+      meta: { title: 'Kyber Calculator'}
+    },
+    { path: '/Test', /*name: MainTest,*/ component: MainTest,
+    meta: { title: 'Kyber Calculator'} },
+    { path: '/RLWE', /*name: MainRLWE,*/ component: MainRLWE,
+    meta: { title: 'Kyber Calculator'} },
+    { path: '/KyberInt', /*name: MainNewHope,*/ component: MainKyberInt,
+    meta: { title: 'Kyber Calculator'} },
+    { path: '/Settings', /*name: MainTest,*/ component: Settings,
+    meta: { title: 'Kyber Calculator'} },
     
   ]
 })

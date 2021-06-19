@@ -178,12 +178,5 @@ export default Vue.extend({
       this.ax[0] = +input[0]; //Todo
     }
   },
-  /*watch: {
-    N(value){
-      this.N=value;
-      this.validateN(value);
-
-    }
-  }*/
 })
 </script>

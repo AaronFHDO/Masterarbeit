@@ -17,8 +17,10 @@
         Das hier ist die Startseite meines Vue/Ionic-Prototypen der später für mein Masterseminar, <br>
         meine F&E-Arbeit und meine Masterarbeit verwendet werden soll. <br>
         <br>
-        Nutzern wird hier die Möglichkeit gegeben, sich mit den Grundlage zu Ring-based Learning With Errors (RLWE) und <br>
-        dem Postquanten-Verschlüsselungsalgorithmus NewHope auseinander zu setzen.<br>
+        Nutzern wird hier die Möglichkeit gegeben, sich mit den Grundlagen zu Module-Learning With Errors (MLWE) und <br>
+        dem Postquanten-Verschlüsselungsalgorithmus Kyber auseinander zu setzen.<br>
+        <br>
+        Hier könnte außerdem ein kleine Einführung zu den Möglichkeiten und dem Ablauf dieser App stehen. <br>
       </ion-card-content>
     </ion-card>
   </div>

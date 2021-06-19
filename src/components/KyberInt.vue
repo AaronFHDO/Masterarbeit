@@ -14,11 +14,11 @@
         </ion-card-header>
 
         <ion-card-content>
-          Das hier ist die Startseite meines Vue/Ionic-Prototypen der später für mein Masterseminar, <br>
-          meine F&E-Arbeit und meine Masterarbeit verwendet werden soll. <br>
+          Das hier ist die Kyber-Komponente. <br>
           <br>
-          Nutzern wird hier die Möglichkeit gegeben, sich mit den Grundlage zu Ring-based Learning With Errors (RLWE) und <br>
-          dem Postquanten-Verschlüsselungsalgorithmus NewHope auseinander zu setzen.<br>
+          Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (2x2-Integer-Matirx)-Kyber zu generieren,<br>
+          selbst zu erstellen und zu berechenen. <br>
+          Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
         </ion-card-content>
       </ion-card>
 
@@ -365,11 +365,14 @@ export default Vue.extend({
     },
     calcM: function(){
       var comp: number = this.modX(this.v - (this.s[0]*this.u[0] * this.s[1]* this.u[1]), this.q);
-      if(comp>=Math.ceil(-this.q/4) && comp<=Math.floor(this.q/4)){
+      if(comp>=Math.ceil(this.q*3/4) || comp<=Math.floor(this.q/4)){
         this.mResult = 0;
       }
-      else{
+      else if (comp>Math.floor(this.q/4) && comp<Math.ceil(this.q*3/4)){
         this.mResult = 1;
+      }
+      else {
+        this.mResult = 2;
       }
     },
     updateArray: function(arr: number[], index: number, value: number){
