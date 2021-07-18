@@ -364,11 +364,11 @@ export default Vue.extend({
       this.v = this.modX(erg0, this.q);
     },
     calcM: function(){
-      var comp: number = this.modX(this.v - (this.s[0]*this.u[0] * this.s[1]* this.u[1]), this.q);
-      if(comp>=Math.ceil(this.q*3/4) || comp<=Math.floor(this.q/4)){
+      var comp: number = this.modX(this.v - (this.s[0]*this.u[0] + this.s[1]* this.u[1]), this.q);
+      if(comp>=(this.q*3/4) || comp<=(this.q/4)){ //comp ist im obersten oder untersten viertel, also um 0 herum 
         this.mResult = 0;
       }
-      else if (comp>Math.floor(this.q/4) && comp<Math.ceil(this.q*3/4)){
+      else if (comp>(this.q/4) && comp<(this.q*3/4)){ // comp ist mittig, also um q/2 herum
         this.mResult = 1;
       }
       else {
