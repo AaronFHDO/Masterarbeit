@@ -64,6 +64,16 @@
                 </ion-item>            
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label position="fixed"> A= </ion-label>
+                
+              </ion-col>
+              <ion-col>  
+              </ion-col>
+              <ion-col>               
+              </ion-col>
+            </ion-row>
           </ion-grid>
 
           <ion-card-subtitle>Alice</ion-card-subtitle>
@@ -168,6 +178,8 @@
                 <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q</ion-button>
               </ion-col>
               <ion-col>
+                <vue-mathjax :formula="outputU">
+                </vue-mathjax>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -186,9 +198,13 @@
               <ion-card-title>Ergebnisse</ion-card-title>
             </ion-col>
             <ion-col>
-              <ion-button v-if="!showResults" v-on:click="showResults=true; calcAll()">Ergebnisse anzeigen</ion-button>
+              <ion-button v-if="showResults" v-on:click="calcAll();">Ergebnisse aktualisieren</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button v-if="!showResults" v-on:click="showResults=true; calcAll(); ">Ergebnisse anzeigen</ion-button>
               <ion-button v-if="showResults" v-on:click="showResults=false">Ergebnisse verbergen</ion-button>
             </ion-col>
+            
           </ion-row>
         </ion-grid>
         <div v-if="showResults">
@@ -199,6 +215,8 @@
               t = {{t}}
             </ion-col>
             <ion-col>
+              <vue-mathjax :formula="outputT">
+              </vue-mathjax>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -206,7 +224,9 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              u = {{u}}
+              
+              <vue-mathjax :formula="outputU">
+              </vue-mathjax>
             </ion-col>
             <ion-col>
               v = {{v}}
@@ -231,7 +251,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { VueMathjax } from "vue-mathjax";
 export default Vue.extend({
+  components: {
+    "vue-mathjax": VueMathjax
+  },
   name: 'MainRLWE',
   el: '#kyber2x2',
   props: {
@@ -255,9 +279,12 @@ export default Vue.extend({
       e2: 3 as number, 
       u: [] as number[],
       v: 0 as number,
+      outputT: 'outputTtest' as String,
+      outputU: 'outputUtest' as String,
       showResults: false as boolean,
     }
   },
+  
   methods: {
     generateAll: function(){
       this.generateQ();
@@ -344,6 +371,8 @@ export default Vue.extend({
       this.calcU();
       this.calcV();
       this.calcM();
+      this.buildOutputT();
+      this.buildOutputU();
     },
     calcT: function(){
       let erg0:number = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
@@ -375,6 +404,12 @@ export default Vue.extend({
         this.mResult = 2;
       }
     },
+    buildOutputT: function(){
+      this.outputT= "$$t = \\begin{bmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{bmatrix}$$";
+    },
+    buildOutputU: function(){
+      this.outputU= "$$u = \\begin{bmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{bmatrix}$$";
+    },
     updateArray: function(arr: number[], index: number, value: number){
       Vue.set(arr, index, value);
     },
@@ -393,5 +428,6 @@ export default Vue.extend({
       return true;
     },
   }
+
 })
 </script>
