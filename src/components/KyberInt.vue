@@ -405,10 +405,10 @@ export default Vue.extend({
       }
     },
     buildOutputT: function(){
-      this.outputT= "$$t = \\begin{bmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{bmatrix}$$";
+      this.outputT= "$$t = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
     },
     buildOutputU: function(){
-      this.outputU= "$$u = \\begin{bmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{bmatrix}$$";
+      this.outputU= "$$u = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
     },
     updateArray: function(arr: number[], index: number, value: number){
       Vue.set(arr, index, value);

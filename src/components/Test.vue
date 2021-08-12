@@ -56,6 +56,98 @@
       </ion-card-content>
     </ion-card>
 
+    <ion-card> 
+        <ion-card-header>     
+          <ion-card-title>KYBER (2x2 Integer)</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-card-subtitle>Global gegeben:</ion-card-subtitle>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> q: </ion-label>
+                  <ion-input type="number" :value="q" 
+                  @change="q = +$event.target.value;
+                  validateQ($event.target.value)"
+                  ></ion-input>
+                  
+                  
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> q: </ion-label>
+                <IonInputVue v-model="a00" />
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-label position="fixed"> A= </ion-label>
+                <div class="table">
+                  <div class="tr">
+                      <span class="td"><ion-item><IonInputVue v-model="a00" type="number"/></ion-item></span>
+                      <span class="td"><ion-item><IonInputVue v-model="a00" type="number"/></ion-item></span>
+                  </div>
+                  <div class="tr">
+                      <span class="td"><ion-item><IonInputVue v-model="a00" type="number"/></ion-item></span>
+                      <span class="td"><ion-item><IonInputVue v-model="a00" type="number"/></ion-item></span>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col>  
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card> 
+        <ion-card-header>     
+          <ion-card-title>KYBER (2x2 Integer)</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-card-subtitle>Global gegeben:</ion-card-subtitle>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> q: </ion-label>
+                  <ion-input type="number" :value="q" 
+                  @change="q = +$event.target.value;
+                  validateQ($event.target.value)"
+                  ></ion-input>
+                  
+                  
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> q: </ion-label>
+                <IonInputVue v-model="a00" />
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-label position="fixed"> A= </ion-label>
+                <div class="table">
+                  <div class="tr">
+                      <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/></span>
+                      <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/></span>
+                  </div>
+                  <div class="tr">
+                      <span class="td"><input class="minput" type="number"/></span>
+                      <span class="td"><input class="minput" type="number"/></span>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col>  
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
   </ion-content>
   <!-- </ion-app> -->
 </template>
@@ -80,6 +172,7 @@ export default Vue.extend({
     ergebnis: 0 as number,
     textest: "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$" as String,
     textest2: "TexTest2" as String,
+    a00: 42 as number,
     }
   },
   methods: {
@@ -100,5 +193,35 @@ export default Vue.extend({
 
 
 <style scoped>
+ion-input{max-width: 800px;}
 input{margin:8px;}
+
+DIV.table 
+{
+    display:table;
+}
+FORM.tr, DIV.tr
+{
+    display:table-row;
+}
+SPAN.td
+{
+    display:table-cell;
+    width: 10px;
+}
+.minput{
+  width: 45px;
+}
+
+input{
+  border-color: gray;
+  
+  
+}
+input:focus{
+  outline: none ;
+  border-color: rgb(0, 140, 255);
+  box-shadow: 0 0 5px rgb(0, 140, 255);
+}
+
 </style>
