@@ -38,41 +38,43 @@
                   @change="q = +$event.target.value;
                   validateQ($event.target.value)"></ion-input>
                 </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> a00: </ion-label>
-                  <ion-input type="number" :value="a00" @change="a00 = +$event.target.value"></ion-input>
+                <ion-item v-if="qCheck" class="issue">
+                  {{qCheck}}
                 </ion-item>
               </ion-col>
               <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> a01: </ion-label>
-                  <ion-input type="number" :value="a01" @change="a01 = +$event.target.value"></ion-input>
-                </ion-item>
+                <div class="matrix">
+                  <div class="table">
+                    <div class="tr">
+                       <span class="td">
+                        <label for="mvalues" position="fixed"> A = </label>
+                      </span>
+                       <span class="td">
+                        <div class="table mvalues" id="mvalues">
+                          <div class="tr">
+                              <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/></span>
+                              <span class="td"><input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value"/></span>
+                          </div>
+                          <div class="tr">
+                               <span class="td"><input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value"/></span>
+                               <span class="td"><input class="minput" type="number" :value="a11" @change="a11 = +$event.target.value"/></span>
+                           </div>
+                        </div>
+                      </span>
+                     </div>
+                   </div>
+                </div>
               </ion-col>
               <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> a10: </ion-label>
-                  <ion-input type="number" :value="a10" @change="a10 = +$event.target.value"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> a11: </ion-label>
-                  <ion-input type="number" :value="a11" @change="a11 = +$event.target.value"></ion-input>
-                </ion-item>            
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-label position="fixed"> A= </ion-label>
                 
               </ion-col>
-              <ion-col>  
+              <ion-col>
+                
               </ion-col>
-              <ion-col>               
+              <ion-col>
+                
               </ion-col>
+              
             </ion-row>
           </ion-grid>
 
@@ -80,6 +82,48 @@
           <ion-grid>
             <ion-row>
               <ion-col>
+                <div class="matrix">
+                  <div class="table">
+                    <div class="tr">
+                       <span class="td">
+                        <label for="mvalues" position="fixed"> s = </label>
+                      </span>
+                       <span class="td">
+                        <div class="table mvalues" id="mvalues">
+                          <div class="tr">
+                              <span class="td"><input class="minput" type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value);"/></span>
+                          </div>
+                          <div class="tr">
+                              <span class="td"><input class="minput" type="number" :value="s[1]" @change="updateArray(s, 1, +$event.target.value);"/></span>                               
+                           </div>
+                        </div>
+                      </span>
+                     </div>
+                   </div>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="matrix">
+                  <div class="table">
+                    <div class="tr">
+                       <span class="td">
+                        <label for="mvalues" position="fixed"> e = </label>
+                      </span>
+                       <span class="td">
+                        <div class="table mvalues" id="mvalues">
+                          <div class="tr">
+                              <span class="td"><input class="minput" type="number" :value="e[0]" @change="updateArray(e, 0, +$event.target.value);"/></span>
+                          </div>
+                          <div class="tr">
+                               <span class="td"><input class="minput" type="number" :value="e[1]" @change="updateArray(e, 1, +$event.target.value);"/></span>                               
+                           </div>
+                        </div>
+                      </span>
+                     </div>
+                   </div>
+                </div>
+              </ion-col>
+              <!--ion-col>
                 <ion-item>
                   <ion-label position="fixed"> s[0]: </ion-label>
                   <ion-input type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value);"></ion-input>
@@ -110,7 +154,7 @@
                   <ion-label position="fixed"> e[1]: </ion-label>
                   <ion-input type="number" :value="e[1]" @change="updateArray(e, 1, +$event.target.value);"></ion-input>
                 </ion-item>
-              </ion-col>
+              </ion-col-->
               <ion-col>
               </ion-col>
               <ion-col> 
@@ -124,6 +168,48 @@
           <ion-grid>
             <ion-row>
               <ion-col>
+                <div class="matrix">
+                  <div class="table">
+                    <div class="tr">
+                       <span class="td">
+                        <label for="mvalues" position="fixed"> e1 = </label>
+                      </span>
+                       <span class="td">
+                        <div class="table mvalues" id="mvalues">
+                          <div class="tr">
+                              <span class="td"><input class="minput" type="number" :value="e1[0]" @change="updateArray(e1, 0, +$event.target.value);"/></span>
+                          </div>
+                          <div class="tr">
+                               <span class="td"><input class="minput" type="number" :value="e1[1]" @change="updateArray(e1, 1, +$event.target.value);"/></span>                               
+                           </div>
+                        </div>
+                      </span>
+                     </div>
+                   </div>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="matrix">
+                  <div class="table">
+                    <div class="tr">
+                       <span class="td">
+                        <label for="mvalues" position="fixed"> r1 = </label>
+                      </span>
+                       <span class="td">
+                        <div class="table mvalues" id="mvalues">
+                          <div class="tr">
+                              <span class="td"><input class="minput" type="number" :value="r[0]" @change="updateArray(r, 0, +$event.target.value);"/></span>
+                          </div>
+                          <div class="tr">
+                               <span class="td"><input class="minput" type="number" :value="r[1]" @change="updateArray(r, 1, +$event.target.value);"/></span>                               
+                           </div>
+                        </div>
+                      </span>
+                     </div>
+                   </div>
+                </div>
+              </ion-col>
+              <!--ion-col>
                 <ion-item>
                   <ion-label position="fixed"> e1[0]: </ion-label>
                   <ion-input type="number" :value="e1[0]" @change="updateArray(e1, 0, +$event.target.value);"></ion-input>
@@ -137,18 +223,6 @@
               </ion-col>
               <ion-col>
                 <ion-item>
-                  <ion-label position="fixed"> e2: </ion-label>
-                  <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-              </ion-col>
-              <ion-col>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-item>
                   <ion-label position="fixed"> r[0]: </ion-label>
                   <ion-input type="number" :value="r[0]" @change="updateArray(r, 0, +$event.target.value);"></ion-input>
                 </ion-item>
@@ -158,12 +232,29 @@
                   <ion-label position="fixed"> r[1]: </ion-label>
                   <ion-input type="number" :value="r[1]" @change="updateArray(r, 1, +$event.target.value);"></ion-input>
                 </ion-item>
+              </ion-col-->
+              <ion-col>
               </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="fixed"> e2: </ion-label>
+                  <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
+                </ion-item>
+              </ion-col>
+              
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> m: </ion-label>
                   <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
                 </ion-item>
+              </ion-col>
+              <ion-col>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -178,8 +269,6 @@
                 <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q</ion-button>
               </ion-col>
               <ion-col>
-                <vue-mathjax :formula="outputU">
-                </vue-mathjax>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -212,11 +301,16 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              t = {{t}}
-            </ion-col>
-            <ion-col>
               <vue-mathjax :formula="outputT">
               </vue-mathjax>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -224,20 +318,52 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              
               <vue-mathjax :formula="outputU">
               </vue-mathjax>
             </ion-col>
             <ion-col>
-              v = {{v}}
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="center">
+                v = {{v}}
+              </div>
+            </ion-col>
+            <ion-col>             
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
             </ion-col>
           </ion-row>
         </ion-grid>
         <ion-card-subtitle>Alice</ion-card-subtitle>
         <ion-grid>
           <ion-row>
+          </ion-row>
+          <ion-row>
             <ion-col>
-              m = {{mResult}}
+              <div class="center">
+                m = {{mResult}}
+              </div>
+            </ion-col>
+            <ion-col>
+              <div v-if="decryptIssue" class="center issue">
+                Entschlüsselungsfehler wegen ungünstiger Parameter
+              </div>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+            <ion-col>
             </ion-col>
             <ion-col>
             </ion-col>
@@ -282,6 +408,7 @@ export default Vue.extend({
       outputT: 'outputTtest' as String,
       outputU: 'outputUtest' as String,
       showResults: false as boolean,
+      decryptIssue: false as boolean,
     }
   },
   
@@ -371,6 +498,7 @@ export default Vue.extend({
       this.calcU();
       this.calcV();
       this.calcM();
+      this.checkDecryptIssues();
       this.buildOutputT();
       this.buildOutputU();
     },
@@ -404,6 +532,14 @@ export default Vue.extend({
         this.mResult = 2;
       }
     },
+    checkDecryptIssues: function(){
+      if(this.mResult!=this.m){
+        this.decryptIssue=true;
+      }
+      else{
+        this.decryptIssue=false;
+      }
+    },
     buildOutputT: function(){
       this.outputT= "$$t = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
     },
@@ -431,3 +567,61 @@ export default Vue.extend({
 
 })
 </script>
+
+
+
+<style scoped>
+label{margin-right: 8px;}
+input{margin:8px;}
+
+DIV.table 
+{
+    display:table;
+}
+FORM.tr, DIV.tr
+{
+    display:table-row;
+}
+SPAN.td
+{ display:table-cell; width: 10px;}
+
+.minput{
+  width: 45px;
+}
+input{
+  border-color: gray;
+}
+input:focus{
+  outline: none ;
+  border-color: rgb(0, 140, 255);
+  box-shadow: 0 0 5px rgb(0, 140, 255);
+}
+
+.matrix * {/*Zentrierung des Labels der Matrix*/ 
+  vertical-align: middle; 
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mvalues {/*Klammern um die Matrix*/ 
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.issue {
+  color: red;
+}
+</style>

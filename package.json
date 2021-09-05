@@ -10,6 +10,10 @@
   "dependencies": {
     "@ionic/core": "^0.3.1",
     "@ionic/vue": "0.0.9",
+    "@types/vuelidate": "^0.7.15",
+    "@vue/composition-api": "^1.1.3",
+    "@vuelidate/core": "^2.0.0-alpha.24",
+    "@vuelidate/validators": "^2.0.0-alpha.21",
     "core-js": "^3.6.5",
     "mathjax": "^3.2.0",
     "register-service-worker": "^1.7.1",
@@ -18,6 +22,7 @@
     "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.3.4",
     "vue-store": "^0.3.1-moved",
+    "vuelidate": "^0.7.6",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
