@@ -5,8 +5,6 @@ import Ionic from '@ionic/vue'
 import App from './views/Menu.vue'
 import './registerServiceWorker'
 import VueMathjax from '../node_modules/vue-mathjax'
-import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 import VueCompositionAPI from '@vue/composition-api'
 import Vuelidate from 'vuelidate';
 
@@ -14,7 +12,7 @@ import Vuelidate from 'vuelidate';
 
 Vue.use(Ionic);
 Vue.use(VueMathjax);
-Vue.use(Vuelidate as any);
+Vue.use(Vuelidate);
 Vue.use(VueCompositionAPI);
 
 Vue.config.productionTip = false

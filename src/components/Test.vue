@@ -79,7 +79,7 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="fixed"> q: </ion-label>
-                  <IonInputVue v-model="a00" />
+                  <!--IonInputVue v-model="a00" /-->
                 </ion-item>
               </ion-col>
               <ion-col>
@@ -94,17 +94,18 @@
                           <div class="tr">
                               <span class="td">
                                 <div>
-                                  <input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/>
-                                  <!--div class="error" v-if="!$v.a00.required">Field is required</div-->
+                                  <!--input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/-->
+                                  <!-- (funktionierend für normale inputs in matrix)-->
+                                  <input class="minput" type="number" v-model="$v.a00.$model"/>
+                                  <span class="error" v-if="!$v.a00.required">Field is required</span>
                                 </div>
                               </span>
                               <span class="td">
                                 <div>
-                                  <input class="minput" type="number" v-model="state.a01"/>
-                                  <!--div class="error" v-if="!$v.a01.required">Field is required</div-->
-                                  <!--span v-if="$v.a01.$error">
-                                    {{$v.a01.$errors[0].$message}}
-                                  </span-->
+                                  <input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value; $v.a01.$touch()"/>
+                                  <span class="error" v-if="!$v.a01.required">Field is required</span>
+                                  <!--span class="error" v-if="!$v.a01.minLength">MinLength ist 3</span-->
+                                  <span class="error" v-if="!$v.a01.between">Wert zwischen 1 und 100</span>
                                 </div>
                               </span>
                           </div>
@@ -133,11 +134,8 @@
 
 import Vue from 'vue';
 import { VueMathjax } from "vue-mathjax";
-import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
-import {reactive, computed} from '@vue/composition-api'
+import { required, minLength, between } from 'vuelidate/lib/validators'
 
-//const mustBePrime = (value) => value.isPrime(this.q);
 
 export default Vue.extend({
   components: {
@@ -145,27 +143,6 @@ export default Vue.extend({
   },
   name: 'MainTest',
   
- setup () {//Vuelidate 2 Setup
-    const state = reactive({
-      a00: 42 as number,
-      a01: 45 as number,
-      q: 7 as number,
-      qCheck: '' as String,
-    })
-
-    const rules = computed(() => {
-      return {
-        a00: {
-          required,
-        },
-      }
-      
-    })
-    
-    const v$ = useVuelidate(rules, state)
-
-    return {state, v$};
-  },
   data: function () {
     return {
     wert1: 2 as number,
@@ -179,7 +156,21 @@ export default Vue.extend({
     qCheck: '' as String,
     }
   },
+  validations: {
+    a00: {
+      required,
+      minLength : minLength(3),
+    },
+    a01: {
+      required,
+      /*minLength : minLength(3),*/
+      between: between(1, 100),   
+    },
+  },
   methods: {
+    getQ: function() {
+      return this.q;
+    },
     addW1W2: function() {
       this.ergebnis= this.wert1 + this.wert2 ;
     },
