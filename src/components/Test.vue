@@ -93,30 +93,27 @@
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
                               <span class="td">
-                                <div>
-                                  <!--input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/-->
-                                  <!-- (funktionierend für normale inputs in matrix)-->
-                                  <input class="minput" type="number" v-model="$v.a00.$model"/>
-                                  <span class="error" v-if="!$v.a00.required">Field is required</span>
-                                </div>
+                                <!--input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/-->
+                                <!-- (funktionierend für normale inputs in matrix)-->
+                                <input class="minput" type="number" v-model="$v.a00.$model"/>
+                                <span class="error" v-if="!$v.a00.required">Field is required</span>
                               </span>
                               <span class="td">
-                                <div>
-                                  <input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value; $v.a01.$touch()"/>
-                                  <span class="error" v-if="!$v.a01.required">Field is required</span>
-                                  <!--span class="error" v-if="!$v.a01.minLength">MinLength ist 3</span-->
-                                  <span class="error" v-if="!$v.a01.between">Wert zwischen 1 und 100</span>
-                                </div>
+                                <input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value; $v.a01.$touch();"/>
+                                <!--span class="error" v-if="!$v.a01.required">Field is required</span-->
+                                <!--span class="error" v-if="!$v.a01.between">Wert zwischen 1 und 100</span-->
                               </span>
                           </div>
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/></span>
-                              <span class="td"><input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value"/></span>
+                              <span class="td"><input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value"/></span>
+                              <span class="td"><input class="minput" type="number" :value="a11" @change="a11 = +$event.target.value"/></span>
                           </div>
                         </div>
                       </span>
                     </div>
                   </div>
+                  <div class="error" v-if="$v.matrixGroup.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                  <!--div class="error" v-if="!$v.matrix.nested.required">Matrix ungültig</div-->
                 </div>
               </ion-col>
               <ion-col>  
@@ -134,7 +131,7 @@
 
 import Vue from 'vue';
 import { VueMathjax } from "vue-mathjax";
-import { required, minLength, between } from 'vuelidate/lib/validators'
+import { required, between, numeric } from 'vuelidate/lib/validators'
 
 
 export default Vue.extend({
@@ -150,8 +147,11 @@ export default Vue.extend({
     ergebnis: 0 as number,
     textest: "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$" as String,
     textest2: "TexTest2" as String,
+    //matrix: {nested: ''},
     a00: 42 as number,
     a01: 43 as number,
+    a10: 44 as number,
+    a11: 45 as number,
     q: 7 as number,
     qCheck: '' as String,
     }
@@ -159,13 +159,13 @@ export default Vue.extend({
   validations: {
     a00: {
       required,
-      minLength : minLength(3),
+      numeric,
     },
     a01: {
-      required,
-      /*minLength : minLength(3),*/
-      between: between(1, 100),   
+      between: between(1, 100),
+      numeric,
     },
+    matrixGroup: [ 'a01', 'a00'],
   },
   methods: {
     getQ: function() {
@@ -196,6 +196,11 @@ export default Vue.extend({
         if(num % i === 0) return false;
       return true;
     },
+    between1andQ: function(value: number){
+      if(value>=1 && value<this.q) 
+        {return true;}
+      else return false;
+    }
 
   },
   beforeMount() {

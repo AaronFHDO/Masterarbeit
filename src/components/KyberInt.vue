@@ -290,6 +290,10 @@
               <ion-button v-if="showResults" v-on:click="calcAll();">Ergebnisse aktualisieren</ion-button>
             </ion-col>
             <ion-col>
+              <ion-button v-if="showResults && !showFormula" v-on:click=" showFormula=true; buildTexOutputs();">Formeln anzeigen</ion-button>
+              <ion-button v-if="showResults && showFormula" v-on:click=" showFormula=false; buildTexOutputs();">Formeln ausblenden</ion-button>
+            </ion-col>
+            <ion-col>
               <ion-button v-if="!showResults" v-on:click="showResults=true; calcAll(); ">Ergebnisse anzeigen</ion-button>
               <ion-button v-if="showResults" v-on:click="showResults=false">Ergebnisse verbergen</ion-button>
             </ion-col>
@@ -332,9 +336,8 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <div class="center">
-                v = {{v}}
-              </div>
+              <vue-mathjax :formula="outputV">
+              </vue-mathjax>
             </ion-col>
             <ion-col>             
             </ion-col>
@@ -352,9 +355,8 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <div class="center">
-                m = {{mResult}}
-              </div>
+              <vue-mathjax :formula="outputM">
+              </vue-mathjax>
             </ion-col>
             <ion-col>
               <div v-if="decryptIssue" class="center issue">
@@ -407,7 +409,10 @@ export default Vue.extend({
       v: 0 as number,
       outputT: 'outputTtest' as String,
       outputU: 'outputUtest' as String,
+      outputV: 'outputVtest' as String,
+      outputM: 'outputMtest' as String,
       showResults: false as boolean,
+      showFormula: false as boolean,
       decryptIssue: false as boolean,
     }
   },
@@ -415,13 +420,7 @@ export default Vue.extend({
   methods: {
     generateAll: function(){
       this.generateQ();
-      this.generateA();
-      this.generateS();
-      this.generateE();
-      this.generateR();
-      this.generateE1();
-      this.generateE2();
-      this.generateM();
+      this.generateAfterQ();
     },
     generateAfterQ: function(){
       this.generateA();
@@ -499,8 +498,13 @@ export default Vue.extend({
       this.calcV();
       this.calcM();
       this.checkDecryptIssues();
+      this.buildTexOutputs();
+    },
+    buildTexOutputs: function(){
       this.buildOutputT();
       this.buildOutputU();
+      this.buildOutputV();
+      this.buildOutputM();
     },
     calcT: function(){
       let erg0:number = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
@@ -541,10 +545,34 @@ export default Vue.extend({
       }
     },
     buildOutputT: function(){
-      this.outputT= "$$t = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
+      if(!this.showFormula){
+        this.outputT= "$$t = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
+      } else {
+        this.outputT= "$$t = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$$";
+      }
     },
     buildOutputU: function(){
-      this.outputU= "$$u = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+      if(!this.showFormula){
+        this.outputU= "$$u = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+      } else {
+        this.outputU= "$$u = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+      }
+      
+    },
+    buildOutputV: function(){
+      if(!this.showFormula){
+        this.outputV= "$$v = " + this.v +"$$";
+      } else {
+        this.outputV= "$$v = \\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil =" + this.v +"$$";
+      }
+    },
+    buildOutputM: function(){
+      if(!this.showFormula){
+        this.outputM= "$$m = " + this.mResult +"$$";
+      } else {
+        this.outputM= "$$m = Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = " 
+        + this.mResult +"$$";
+      }
     },
     updateArray: function(arr: number[], index: number, value: number){
       Vue.set(arr, index, value);
