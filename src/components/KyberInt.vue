@@ -377,7 +377,7 @@
   </ion-content>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue';
 import { VueMathjax } from "vue-mathjax";
 export default Vue.extend({
@@ -390,30 +390,30 @@ export default Vue.extend({
   },
   data: function () {
     return {
-      q: 97 as number,
-      qCheck: '' as String,
-      a: [] as number[],
-      a00: 42 as number,
-      a01: 43 as number,
-      a10: 44 as number,
-      a11: 45 as number,
-      s: [1,2] as number[],
-      e: [4,5] as number[],
-      t: [] as number[],
-      m: 0 as number,
-      mResult: 0 as number,
-      r: [1,2] as number[], 
-      e1: [3,4] as  number[], 
-      e2: 3 as number, 
-      u: [] as number[],
-      v: 0 as number,
-      outputT: 'outputTtest' as String,
-      outputU: 'outputUtest' as String,
-      outputV: 'outputVtest' as String,
-      outputM: 'outputMtest' as String,
-      showResults: false as boolean,
-      showFormula: false as boolean,
-      decryptIssue: false as boolean,
+      q: 97 ,
+      qCheck: '' ,
+      a: [] ,
+      a00: 42 ,
+      a01: 43 ,
+      a10: 44 ,
+      a11: 45 ,
+      s: [1,2] ,
+      e: [4,5] ,
+      t: [] ,
+      m: 0 ,
+      mResult: 0 ,
+      r: [1,2] , 
+      e1: [3,4] , 
+      e2: 3 , 
+      u: [] ,
+      v: 0 ,
+      outputT: 'outputTtest' ,
+      outputU: 'outputUtest' ,
+      outputV: 'outputVtest' ,
+      outputM: 'outputMtest' ,
+      showResults: false ,
+      showFormula: false ,
+      decryptIssue: false ,
     }
   },
   
@@ -439,7 +439,7 @@ export default Vue.extend({
       } 
       else this.generateQ();
     },
-    validateQ: function(num: number){
+    validateQ: function(num){
       if(num>100){
         //q ist größer als 350 (unerwünscht)
         this.qCheck='q ist größer als 350 (unerwünscht)';
@@ -453,7 +453,7 @@ export default Vue.extend({
         this.qCheck='';
       }
     },
-    validateParam: function(param: number){
+    validateParam: function(param){
       if(param<0){
         //param muss positiv sein
       } 
@@ -507,7 +507,7 @@ export default Vue.extend({
       this.buildOutputM();
     },
     calcT: function(){
-      let erg0:number = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
+      let erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
       this.updateArray(this.t, 0, this.modX(erg0, this.q));
       //this.t[0] = erg0;
       var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
@@ -525,7 +525,7 @@ export default Vue.extend({
       this.v = this.modX(erg0, this.q);
     },
     calcM: function(){
-      var comp: number = this.modX(this.v - (this.s[0]*this.u[0] + this.s[1]* this.u[1]), this.q);
+      var comp = this.modX(this.v - (this.s[0]*this.u[0] + this.s[1]* this.u[1]), this.q);
       if(comp>=(this.q*3/4) || comp<=(this.q/4)){ //comp ist im obersten oder untersten viertel, also um 0 herum 
         this.mResult = 0;
       }
@@ -574,10 +574,10 @@ export default Vue.extend({
         + this.mResult +"$$";
       }
     },
-    updateArray: function(arr: number[], index: number, value: number){
+    updateArray: function(arr, index, value){
       Vue.set(arr, index, value);
     },
-    modX: function(value:number, mod: number){
+    modX: function(value, mod){
       while(value>=mod){
         value-=mod;
       }
@@ -586,7 +586,7 @@ export default Vue.extend({
       }
       return value;
     },
-    isPrime: function(num: number){
+    isPrime: function(num){
       for(var i = 2; i < num; i++)
         if(num % i === 0) return false;
       return true;

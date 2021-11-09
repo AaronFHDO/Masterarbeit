@@ -127,7 +127,7 @@
   <!-- </ion-app> -->
 </template>
 
-<script lang="ts" >
+<script >
 
 import Vue from 'vue';
 import { VueMathjax } from "vue-mathjax";
@@ -142,18 +142,18 @@ export default Vue.extend({
   
   data: function () {
     return {
-    wert1: 2 as number,
-    wert2: 3 as number,
-    ergebnis: 0 as number,
-    textest: "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$" as String,
-    textest2: "TexTest2" as String,
+    wert1: 2 ,
+    wert2: 3 ,
+    ergebnis: 0 ,
+    textest: "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$" ,
+    textest2: "TexTest2" ,
     //matrix: {nested: ''},
-    a00: 42 as number,
-    a01: 43 as number,
-    a10: 44 as number,
-    a11: 45 as number,
-    q: 7 as number,
-    qCheck: '' as String,
+    a00: 42 ,
+    a01: 43 ,
+    a10: 44 ,
+    a11: 45 ,
+    q: 7 ,
+    qCheck: '' ,
     }
   },
   validations: {
@@ -177,7 +177,7 @@ export default Vue.extend({
     buildTexTest: function() {
       this.textest2 = "$$x = \\begin{bmatrix} " + this.wert1 + " \\cr " + this.wert2 +" \\end{bmatrix}.$$";
     },
-    validateQ: function(num: number){
+    validateQ: function(num){
       if(num>100){
         //q ist größer als 350 (unerwünscht)
         this.qCheck='q ist größer als 350 (unerwünscht)';
@@ -191,12 +191,12 @@ export default Vue.extend({
         this.qCheck='';
       }
     },
-    isPrime: function(num: number){
+    isPrime: function(num){
       for(var i = 2; i < num; i++)
         if(num % i === 0) return false;
       return true;
     },
-    between1andQ: function(value: number){
+    between1andQ: function(value){
       if(value>=1 && value<this.q) 
         {return true;}
       else return false;

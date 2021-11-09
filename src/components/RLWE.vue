@@ -127,7 +127,7 @@
   </ion-content>
 </template>
 
-<script lang="ts">
+<script >
 import Vue from 'vue';
 export default Vue.extend({
   name: 'MainRLWE',
@@ -136,22 +136,22 @@ export default Vue.extend({
   },
   data: function () {
     return {
-      N: 2 as number,
-      p: 2 as number,
-      t: 1 as number,
-      msg: [] as String[], //1. N, 2. p, 3. t, 4. ax
+      N: 2 ,
+      p: 2 ,
+      t: 1 ,
+      msg: [] , //1. N, 2. p, 3. t, 4. ax
       polyRegex: new RegExp("/[1-9](,[0-9]){,3}"),
-      axInput: '' as String,
-      ax: [] as number[],
+      axInput: '' ,
+      ax: [] ,
     }
   },
   methods: {
-    isPrime: function(num: number){
+    isPrime: function(num){
       for(var i = 2; i < num; i++)
         if(num % i === 0) return false;
       return true;
     },
-    validateN: function(num: number){
+    validateN: function(num){
       if(num>350){
         this.msg[1] = 'N is to big';
       }
@@ -162,7 +162,7 @@ export default Vue.extend({
         this.msg[1]= ''
       }
     },
-    valdiatePolynom: function(input: string){
+    valdiatePolynom: function(input){
 
       if(!this.polyRegex.test(input)){//Wenn nicht der Regex entsprechend
         this.msg[4]= 'Entspricht nicht der From "..., a2, a1, a0"';
@@ -174,7 +174,7 @@ export default Vue.extend({
         this.msg[4]= 'Polynom angenommen';
       }
     },
-    polyInputToArray: function(input: String){
+    polyInputToArray: function(input){
       this.ax[0] = +input[0]; //Todo
     }
   },

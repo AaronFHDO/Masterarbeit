@@ -4,7 +4,7 @@ import store from './store';
 import Ionic from '@ionic/vue'
 import App from './views/Menu.vue'
 import './registerServiceWorker'
-import VueMathjax from '../node_modules/vue-mathjax'
+import VueMathjax from 'vue-mathjax'
 import VueCompositionAPI from '@vue/composition-api'
 import Vuelidate from 'vuelidate';
 
