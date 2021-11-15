@@ -50,9 +50,7 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "parserOptions": {
-      
-    },
+    "parserOptions": {},
     "rules": {}
   },
   "browserslist": [

@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
-export default Vue.extend({
-    name: 'Settings',
-    });
+
+export default {
+  name: 'Settings',
+};
 </script>

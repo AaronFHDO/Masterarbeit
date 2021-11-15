@@ -35,11 +35,10 @@
                 <ion-item>
                   <ion-label position="fixed"> q: </ion-label>
                   <ion-input type="number" :value="q" 
-                  @change="q = +$event.target.value;
-                  validateQ($event.target.value)"></ion-input>
+                  @change="q = +$event.target.value; "></ion-input>
                 </ion-item>
-                <ion-item v-if="qCheck" class="issue">
-                  {{qCheck}}
+                <ion-item v-if="!$v.q.isPrime" class="error">
+                  Q muss eine Primzahl sein
                 </ion-item>
               </ion-col>
               <ion-col>
@@ -63,6 +62,7 @@
                       </span>
                      </div>
                    </div>
+                   <div class="error" v-if="$v.matrixGroup.$anyError">Werte müssen >0 und &lt;q sein.</div>
                 </div>
               </ion-col>
               <ion-col>
@@ -380,7 +380,15 @@
 <script>
 import Vue from 'vue';
 import { VueMathjax } from "vue-mathjax";
-export default Vue.extend({
+import { required, between } from 'vuelidate/lib/validators'
+
+function isPrime(num) {
+    for(var i = 2; i < num; i++)
+        if(num % i === 0) return false;
+      return true;
+}
+
+export default {
   components: {
     "vue-mathjax": VueMathjax
   },
@@ -388,7 +396,7 @@ export default Vue.extend({
   el: '#kyber2x2',
   props: {
   },
-  data: function () {
+  data() {
     return {
       q: 97 ,
       qCheck: '' ,
@@ -414,6 +422,17 @@ export default Vue.extend({
       showResults: false ,
       showFormula: false ,
       decryptIssue: false ,
+    }
+  },
+
+  validations() {
+    return{
+      q: {required, isPrime},
+      a00: {required, between: between(1, this.q) },
+      a01: {required, between: between(1, this.q) },
+      a10: {required, between: between(1, this.q) },
+      a11: {required, between: between(1, this.q) },
+      matrixGroup: [ 'a00', 'a01', 'a10', 'a11'],
     }
   },
   
@@ -593,7 +612,7 @@ export default Vue.extend({
     },
   }
 
-})
+}
 </script>
 
 
@@ -649,7 +668,7 @@ input:focus{
   transform: translate(-50%, -50%);
 }
 
-.issue {
+.error {
   color: red;
 }
 </style>

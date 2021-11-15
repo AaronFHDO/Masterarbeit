@@ -127,20 +127,25 @@
   <!-- </ion-app> -->
 </template>
 
-<script >
+<script>
 
-import Vue from 'vue';
+
 import { VueMathjax } from "vue-mathjax";
 import { required, between, numeric } from 'vuelidate/lib/validators'
 
+function isPrime(num) {
+    for(var i = 2; i < num; i++)
+        if(num % i === 0) return false;
+      return true;
+}
 
-export default Vue.extend({
+export default {
   components: {
     "vue-mathjax": VueMathjax
   },
   name: 'MainTest',
   
-  data: function () {
+  data() {
     return {
     wert1: 2 ,
     wert2: 3 ,
@@ -156,58 +161,35 @@ export default Vue.extend({
     qCheck: '' ,
     }
   },
-  validations: {
-    a00: {
-      required,
-      numeric,
-    },
-    a01: {
-      between: between(1, 100),
-      numeric,
-    },
-    matrixGroup: [ 'a01', 'a00'],
+  
+  validations() {
+    return{
+      a00: {
+        required,
+        isPrime,
+        
+      },
+      a01: {
+        between: between(1, this.q),
+        numeric,
+      },
+      matrixGroup: [ 'a01', 'a00'],
+    }
   },
+  
   methods: {
-    getQ: function() {
-      return this.q;
-    },
     addW1W2: function() {
       this.ergebnis= this.wert1 + this.wert2 ;
     },
     buildTexTest: function() {
       this.textest2 = "$$x = \\begin{bmatrix} " + this.wert1 + " \\cr " + this.wert2 +" \\end{bmatrix}.$$";
     },
-    validateQ: function(num){
-      if(num>100){
-        //q ist größer als 350 (unerwünscht)
-        this.qCheck='q ist größer als 350 (unerwünscht)';
-      }
-      else if(!this.isPrime(num)){
-        //q muss eine Primzahl sein
-        this.qCheck='q muss eine Primzahl sein';
-      }
-      else {
-        //q ist okay 
-        this.qCheck='';
-      }
-    },
-    isPrime: function(num){
-      for(var i = 2; i < num; i++)
-        if(num % i === 0) return false;
-      return true;
-    },
-    between1andQ: function(value){
-      if(value>=1 && value<this.q) 
-        {return true;}
-      else return false;
-    }
-
   },
   beforeMount() {
     this.buildTexTest();
   },
 
-});
+};
 </script>
 
 
