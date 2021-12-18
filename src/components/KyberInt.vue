@@ -19,6 +19,17 @@
           Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (2x2-Integer-Matirx)-Kyber zu generieren,<br>
           selbst zu erstellen und zu berechenen. <br>
           Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
+          <br>
+          Parameter-Voraussetzungen: q muss eine Primzahl sein, alle anderen Werte müssen zwischen 1 und q liegen, m muss 0 oder 1 sein <br>
+          Parameter-Empfehlungen: q sollte mind. 20 sein, in A sollten große Werte (mind. 0,2q) und in 
+          <vue-mathjax :formula="vectorS"></vue-mathjax>,
+          <vue-mathjax :formula="vectorE"></vue-mathjax>, 
+          <vue-mathjax :formula="vectorE1"></vue-mathjax>, e2 und 
+          <vue-mathjax :formula="vectorR"></vue-mathjax> 
+          kleine Werte (1-5) verwendet werden<br>
+          Alle Voraussetzungen und Empfehlungen sind bei der automatischen Generierung eingehalten.
+          Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit kleinen Parametern gerechnet wird. <br>
+          In allen Formeln wird implizit (mod q) gerechnet.
         </ion-card-content>
       </ion-card>
 
@@ -33,7 +44,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="fixed"> q: </ion-label>
+                  <ion-label> q: </ion-label>
                   <ion-input type="number" :value="q" 
                   @change="q = +$event.target.value; "></ion-input>
                 </ion-item>
@@ -51,12 +62,12 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value"/></span>
-                              <span class="td"><input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value"/></span>
+                              <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value; $v.a00.$touch();"/></span>
+                              <span class="td"><input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value; $v.a10.$touch();"/></span>
                           </div>
-                          <div class="tr">
-                               <span class="td"><input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value"/></span>
-                               <span class="td"><input class="minput" type="number" :value="a11" @change="a11 = +$event.target.value"/></span>
+                          <div class="tr">                               
+                               <span class="td"><input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value; $v.a01.$touch();"/></span>
+                               <span class="td"><input class="minput" type="number" :value="a11" @change="a11 = +$event.target.value; $v.a11.$touch();"/></span>
                            </div>
                         </div>
                       </span>
@@ -86,20 +97,21 @@
                   <div class="table">
                     <div class="tr">
                        <span class="td">
-                        <label for="mvalues" position="fixed"> s = </label>
+                        <label for="mvalues" position="fixed"> <vue-mathjax :formula="vectorS"></vue-mathjax> = </label>
                       </span>
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value);"/></span>
+                              <span class="td"><input class="minput" type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value); $v.s.$touch();"/></span>
                           </div>
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="s[1]" @change="updateArray(s, 1, +$event.target.value);"/></span>                               
+                              <span class="td"><input class="minput" type="number" :value="s[1]" @change="updateArray(s, 1, +$event.target.value); $v.s.$touch();"/></span>                               
                            </div>
                         </div>
                       </span>
                      </div>
                    </div>
+                   <!--div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div-->
                 </div>
               </ion-col>
               <ion-col>
@@ -107,7 +119,7 @@
                   <div class="table">
                     <div class="tr">
                        <span class="td">
-                        <label for="mvalues" position="fixed"> e = </label>
+                        <label for="mvalues" position="fixed"> <vue-mathjax :formula="vectorE"></vue-mathjax> = </label>
                       </span>
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
@@ -123,38 +135,6 @@
                    </div>
                 </div>
               </ion-col>
-              <!--ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> s[0]: </ion-label>
-                  <ion-input type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> s[1]: </ion-label>
-                  <ion-input type="number" :value="s[1]" @change="updateArray(s, 1, +$event.target.value);" ></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-              </ion-col>
-              <ion-col>
-              </ion-col>
-              <ion-col>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> e[0]: </ion-label>
-                  <ion-input type="number" :value="e[0]" @change="updateArray(e, 0, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> e[1]: </ion-label>
-                  <ion-input type="number" :value="e[1]" @change="updateArray(e, 1, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col-->
               <ion-col>
               </ion-col>
               <ion-col> 
@@ -172,7 +152,7 @@
                   <div class="table">
                     <div class="tr">
                        <span class="td">
-                        <label for="mvalues" position="fixed"> e1 = </label>
+                        <label for="mvalues" position="fixed"> <vue-mathjax :formula="vectorE1"></vue-mathjax> = </label>
                       </span>
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
@@ -193,7 +173,7 @@
                   <div class="table">
                     <div class="tr">
                        <span class="td">
-                        <label for="mvalues" position="fixed"> r1 = </label>
+                        <label for="mvalues" position="fixed"> <vue-mathjax :formula="vectorR"></vue-mathjax> = </label>
                       </span>
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
@@ -243,14 +223,14 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="fixed"> e2: </ion-label>
+                  <ion-label> e2: </ion-label>
                   <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
                 </ion-item>
               </ion-col>
               
               <ion-col>
                 <ion-item>
-                  <ion-label position="fixed"> m: </ion-label>
+                  <ion-label> m: </ion-label>
                   <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
                 </ion-item>
               </ion-col>
@@ -359,7 +339,7 @@
               </vue-mathjax>
             </ion-col>
             <ion-col>
-              <div v-if="decryptIssue" class="center issue">
+              <div v-if="decryptIssue" class="center error">
                 Entschlüsselungsfehler wegen ungünstiger Parameter
               </div>
             </ion-col>
@@ -419,6 +399,10 @@ export default {
       outputU: 'outputUtest' ,
       outputV: 'outputVtest' ,
       outputM: 'outputMtest' ,
+      vectorS: '$\\vec{s}$',
+      vectorE: '$\\vec{e}$',
+      vectorE1: '$\\vec{e_1}$',
+      vectorR: '$\\vec{r}$',
       showResults: false ,
       showFormula: false ,
       decryptIssue: false ,
@@ -428,11 +412,12 @@ export default {
   validations() {
     return{
       q: {required, isPrime},
-      a00: {required, between: between(1, this.q) },
-      a01: {required, between: between(1, this.q) },
-      a10: {required, between: between(1, this.q) },
-      a11: {required, between: between(1, this.q) },
+      a00: {required, between: between(0, this.q-1) },
+      a01: {required, between: between(0, this.q-1) },
+      a10: {required, between: between(0, this.q-1) },
+      a11: {required, between: between(0, this.q-1) },
       matrixGroup: [ 'a00', 'a01', 'a10', 'a11'],
+      /*s: {$each: between(0, this.q-1)}*/
     }
   },
   
@@ -451,7 +436,7 @@ export default {
       this.generateM();
     },
     generateQ: function(){
-      var randomValue = Math.ceil(Math.random()*100);
+      var randomValue = Math.ceil(20+Math.random()*80);
       if(this.isPrime(randomValue)){
         this.q=randomValue;
         return;
@@ -565,16 +550,16 @@ export default {
     },
     buildOutputT: function(){
       if(!this.showFormula){
-        this.outputT= "$$t = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
+        this.outputT= "$$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
       } else {
-        this.outputT= "$$t = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$$";
+        this.outputT= "$$\\vec{t} = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$$";
       }
     },
     buildOutputU: function(){
       if(!this.showFormula){
-        this.outputU= "$$u = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+        this.outputU= "$$\\vec{u} = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
       } else {
-        this.outputU= "$$u = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+        this.outputU= "$$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
       }
       
     },
