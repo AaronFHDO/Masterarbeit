@@ -288,14 +288,6 @@
               <vue-mathjax :formula="outputT">
               </vue-mathjax>
             </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
           </ion-row>
         </ion-grid>
         <ion-card-subtitle>Bob</ion-card-subtitle>
@@ -305,27 +297,11 @@
               <vue-mathjax :formula="outputU">
               </vue-mathjax>
             </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <vue-mathjax :formula="outputV">
               </vue-mathjax>
-            </ion-col>
-            <ion-col>             
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -337,17 +313,9 @@
             <ion-col>
               <vue-mathjax :formula="outputM">
               </vue-mathjax>
-            </ion-col>
-            <ion-col>
               <div v-if="decryptIssue" class="center error">
                 Entschlüsselungsfehler wegen ungünstiger Parameter
               </div>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
-            </ion-col>
-            <ion-col>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -550,32 +518,32 @@ export default {
     },
     buildOutputT: function(){
       if(!this.showFormula){
-        this.outputT= "$$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$$";
+        this.outputT= "$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$";
       } else {
-        this.outputT= "$$\\vec{t} = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$$";
+        this.outputT= "$\\vec{t} = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$";
       }
     },
     buildOutputU: function(){
       if(!this.showFormula){
-        this.outputU= "$$\\vec{u} = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+        this.outputU= "$\\vec{u} = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
       } else {
-        this.outputU= "$$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$$";
+        this.outputU= "$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
       }
       
     },
     buildOutputV: function(){
       if(!this.showFormula){
-        this.outputV= "$$v = " + this.v +"$$";
+        this.outputV= "$v = " + this.v +"$";
       } else {
-        this.outputV= "$$v = \\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil =" + this.v +"$$";
+        this.outputV= "$v = \\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil =" + this.v +"$";
       }
     },
     buildOutputM: function(){
       if(!this.showFormula){
-        this.outputM= "$$m = " + this.mResult +"$$";
+        this.outputM= "$m = " + this.mResult +"$";
       } else {
-        this.outputM= "$$m = Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = " 
-        + this.mResult +"$$";
+        this.outputM= "$m = Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = " 
+        + this.mResult +"$";
       }
     },
     updateArray: function(arr, index, value){

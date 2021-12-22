@@ -1,15 +1,15 @@
 import Vue from 'vue'
-// import VueRouter from 'vue-router'
-// import App from '../views/Menu.vue'
 import MainHome from '../components/Home.vue'
 import MainTest from '../components/Test.vue'
 import MainKyberInt from '../components/KyberInt.vue'
 import Settings from '../components/Settings.vue'
 import {IonicVueRouter} from "@ionic/vue"
 
-
-// Vue.use(VueRouter)
 Vue.use(IonicVueRouter);
+
+// import VueRouter from 'vue-router'
+// import App from '../views/Menu.vue'
+// Vue.use(VueRouter)
 
 /*const router = new VueRouter({
   routes: [
@@ -28,14 +28,13 @@ const router = new IonicVueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes:[
-    { path: '/', /*name: MainHome,*/ component: MainHome,
-      meta: { title: 'Kyber Calculator'}
-    },
-    { path: '/Test', /*name: MainTest,*/ component: MainTest,
+    { path: '/', component: MainHome,
+      meta: { title: 'Kyber Calculator'}},
+    { path: '/Test', component: MainTest,
     meta: { title: 'Kyber Calculator'} },
-    { path: '/KyberInt', /*name: MainNewHope,*/ component: MainKyberInt,
+    { path: '/KyberInt', component: MainKyberInt,
     meta: { title: 'Kyber Calculator'} },
-    { path: '/Settings', /*name: MainTest,*/ component: Settings,
+    { path: '/Settings', component: Settings,
     meta: { title: 'Kyber Calculator'} },
     
   ]
