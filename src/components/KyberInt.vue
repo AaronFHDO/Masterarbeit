@@ -20,7 +20,7 @@
           selbst zu erstellen und zu berechenen. <br>
           Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
           <br>
-          Parameter-Voraussetzungen: q muss eine Primzahl sein, alle anderen Werte müssen zwischen 1 und q liegen, m muss 0 oder 1 sein <br>
+          Parameter-Voraussetzungen: q muss eine Primzahl sein, alle anderen Werte müssen zwischen 0 und q-1 liegen, m muss 0 oder 1 sein <br>
           Parameter-Empfehlungen: q sollte mind. 20 sein, in A sollten große Werte (mind. 0,2q) und in 
           <vue-mathjax :formula="vectorS"></vue-mathjax>,
           <vue-mathjax :formula="vectorE"></vue-mathjax>, 
@@ -49,7 +49,7 @@
                   @change="q = +$event.target.value; "></ion-input>
                 </ion-item>
                 <ion-item v-if="!$v.q.isPrime" class="error">
-                  Q muss eine Primzahl sein
+                  q muss eine Primzahl sein
                 </ion-item>
               </ion-col>
               <ion-col>
@@ -62,8 +62,8 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value; $v.a00.$touch();"/></span>
-                              <span class="td"><input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value; $v.a10.$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value; $v.a00.$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value; $v.a10.$touch();"/></span>
                           </div>
                           <div class="tr">                               
                                <span class="td"><input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value; $v.a01.$touch();"/></span>
@@ -347,22 +347,20 @@ export default {
   data() {
     return {
       q: 97 ,
-      qCheck: '' ,
-      a: [] ,
       a00: 42 ,
       a01: 43 ,
       a10: 44 ,
       a11: 45 ,
       s: [1,2] ,
-      e: [4,5] ,
-      t: [] ,
-      m: 0 ,
-      mResult: 0 ,
-      r: [1,2] , 
+      e: [4,5] , 
       e1: [3,4] , 
-      e2: 3 , 
+      e2: 3 ,
+      r: [1,2] ,
+      t: [] ,
       u: [] ,
       v: 0 ,
+      m: 0 ,
+      mResult: 0 ,
       outputT: 'outputTtest' ,
       outputU: 'outputUtest' ,
       outputV: 'outputVtest' ,
@@ -481,13 +479,11 @@ export default {
     calcT: function(){
       let erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
       this.updateArray(this.t, 0, this.modX(erg0, this.q));
-      //this.t[0] = erg0;
       var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
       this.updateArray(this.t, 1, this.modX(erg1, this.q));
     },
     calcU: function(){
       var erg0 = +(this.a00 * this.r[0] + this.a01 * this.r[1] + this.e1[0]);
-      //this.u[0] = this.modX(erg0, this.q);
       this.updateArray(this.u, 0, this.modX(erg0, this.q));
       var erg1 = +(this.a10 * this.r[0] + this.a11 * this.r[1] + this.e1[1]);
       this.updateArray(this.u, 1, this.modX(erg1, this.q));
@@ -498,14 +494,14 @@ export default {
     },
     calcM: function(){
       var comp = this.modX(this.v - (this.s[0]*this.u[0] + this.s[1]* this.u[1]), this.q);
-      if(comp>=(this.q*3/4) || comp<=(this.q/4)){ //comp ist im obersten oder untersten viertel, also um 0 herum 
+      if(comp>=(this.q*3/4) || comp<=(this.q/4)){ //comp ist im obersten oder untersten Viertel, also um 0 herum 
         this.mResult = 0;
       }
       else if (comp>(this.q/4) && comp<(this.q*3/4)){ // comp ist mittig, also um q/2 herum
         this.mResult = 1;
       }
-      else {
-        this.mResult = 2;
+      else { //Kontrollausgabe für Unzulässige Ergebnisse
+        this.mResult = 2; 
       }
     },
     checkDecryptIssues: function(){
@@ -525,9 +521,11 @@ export default {
     },
     buildOutputU: function(){
       if(!this.showFormula){
-        this.outputU= "$\\vec{u} = \\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
+        this.outputU= "$\\vec{u} = \\begin{pmatrix} " + 
+        this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
       } else {
-        this.outputU= "$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
+        this.outputU= "$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + 
+        this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
       }
       
     },
