@@ -24,10 +24,11 @@
           Parameter-Empfehlungen: q sollte mind. 20 sein, in A sollten große Werte (mind. 0,2q) und in 
           <vue-mathjax :formula="vectorS"></vue-mathjax>,
           <vue-mathjax :formula="vectorE"></vue-mathjax>, 
-          <vue-mathjax :formula="vectorE1"></vue-mathjax>, e2 und 
+          <vue-mathjax :formula="vectorE1"></vue-mathjax>,
+          <vue-mathjax :formula="outputE2"></vue-mathjax> und 
           <vue-mathjax :formula="vectorR"></vue-mathjax> 
           kleine Werte (1-5) verwendet werden<br>
-          Alle Voraussetzungen und Empfehlungen sind bei der automatischen Generierung eingehalten.
+          Alle Voraussetzungen und Empfehlungen sind bei der automatischen Generierung eingehalten. <br>
           Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit kleinen Parametern gerechnet wird. <br>
           In allen Formeln wird implizit (mod q) gerechnet.
         </ion-card-content>
@@ -223,7 +224,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label> e2: </ion-label>
+                  <ion-label> e2= </ion-label>
                   <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
                 </ion-item>
               </ion-col>
@@ -368,6 +369,7 @@ export default {
       vectorS: '$\\vec{s}$',
       vectorE: '$\\vec{e}$',
       vectorE1: '$\\vec{e_1}$',
+      outputE2: '$e_2$',
       vectorR: '$\\vec{r}$',
       showResults: false ,
       showFormula: false ,
