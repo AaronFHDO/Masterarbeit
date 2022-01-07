@@ -14,6 +14,7 @@
                                 <router-link to="/"><ion-item>Home</ion-item></router-link>
                                 <router-link to="/Test"><ion-item>Test</ion-item></router-link>
                                 <router-link to="/KyberInt"><ion-item>Kyber (2x2 Integer)</ion-item></router-link>
+                                <router-link to="/KyberPol"><ion-item>Kyber (2x2 Polynom)</ion-item></router-link>
                                 <router-link to="/Settings"><ion-item>Einstellungen</ion-item></router-link>   
                             </ion-menu-toggle>
                         </ion-list>
