@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import MainHome from '../components/Home.vue'
+import MainOverview from '../components/KyberOverview.vue'
 import MainTest from '../components/Test.vue'
 import MainKyberInt from '../components/KyberInt.vue'
 import MainKyberPol from '../components/KyberPol.vue'
@@ -32,6 +33,8 @@ const router = new IonicVueRouter({
     { path: '/', component: MainHome,
       meta: { title: 'Kyber Calculator'}},
     { path: '/Test', component: MainTest,
+    meta: { title: 'Kyber Calculator'} },
+    { path: '/KyberOverview', component: MainOverview,
     meta: { title: 'Kyber Calculator'} },
     { path: '/KyberInt', component: MainKyberInt,
     meta: { title: 'Kyber Calculator'} },

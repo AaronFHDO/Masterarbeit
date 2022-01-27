@@ -5,18 +5,18 @@
           <ion-buttons slot="start">
             <ion-menu-button menu="start"></ion-menu-button>
           </ion-buttons>
-          <ion-title>KYBER (2x2 Polynom)</ion-title>
+          <ion-title>KYBER (Polynom)</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Willkommen bei KYBER (2x2 Polynom)</ion-card-title>
+          <ion-card-title>Willkommen bei KYBER (Polynom)</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
           Das hier ist die Kyber-Komponente. <br>
           <br>
-          Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (2x2-Polynom-Matirx)-Kyber zu generieren,<br>
+          Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (Polynom-) Kyber zu generieren,<br>
           selbst zu erstellen und zu berechenen. <br>
           Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
           <br>
@@ -36,7 +36,8 @@
 
       <ion-card> 
         <ion-card-header>     
-          <ion-card-title>KYBER (2x2 Polynom)</ion-card-title>
+          <ion-card-title>KYBER (Polynom)</ion-card-title>
+          <ion-item-divider></ion-item-divider>
         </ion-card-header>
 
         <ion-card-content>
@@ -44,26 +45,26 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-item>
-                  <ion-label> q: </ion-label>
-                  <ion-input type="number" :value="q" 
-                  @change="q = +$event.target.value; "></ion-input>
-                </ion-item>
+                <ion-label> q: </ion-label>
+                <input class="minput" type="number" v-model.number="q"/>
                 <ion-item v-if="!$v.q.isPrime" class="error">
                   q muss eine Primzahl sein
                 </ion-item>
               </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label> d: </ion-label>
-                  <ion-input type="number" :value="d" 
-                  @change="d = +$event.target.value; "></ion-input>
-                </ion-item>
-                <ion-item v-if="!$v.d.validD" class="error">
-                  d sollte 2 , 4 oder 8 sein.
+              <ion-col>                
+                <ion-label> N: </ion-label>
+                <input class="minput" type="number" v-model.number="N"/>
+                <ion-item v-if="!$v.N.validN" class="error">
+                  N sollte 2 , 4 oder 8 sein.
                 </ion-item>
               </ion-col>
-              <ion-col></ion-col>
+              <ion-col>
+                <ion-label> d: </ion-label>
+                <input class="minput" type="number" v-model.number="d"/>
+                <ion-item v-if="!$v.d.validD" class="error">
+                  d muss 2, 3 oder 4 sein
+                </ion-item>
+              </ion-col>
               <ion-col></ion-col>
             </ion-row>
             <ion-row>
@@ -100,6 +101,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+          <ion-item-divider></ion-item-divider>
 
           <ion-card-subtitle>Alice</ion-card-subtitle>
           <ion-grid>
@@ -155,6 +157,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+          <ion-item-divider></ion-item-divider>
 
           <ion-card-subtitle>Bob</ion-card-subtitle>
           <ion-grid>
@@ -229,12 +232,13 @@
               <ion-col>
               </ion-col>
             </ion-row>
+            <ion-item-divider></ion-item-divider>
             <ion-row>
               <ion-col>
                 <ion-button v-on:click="generateAll(); calcAll()">Generiere Alles</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q</ion-button>
+                <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q und N</ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -325,8 +329,8 @@ function isPrime(num) {
       return true;
 }
 
-function validD(){
-  if(this.d == 2 || this.d==4 || this.d==8){
+function validN(){
+  if(this.N == 2 || this.N==4 || this.N==8){
     return true;
   }
   else{
@@ -334,8 +338,15 @@ function validD(){
   }
 }
 
+function validD(){
+  if(this.d == 2 || this.d == 3 || this.d == 4){
+    return true;
+  }
+  return false;
+}
+
 function validArrayLength(array){
-  if(array.length != this.d){
+  if(array.length != this.N){
     return false;
   }
   return true;
@@ -364,7 +375,8 @@ export default {
   data() {
     return {
       q: 97 ,
-      d: 4 ,
+      N: 4 ,
+      d: 2 ,
       a00: 42,
       a01: 43 ,
       a10: 44 ,
@@ -377,6 +389,26 @@ export default {
       a10Values: [3,3,3,3],
       a11String: "4,4,4,4" ,
       a11Values: [4,4,4,4],
+      AString: [
+        ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+        ["1,2,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+        ["1,3,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+        ["1,4,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"]
+      ],
+      AValues: [
+        [
+          [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , 4,4,4,4
+        ],
+        [
+
+        ],
+        [
+
+        ],
+        [
+
+        ],
+      ],
       s: [1,2] ,
       s0String: "1,2,3,4",
       s0Values: [1,2,3,4],
@@ -429,6 +461,7 @@ export default {
   validations() {
     return{
       q: {required, isPrime},
+      N: {required, validN},
       d: {required, validD},
       a00: {required, between: between(0, this.q-1) },
       a10: {required, between: between(0, this.q-1) },

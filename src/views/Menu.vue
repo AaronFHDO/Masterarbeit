@@ -12,9 +12,9 @@
                         <ion-list>
                             <ion-menu-toggle auto-hide="false">
                                 <router-link to="/"><ion-item>Home</ion-item></router-link>
-                                <router-link to="/Test"><ion-item>Test</ion-item></router-link>
-                                <router-link to="/KyberInt"><ion-item>Kyber (2x2 Integer)</ion-item></router-link>
-                                <router-link to="/KyberPol"><ion-item>Kyber (2x2 Polynom)</ion-item></router-link>
+                                <router-link to="/KyberOverview"><ion-item>Kyber Überblick</ion-item></router-link>
+                                <router-link to="/KyberInt"><ion-item>Kyber (Integer)</ion-item></router-link>
+                                <router-link to="/KyberPol"><ion-item>Kyber (Polynom)</ion-item></router-link>
                                 <router-link to="/Settings"><ion-item>Einstellungen</ion-item></router-link>   
                             </ion-menu-toggle>
                         </ion-list>

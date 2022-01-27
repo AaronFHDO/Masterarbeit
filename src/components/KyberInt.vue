@@ -5,22 +5,22 @@
           <ion-buttons slot="start">
             <ion-menu-button menu="start"></ion-menu-button>
           </ion-buttons>
-          <ion-title>KYBER (2x2 Integer)</ion-title>
+          <ion-title>KYBER (Integer)</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Willkommen bei KYBER (2x2 Integer)</ion-card-title>
+          <ion-card-title>Willkommen bei KYBER (Integer)</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
           Das hier ist die Kyber-Komponente. <br>
           <br>
-          Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (2x2-Integer-Matirx)-Kyber zu generieren,<br>
+          Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (Integer-) Kyber zu generieren,<br>
           selbst zu erstellen und zu berechenen. <br>
           Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
           <br>
-          Parameter-Voraussetzungen: q muss eine Primzahl sein, alle anderen Werte müssen zwischen 0 und q-1 liegen, m muss 0 oder 1 sein <br>
+          Parameter-Voraussetzungen: q muss eine Primzahl sein, d muss 2, 3 oder 4 sein, m muss 0 oder 1 sein, alle anderen Werte müssen zwischen 0 und q-1 liegen<br>
           Parameter-Empfehlungen: q sollte mind. 20 sein, in A sollten große Werte (mind. 0,2q) und in 
           <vue-mathjax :formula="vectorS"></vue-mathjax>,
           <vue-mathjax :formula="vectorE"></vue-mathjax>, 
@@ -35,60 +35,90 @@
       </ion-card>
 
       <ion-card> 
+        
         <ion-card-header>     
-          <ion-card-title>KYBER (2x2 Integer)</ion-card-title>
+          <ion-card-title>KYBER (Integer)</ion-card-title>
+          <ion-item-divider></ion-item-divider>
         </ion-card-header>
-
+        
         <ion-card-content>
           <ion-card-subtitle>Global gegeben:</ion-card-subtitle>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-item>
+                
                   <ion-label> q: </ion-label>
+                  <input class="minput" type="number" v-model.number="q" @focus="$v.q.$touch();"/>
+                  <!--ion-item>
                   <ion-input type="number" :value="q" 
                   @change="q = +$event.target.value; "></ion-input>
-                </ion-item>
+                </ion-item-->
                 <ion-item v-if="!$v.q.isPrime" class="error">
                   q muss eine Primzahl sein
                 </ion-item>
               </ion-col>
               <ion-col>
+                <ion-label> d: </ion-label>
+                <input class="minput" type="number" v-model.number="d" @focus="$v.d.$touch();" @change="updateValidators();"/>
+                <!--ion-item>
+                  <ion-input type="number" :value="d" 
+                  @change="d = +$event.target.value; "></ion-input>
+                </ion-item-->
+                <ion-item v-if="!$v.d.validD" class="error">
+                  d muss 2, 3 oder 4 sein
+                </ion-item>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
                 <div class="matrix">
                   <div class="table">
                     <div class="tr">
-                       <span class="td">
+                      <span class="td">
                         <label for="mvalues" position="fixed"> A = </label>
                       </span>
-                       <span class="td">
+                      <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"> <input class="minput" type="number" :value="a00" @change="a00 = +$event.target.value; $v.a00.$touch();"/></span>
-                              <span class="td"> <input class="minput" type="number" :value="a10" @change="a10 = +$event.target.value; $v.a10.$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[0][0]" @focus="$v.A.$each[0].$each[0].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[0][1]" @focus="$v.A.$each[0].$each[1].$touch();"/></span>
+                              <span v-if="d>=3" class="td"> <input class="minput" type="number" v-model.number="A[0][2]" @focus="$v.A.$each[0].$each[2].$touch();"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" type="number" v-model.number="A[0][3]" @focus="$v.A.$each[0].$each[3].$touch();"/></span>
+                              <!--span v-if="d>=4" class="td"> <input class="minput" type="number" :value="A[0][3]" @change="A[0][3] = +$event.target.value; $v.a10.$touch();"/></span-->
                           </div>
-                          <div class="tr">                               
-                               <span class="td"><input class="minput" type="number" :value="a01" @change="a01 = +$event.target.value; $v.a01.$touch();"/></span>
-                               <span class="td"><input class="minput" type="number" :value="a11" @change="a11 = +$event.target.value; $v.a11.$touch();"/></span>
-                           </div>
+                          <div class="tr">
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[1][0]" @focus="$v.A.$each[1].$each[0].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[1][1]" @focus="$v.A.$each[1].$each[1].$touch();"/></span>
+                              <span v-if="d>=3" class="td"> <input class="minput" type="number" v-model.number="A[1][2]" @focus="$v.A.$each[1].$each[2].$touch();"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" type="number" v-model.number="A[1][3]" @focus="$v.A.$each[1].$each[3].$touch();"/></span>
+                          </div>
+                          <div v-if="d>=3" class="tr">
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[2][0]" @focus="$v.A.$each[2].$each[0].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[2][1]" @focus="$v.A.$each[2].$each[1].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[2][2]" @focus="$v.A.$each[2].$each[2].$touch();"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" type="number" v-model.number="A[2][3]" @focus="$v.A.$each[2].$each[3].$touch();"/></span>
+                          </div>
+                          <div v-if="d>=4" class="tr">
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[3][0]" @focus="$v.A.$each[3].$each[0].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[3][1]" @focus="$v.A.$each[3].$each[1].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[3][2]" @focus="$v.A.$each[3].$each[2].$touch();"/></span>
+                              <span class="td"> <input class="minput" type="number" v-model.number="A[3][3]" @focus="$v.A.$each[3].$each[3].$touch();"/></span>
+                          </div>
                         </div>
                       </span>
-                     </div>
-                   </div>
-                   <div class="error" v-if="$v.matrixGroup.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                    </div>
+                  </div>
+                  <div class="error" v-if="$v.A.$anyError">Werte müssen >0 und &lt;q sein.</div>
                 </div>
-              </ion-col>
-              <ion-col>
-                
-              </ion-col>
-              <ion-col>
-                
-              </ion-col>
-              <ion-col>
-                
               </ion-col>
               
             </ion-row>
           </ion-grid>
+          <ion-item-divider></ion-item-divider>
 
           <ion-card-subtitle>Alice</ion-card-subtitle>
           <ion-grid>
@@ -103,16 +133,23 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="s[0]" @change="updateArray(s, 0, +$event.target.value); $v.s.$touch();"/></span>
+                              <span class="td"><input class="minput" type="number" v-model.number="s[0]" @focus="$v.s.$each[0].$touch();"/></span>
                           </div>
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="s[1]" @change="updateArray(s, 1, +$event.target.value); $v.s.$touch();"/></span>                               
+                              <span class="td"><input class="minput" type="number" v-model.number="s[1]" @focus="$v.s.$each[1].$touch();"/></span>                               
                            </div>
+                           <div v-if="d>=3" class="tr">
+                              <span class="td"><input class="minput" type="number" v-model.number="s[2]" @focus="$v.s.$each[2].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=4" class="tr">
+                              <span class="td"><input class="minput" type="number" v-model.number="s[3]" @focus="$v.s.$each[3].$touch();"/></span>                               
+                           </div>
+                           <!--span class="td"><input class="minput" type="number" :value="s[3]" @change="updateArray(s, 3, +$event.target.value); $v.s.$touch();"/></!--span-->
                         </div>
                       </span>
                      </div>
                    </div>
-                   <!--div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div-->
+                   <div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div>
                 </div>
               </ion-col>
               <ion-col>
@@ -125,25 +162,31 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="e[0]" @change="updateArray(e, 0, +$event.target.value);"/></span>
+                              <span class="td"><input class="minput" type="number" v-model.number="e[0]" @focus="$v.e.$each[0].$touch();"/></span>
                           </div>
                           <div class="tr">
-                               <span class="td"><input class="minput" type="number" :value="e[1]" @change="updateArray(e, 1, +$event.target.value);"/></span>                               
+                              <span class="td"><input class="minput" type="number" v-model.number="e[1]" @focus="$v.e.$each[1].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=3" class="tr">
+                              <span class="td"><input class="minput" type="number" v-model.number="e[2]" @focus="$v.e.$each[2].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=4" class="tr">
+                              <span class="td"><input class="minput" type="number" v-model.number="e[3]" @focus="$v.e.$each[3].$touch();"/></span>                               
                            </div>
                         </div>
                       </span>
                      </div>
                    </div>
+                   <div class="error" v-if="$v.e.$anyError">Werte müssen >0 und &lt;q sein.</div>
                 </div>
               </ion-col>
               <ion-col>
               </ion-col>
               <ion-col> 
               </ion-col>
-              <ion-col>
-              </ion-col>
             </ion-row>
           </ion-grid>
+          <ion-item-divider></ion-item-divider>
 
           <ion-card-subtitle>Bob</ion-card-subtitle>
           <ion-grid>
@@ -158,15 +201,22 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="e1[0]" @change="updateArray(e1, 0, +$event.target.value);"/></span>
+                              <span class="td"><input class="minput" type="number" v-model.number="e1[0]" @focus="$v.e1.$each[0].$touch();"/></span>
                           </div>
                           <div class="tr">
-                               <span class="td"><input class="minput" type="number" :value="e1[1]" @change="updateArray(e1, 1, +$event.target.value);"/></span>                               
+                              <span class="td"><input class="minput" type="number" v-model.number="e1[1]" @focus="$v.e1.$each[1].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=3" class="tr">
+                              <span class="td"><input class="minput" type="number" v-model.number="e1[2]" @focus="$v.e1.$each[2].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=4" class="tr">
+                              <span class="td"><input class="minput" type="number" v-model.number="e1[3]" @focus="$v.e1.$each[3].$touch();"/></span>                               
                            </div>
                         </div>
                       </span>
                      </div>
                    </div>
+                   <div class="error" v-if="$v.e1.$anyError">Werte müssen >0 und &lt;q sein.</div>
                 </div>
               </ion-col>
               <ion-col>
@@ -179,42 +229,23 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="minput" type="number" :value="r[0]" @change="updateArray(r, 0, +$event.target.value);"/></span>
+                              <span class="td"><input class="minput" type="number" v-model.number="r[0]" @focus="$v.r.$each[0].$touch();"/></span>
                           </div>
                           <div class="tr">
-                               <span class="td"><input class="minput" type="number" :value="r[1]" @change="updateArray(r, 1, +$event.target.value);"/></span>                               
+                               <span class="td"><input class="minput" type="number" v-model.number="r[1]" @focus="$v.r.$each[1].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=3" class="tr">
+                               <span class="td"><input class="minput" type="number" v-model.number="r[2]" @focus="$v.r.$each[2].$touch();"/></span>                               
+                           </div>
+                           <div v-if="d>=4" class="tr">
+                               <span class="td"><input class="minput" type="number" v-model.number="r[3]" @focus="$v.r.$each[3].$touch();"/></span>                               
                            </div>
                         </div>
                       </span>
                      </div>
                    </div>
+                   <div class="error" v-if="$v.r.$anyError">Werte müssen >0 und &lt;q sein.</div>
                 </div>
-              </ion-col>
-              <!--ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> e1[0]: </ion-label>
-                  <ion-input type="number" :value="e1[0]" @change="updateArray(e1, 0, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> e1[1]: </ion-label>
-                  <ion-input type="number" :value="e1[1]" @change="updateArray(e1, 1, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> r[0]: </ion-label>
-                  <ion-input type="number" :value="r[0]" @change="updateArray(r, 0, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="fixed"> r[1]: </ion-label>
-                  <ion-input type="number" :value="r[1]" @change="updateArray(r, 1, +$event.target.value);"></ion-input>
-                </ion-item>
-              </ion-col-->
-              <ion-col>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -223,31 +254,40 @@
             </ion-row>
             <ion-row>
               <ion-col>
-                <ion-item>
-                  <ion-label> e2= </ion-label>
-                  <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
+                <ion-label> e2= </ion-label>
+                <input class="minput" type="number" v-model.number="e2" @focus="$v.e2.$touch();"/>
+                <ion-item v-if="$v.e2.$anyError" class="error">
+                  Wert muss >0 und &lt;q sein.
                 </ion-item>
+                <!--ion-item>
+                  
+                  <ion-input type="number" :value="e2" @change="e2 = +$event.target.value;"></ion-input>
+                </ion-item-->
               </ion-col>
               
               <ion-col>
-                <ion-item>
-                  <ion-label> m: </ion-label>
-                  <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
+                <ion-label> m: </ion-label>
+                <input class="minput" type="number" v-model.number="m" @focus="$v.m.$touch();"/>
+                <ion-item v-if="!$v.m.validM" class="error">
+                  m muss 0 oder 1 sein
                 </ion-item>
-              </ion-col>
-              <ion-col>
+                <!--ion-item>
+                  
+                  <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
+                </!--ion-item-->
               </ion-col>
               <ion-col>
               </ion-col>
               <ion-col>
               </ion-col>
             </ion-row>
+            <ion-item-divider></ion-item-divider>
             <ion-row>
               <ion-col>
                 <ion-button v-on:click="generateAll(); calcAll()">Generiere Alles</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q</ion-button>
+                <ion-button v-on:click="generateAfterQ(); calcAll(); q += 1; q-= 1;">Generiere nach q</ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -282,6 +322,7 @@
           </ion-row>
         </ion-grid>
         <div v-if="showResults">
+        <ion-item-divider></ion-item-divider>
         <ion-card-subtitle>Alice</ion-card-subtitle>
         <ion-grid>
           <ion-row>
@@ -337,6 +378,22 @@ function isPrime(num) {
       return true;
 }
 
+function validD(){
+  if(this.d == 2 || this.d == 3 || this.d == 4){
+    return true;
+  }
+  return false;
+}
+
+function validM(){
+  if(this.m == 0 || this.m == 1){
+    return true;
+  }
+  return false;
+}
+
+
+
 export default {
   components: {
     "vue-mathjax": VueMathjax
@@ -348,15 +405,18 @@ export default {
   data() {
     return {
       q: 97 ,
-      a00: 42 ,
-      a01: 43 ,
-      a10: 44 ,
-      a11: 45 ,
-      s: [1,2] ,
-      e: [4,5] , 
-      e1: [3,4] , 
+      d: 2 , 
+      A: [
+        [1,2,3,4],
+        [5,6,7,8],
+        [9,10,11,12],
+        [13,14,15,16]
+      ],
+      s: [1,2,3,4] ,
+      e: [4,5,6,7] , 
+      e1: [3,4,5,6] , 
       e2: 3 ,
-      r: [1,2] ,
+      r: [1,2,3,4] ,
       t: [] ,
       u: [] ,
       v: 0 ,
@@ -380,12 +440,20 @@ export default {
   validations() {
     return{
       q: {required, isPrime},
-      a00: {required, between: between(0, this.q-1) },
-      a01: {required, between: between(0, this.q-1) },
-      a10: {required, between: between(0, this.q-1) },
-      a11: {required, between: between(0, this.q-1) },
-      matrixGroup: [ 'a00', 'a01', 'a10', 'a11'],
-      /*s: {$each: between(0, this.q-1)}*/
+      d: {required, validD},
+      m: {required, validM},
+      A: {
+        $each:{
+          $each:{
+            required, between: between(0, this.q-1)
+          }
+        }
+      },
+      s:{$each:{required, between: between(0, this.q-1)}},
+      e:{$each:{required, between: between(0, this.q-1)}},
+      e1:{$each:{required, between: between(0, this.q-1)}},
+      e2:{required, between: between(0, this.q-1)},
+      r:{$each:{required, between: between(0, this.q-1)}},
     }
   },
   
@@ -404,7 +472,7 @@ export default {
       this.generateM();
     },
     generateQ: function(){
-      var randomValue = Math.ceil(20+Math.random()*80);
+      var randomValue = Math.ceil(20+Math.random()*280);
       if(this.isPrime(randomValue)){
         this.q=randomValue;
         return;
@@ -437,26 +505,35 @@ export default {
       }
     },
     generateA: function(){
-      this.a00= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+      for(let i=0; i<4; i++){
+        for(let j=0; j<4; j++){
+          this.A[i][j] = Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+        }
+      }
+      /*this.a00= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
       this.a01= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
       this.a10= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a11= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+      this.a11= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);*/
     },
     generateS: function(){
-      this.updateArray(this.s, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.s, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        this.s[i] = Math.ceil(Math.random()*4);
+      }
     },
     generateE: function(){
-      this.updateArray(this.e, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.e, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        this.e[i] = Math.ceil(Math.random()*4);
+      }
     },
     generateR: function(){
-      this.updateArray(this.r, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.r, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        this.r[i] = Math.ceil(Math.random()*4);
+      }
     },
     generateE1: function(){
-      this.updateArray(this.e1, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.e1, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        this.e1[i] = Math.ceil(Math.random()*4);
+      }
     },
     generateE2: function(){
       this.e2 = Math.ceil(Math.random()*4);
@@ -479,27 +556,59 @@ export default {
       this.buildOutputM();
     },
     calcT: function(){
-      let erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
+      for(let i=0; i<this.d; i++){
+        let result = 0;
+        for(let j=0; j<this.d; j++){
+          result += this.A[i][j] * this.s[j];
+        }
+        result += this.e[i];
+        result = this.modCenterX(result);
+        this.t[i]= result;
+      }
+      /*let erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
       this.updateArray(this.t, 0, this.modX(erg0, this.q));
       var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
-      this.updateArray(this.t, 1, this.modX(erg1, this.q));
+      this.updateArray(this.t, 1, this.modX(erg1, this.q));*/
     },
     calcU: function(){
-      var erg0 = +(this.a00 * this.r[0] + this.a01 * this.r[1] + this.e1[0]);
+      for(let i=0; i<this.d; i++){
+        let result = 0;
+        for(let j=0; j<this.d; j++){
+          result += this.A[j][i] * this.r[j];
+        }
+        result += this.e1[i];
+        result = this.modCenterX(result);
+        this.u[i]= result;
+      }
+
+      /*var erg0 = +(this.a00 * this.r[0] + this.a01 * this.r[1] + this.e1[0]);
       this.updateArray(this.u, 0, this.modX(erg0, this.q));
       var erg1 = +(this.a10 * this.r[0] + this.a11 * this.r[1] + this.e1[1]);
-      this.updateArray(this.u, 1, this.modX(erg1, this.q));
+      this.updateArray(this.u, 1, this.modX(erg1, this.q));*/
     },
     calcV: function(){
-      var erg0 = +(this.t[0] * this.r[0] + this.t[1] * this.r[1] + this.e2+ Math.round((this.q/2)*this.m));
-      this.v = this.modX(erg0, this.q);
+      let result = 0;
+      for(let i=0; i<this.d; i++){
+        result += this.t[i] * this.r[i];
+      }
+      result += this.e2;
+      result += Math.round((this.q/2)*this.m)
+      result = this.modCenterX(result);
+      this.v = result;
+      /*var erg0 = +(this.t[0] * this.r[0] + this.t[1] * this.r[1] + this.e2+ Math.round((this.q/2)*this.m));
+      this.v = this.modX(erg0, this.q);*/
     },
     calcM: function(){
-      var comp = this.modX(this.v - (this.s[0]*this.u[0] + this.s[1]* this.u[1]), this.q);
-      if(comp>=(this.q*3/4) || comp<=(this.q/4)){ //comp ist im obersten oder untersten Viertel, also um 0 herum 
+      let result = 0;
+      for(let i=0; i<this.d; i++){
+        result += this.s[i] * this.u[i];
+      }
+      result = this.modCenterX(this.v-result)
+      
+      if (result>(-this.q/4) && result<(this.q*1/4)){ //comp ist im obersten oder untersten Viertel, also um 0 herum 
         this.mResult = 0;
       }
-      else if (comp>(this.q/4) && comp<(this.q*3/4)){ // comp ist mittig, also um q/2 herum
+      else if(result>=(this.q*1/4) || result<=(-this.q/4)){ // comp ist mittig, also um q/2 herum
         this.mResult = 1;
       }
       else { //Kontrollausgabe für Unzulässige Ergebnisse
@@ -515,36 +624,68 @@ export default {
       }
     },
     buildOutputT: function(){
-      if(!this.showFormula){
+      this.outputT= "$\\vec{t} = ";
+      if(this.showFormula){
+        this.outputT += "A*\\vec{s}+\\vec{e} = ";
+      }
+      this.outputT +=  "\\begin{pmatrix}" + this.t[0];
+      for(let i=1; i<this.d; i++){
+        this.outputT += " \\cr " + this.t[i];
+      }
+      this.outputT += " \\end{pmatrix}$"
+
+
+      /*if(!this.showFormula){
         this.outputT= "$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$";
       } else {
         this.outputT= "$\\vec{t} = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$";
-      }
+      }*/
     },
     buildOutputU: function(){
-      if(!this.showFormula){
+      this.outputU= "$\\vec{u} = ";
+      if(this.showFormula){
+        this.outputU += "A^{T} * \\vec{r} + \\vec{e_1} ";
+      }
+      this.outputU +=  "\\begin{pmatrix}" + this.u[0];
+      for(let i=1; i<this.d; i++){
+        this.outputU += " \\cr " + this.u[i];
+      }
+      this.outputU += " \\end{pmatrix}$"
+      /*if(!this.showFormula){
         this.outputU= "$\\vec{u} = \\begin{pmatrix} " + 
         this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
       } else {
         this.outputU= "$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + 
         this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
-      }
-      
+      }*/
     },
     buildOutputV: function(){
-      if(!this.showFormula){
+      this.outputV= "$v = ";
+      if(this.showFormula){
+        this.outputV += "\\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil = ";
+      }
+      this.outputV += this.v +"$";
+
+
+      /*if(!this.showFormula){
         this.outputV= "$v = " + this.v +"$";
       } else {
         this.outputV= "$v = \\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil =" + this.v +"$";
-      }
+      }*/
     },
     buildOutputM: function(){
-      if(!this.showFormula){
+      this.outputM= "$m = ";
+      if(this.showFormula){
+        this.outputM += "Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = ";
+      }
+      this.outputM += this.mResult +"$";
+
+      /*if(!this.showFormula){
         this.outputM= "$m = " + this.mResult +"$";
       } else {
         this.outputM= "$m = Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = " 
         + this.mResult +"$";
-      }
+      }*/
     },
     updateArray: function(arr, index, value){
       Vue.set(arr, index, value);
@@ -558,13 +699,34 @@ export default {
       }
       return value;
     },
+    modCenterX: function(value){
+      while(value>(this.q/2)){
+        value-=this.q;
+      }
+      while(value<(-this.q/2)){
+        value+=this.q;
+      }
+      return value;
+    },
     isPrime: function(num){
       for(var i = 2; i < num; i++)
         if(num % i === 0) return false;
       return true;
     },
-  }
-
+    updateValidators: function(){
+      this.$v.$reset();
+      this.$v.q.$touch(); this.$v.d.$touch(); this.$v.e2.$touch(); this.$v.m.$touch();
+      for(let i = 0; i < this.d; i++){
+        for(let j = 0; j < this.d; j++){
+          this.$v.A.$each[i].$each[j].$touch();
+        }
+        this.$v.s.$each[i].$touch();
+        this.$v.e.$each[i].$touch();
+        this.$v.e1.$each[i].$touch();
+        this.$v.r.$each[i].$touch();
+      }  
+    },
+  },
 }
 </script>
 
