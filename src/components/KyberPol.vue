@@ -1,5 +1,5 @@
 <template>
-  <ion-content id="kyber2x2">
+  <ion-content id="kyberPol">
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
@@ -78,25 +78,39 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"> <input class="minput" :value="a00String" @change="a00String = $event.target.value; a00Values = parseStringToPol(a00String); $v.a00Values.$touch();"/></span>
-                              <span class="td"> <input class="minput" :value="a10String" @change="a10String = $event.target.value; a10Values = parseStringToPol(a10String); $v.a10.$touch();"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[0][0]" @change="AValues[0][0] = parseStringToPol(AString[0][0]);"/></span>
+                              <!-- reihenfolge nicht deterministisch. was tun? setzen von values zentralisieren und vor berechnung ausführen? was ist mit anzeige von polynomschreibweise? durch string erzeugen? strings mit computed?-->
+                              <span class="td"> <input class="minput" v-model="AString[0][1]" @change="AValues[0][1] = parseStringToPol(AString[0][1]);"/></span>
+                              <span v-if="d>=3" class="td"> <input class="minput" v-model="AString[0][2]" @change="AValues[0][2] = parseStringToPol(AString[0][2]);"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" v-model="AString[0][3]" @change="AValues[0][3] = parseStringToPol(AString[0][3]);"/></span>
                           </div>
-                          <div class="tr">                               
+                          <div class="tr">
+                              <span class="td"> <input class="minput" v-model="AString[1][0]" @change="AValues[1][0] = parseStringToPol(AString[1][0]);"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[1][1]" @change="AValues[1][1] = parseStringToPol(AString[1][1]);"/></span>
+                              <span v-if="d>=3" class="td"> <input class="minput" v-model="AString[1][2]" @change="AValues[1][2] = parseStringToPol(AString[1][2]);"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" v-model="AString[1][3]" @change="AValues[1][3] = parseStringToPol(AString[1][3]);"/></span>
+                          </div>
+                          <div v-if="d>=3" class="tr">
+                              <span class="td"> <input class="minput" v-model="AString[2][0]" @change="AValues[2][0] = parseStringToPol(AString[2][0]);"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[2][1]" @change="AValues[2][1] = parseStringToPol(AString[2][1]);"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[2][2]" @change="AValues[2][2] = parseStringToPol(AString[2][2]);"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" v-model="AString[2][3]" @change="AValues[2][3] = parseStringToPol(AString[2][3]);"/></span>
+                          </div>
+                          <div v-if="d>=4" class="tr">
+                              <span class="td"> <input class="minput" v-model="AString[3][0]" @change="AValues[3][0] = parseStringToPol(AString[3][0]);"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[3][1]" @change="AValues[3][1] = parseStringToPol(AString[3][1]);"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[3][2]" @change="AValues[3][2] = parseStringToPol(AString[3][2]);"/></span>
+                              <span class="td"> <input class="minput" v-model="AString[3][3]" @change="AValues[3][3] = parseStringToPol(AString[3][3]);"/></span>
+                          </div>
+                          <!--div class="tr">                               
                                <span class="td"><input class="minput" :value="a01String" @change="a01String = $event.target.value; a01Values = parseStringToPol(a01String); $v.a01.$touch();"/></span>
                                <span class="td"><input class="minput" :value="a11String" @change="a11String = $event.target.value; a11Values = parseStringToPol(a11String); $v.a11.$touch();"/></span>
-                           </div>
+                           </!--div-->
                         </div>
                       </span>
                      </div>
                    </div>
-                   <div class="error" v-if="!$v.a00Values.validArrayLength">Anzahl Elemente von a00 stimmt nicht mit d überein.</div>
-                   <div class="error" v-if="!$v.a00Values.validArrayValues">Nicht alle Werte der Elemente von a00 sind gültig.</div>
-                   <div class="error" v-if="!$v.a10Values.validArrayLength">Anzahl Elemente von a10 stimmt nicht mit d überein.</div>
-                   <div class="error" v-if="!$v.a10Values.validArrayValues">Nicht alle Werte der Elemente von a10 sind gültig.</div>
-                   <div class="error" v-if="!$v.a01Values.validArrayLength">Anzahl Elemente von a01 stimmt nicht mit d überein.</div>
-                   <div class="error" v-if="!$v.a01Values.validArrayValues">Nicht alle Werte der Elemente von a01 sind gültig.</div>
-                   <div class="error" v-if="!$v.a11Values.validArrayLength">Anzahl Elemente von a11 stimmt nicht mit d überein.</div>
-                   <div class="error" v-if="!$v.a11Values.validArrayValues">Nicht alle Werte der Elemente von a11 sind gültig.</div>
+                   <!--div class="error" v-if="!$v.a00Values.validArrayLength">Anzahl Elemente von a00 stimmt nicht mit d überein.</!--div-->
                 </div>
               </ion-col>
             </ion-row>
@@ -116,11 +130,17 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="vinput" :value="s0String" @change="s0String = $event.target.value; s0Values = parseStringToPol(s0String); $v.s.$touch();"/></span>
+                              <span class="td"> <input class="minput" v-model="sString[0]" @change="sValues[0] = parseStringToPol(sString[0]);"/></span>
                           </div>
                           <div class="tr">
-                              <span class="td"><input class="vinput" :value="s1String" @change="s1String = $event.target.value; s1Values = parseStringToPol(s1String); $v.s.$touch();"/></span>                               
-                           </div>
+                              <span class="td"> <input class="minput" v-model="sString[1]" @change="sValues[1] = parseStringToPol(sString[1]);"/></span>
+                          </div>
+                          <div v-if="d>=3" class="tr">
+                              <span class="td"> <input class="minput" v-model="sString[2]" @change="sValues[2] = parseStringToPol(sString[2]);"/></span>
+                          </div>
+                          <div v-if="d>=4" class="tr">
+                              <span class="td"> <input class="minput" v-model="sString[3]" @change="sValues[3] = parseStringToPol(sString[3]);"/></span>
+                          </div>
                         </div>
                       </span>
                      </div>
@@ -138,11 +158,17 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="vinput" :value="e_0String" @change="e_0String = $event.target.value; e_0Values = parseStringToPol(e_0String);"/></span>
+                              <span class="td"> <input class="minput" v-model="eString[0]" @change="eValues[0] = parseStringToPol(eString[0]);"/></span>
                           </div>
                           <div class="tr">
-                               <span class="td"><input class="vinput" :value="e_1String" @change="e_1String = $event.target.value; e_1Values = parseStringToPol(e_1String);"/></span>                               
-                           </div>
+                              <span class="td"> <input class="minput" v-model="eString[1]" @change="eValues[1] = parseStringToPol(eString[1]);"/></span>
+                          </div>
+                          <div v-if="d>=3" class="tr">
+                              <span class="td"> <input class="minput" v-model="eString[2]" @change="eValues[2] = parseStringToPol(eString[2]);"/></span>
+                          </div>
+                          <div v-if="d>=4" class="tr">
+                              <span class="td"> <input class="minput" v-model="eString[3]" @change="eValues[3] = parseStringToPol(eString[3]);"/></span>
+                          </div>
                         </div>
                       </span>
                      </div>
@@ -172,11 +198,17 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="vinput" :value="e1_0String" @change="e1_0String = $event.target.value; e1_0Values = parseStringToPol(e1_0String);"/></span>
+                              <span class="td"> <input class="minput" v-model="e1String[0]" @change="e1Values[0] = parseStringToPol(e1String[0]);"/></span>
                           </div>
                           <div class="tr">
-                               <span class="td"><input class="vinput" :value="e1_1String" @change="e1_1String = $event.target.value; e1_1Values = parseStringToPol(e1_1String);"/></span>                               
-                           </div>
+                              <span class="td"> <input class="minput" v-model="e1String[1]" @change="e1Values[1] = parseStringToPol(e1String[1]);"/></span>
+                          </div>
+                          <div v-if="d>=3" class="tr">
+                              <span class="td"> <input class="minput" v-model="e1String[2]" @change="e1Values[2] = parseStringToPol(e1String[2]);"/></span>
+                          </div>
+                          <div v-if="d>=4" class="tr">
+                              <span class="td"> <input class="minput" v-model="e1String[3]" @change="e1Values[3] = parseStringToPol(e1String[3]);"/></span>
+                          </div>
                         </div>
                       </span>
                      </div>
@@ -193,11 +225,17 @@
                        <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"><input class="vinput" :value="r_0String" @change="r_0String = $event.target.value; r_0Values = parseStringToPol(r_0String);"/></span>
+                              <span class="td"> <input class="minput" v-model="rString[0]" @change="rValues[0] = parseStringToPol(rString[0]);"/></span>
                           </div>
                           <div class="tr">
-                               <span class="td"><input class="vinput" :value="r_1String" @change="r_1String = $event.target.value; r_1Values = parseStringToPol(r_1String);"/></span>                               
-                           </div>
+                              <span class="td"> <input class="minput" v-model="rString[1]" @change="rValues[1] = parseStringToPol(rString[1]);"/></span>
+                          </div>
+                          <div v-if="d>=3" class="tr">
+                              <span class="td"> <input class="minput" v-model="rString[2]" @change="rValues[2] = parseStringToPol(rString[2]);"/></span>
+                          </div>
+                          <div v-if="d>=4" class="tr">
+                              <span class="td"> <input class="minput" v-model="rString[3]" @change="rValues[3] = parseStringToPol(rString[3]);"/></span>
+                          </div>
                         </div>
                       </span>
                      </div>
@@ -212,20 +250,21 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label> e2= </ion-label>
-                  <ion-input :value="e2String" @change="e2String = $event.target.value; e2Values = parseStringToPol(e2String);"></ion-input>
-                </ion-item>
+              <ion-col>          
+                <ion-label><vue-mathjax :formula="outputE2"></vue-mathjax> = </ion-label>
+                <input class="minput" v-model="e2String" @change=" e2Values = parseStringToPol(e2String); "/>
+                <!--ion-item v-if="$v.e2.$anyError" class="error">
+                  Wert muss >0 und &lt;q sein.
+                </!--ion-item-->
+                <!--ion-input :value="e2String" @change="e2String = $event.target.value; e2Values = parseStringToPol(e2String);"></!--ion-input-->             
               </ion-col>
               
               <ion-col>
-                <ion-item>
-                  <ion-label> m: </ion-label>
-                  <ion-input type="number" :value="m" @change="m = +$event.target.value;"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col>
+                <ion-label> m = </ion-label>
+                <input class="minput" v-model="mString" @change="mValues = parseStringToPol(mString);"/>
+                <!--ion-item v-if="!$v.m.validM" class="error">
+                  m muss 0 oder 1 sein
+                </!--ion-item-->               
               </ion-col>
               <ion-col>
               </ion-col>
@@ -238,7 +277,7 @@
                 <ion-button v-on:click="generateAll(); calcAll()">Generiere Alles</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere nach q und N</ion-button>
+                <ion-button v-on:click="generateAfterQ(); calcAll()">Generiere ab A</ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -318,24 +357,21 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { VueMathjax } from "vue-mathjax";
 import { required, between } from 'vuelidate/lib/validators'
-//import { helpers } from 'vuelidate/lib/validators'
 
 function isPrime(num) {
-    for(var i = 2; i < num; i++)
-        if(num % i === 0) return false;
-      return true;
+    for(var i = 2; i < num; i++){
+        if(num % i === 0) {return false;}
+    }
+    return true;
 }
 
 function validN(){
   if(this.N == 2 || this.N==4 || this.N==8){
     return true;
   }
-  else{
-    return false;
-  }
+  return false;
 }
 
 function validD(){
@@ -369,26 +405,12 @@ export default {
     "vue-mathjax": VueMathjax
   },
   name: 'MainKyberPol',
-  el: '#kyber2x2',
-  props: {
-  },
+  el: '#kyberPol',
   data() {
     return {
       q: 97 ,
       N: 4 ,
       d: 2 ,
-      a00: 42,
-      a01: 43 ,
-      a10: 44 ,
-      a11: 45 ,
-      a00String: "1,1,1,1" ,
-      a00Values: [1,1,1,1], //a00[0]= 1x^0, 
-      a01String: "2,2,2,2" ,
-      a01Values: [2,2,2,2],
-      a10String: "3,3,3,3" ,
-      a10Values: [3,3,3,3],
-      a11String: "4,4,4,4" ,
-      a11Values: [4,4,4,4],
       AString: [
         ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
         ["1,2,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
@@ -397,51 +419,43 @@ export default {
       ],
       AValues: [
         [
-          [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , 4,4,4,4
+          [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4]
         ],
         [
-
+          [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4]
         ],
         [
-
+          [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4]
         ],
         [
-
+          [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4]
         ],
       ],
-      s: [1,2] ,
-      s0String: "1,2,3,4",
-      s0Values: [1,2,3,4],
-      s1String: "1,2,3,4",
-      s1Values: [1,2,3,4],
+      sString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+      sValues: [
+        [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4],
+      ],
       e: [4,5] , 
-      e_0String: "1,2,3,4",
-      e_0Values: [1,2,3,4],
-      e_1String: "1,2,3,4",
-      e_1Values: [1,2,3,4],
-      e1: [3,4] ,
-      e1_0String: "1,2,3,4",
-      e1_0Values: [1,2,3,4],
-      e1_1String: "1,2,3,4",
-      e1_1Values: [1,2,3,4], 
-      e2: 3 ,
+      eString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+      eValues: [
+        [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4],
+      ],
+      e1String: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+      e1Values: [
+        [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4],
+      ],
       e2String: "1,2,3,4",
       e2Values: [1,2,3,4],
-      r: [1,2] ,
-      r_0String: "1,2,3,4",
-      r_0Values: [1,2,3,4],
-      r_1String: "1,2,3,4",
-      r_1Values: [1,2,3,4],
-      t: [] ,
-      t_0Values: [] ,
-      t_1Values: [] ,
-      u: [] ,
-      u_0Values: [] ,
-      u_1Values: [] ,
-      v: 0 ,
+      rString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
+      rValues: [
+        [1,1,1,1] , [2,2,2,2] , [3,3,3,3] , [4,4,4,4],
+      ],
+      tValues: [[1,2,3,4],[5,6,7,8],[1,2,3,4],[5,6,7,8]] ,
+      uValues: [[],[],[],[]] ,
       vValues: [] ,
-      m: 0 ,
-      mResult: 0 ,
+      mString: "1, 0, 0, 1" , 
+      mValues: [] ,
+      mResultValues: [] ,
       outputT: 'outputTtest' ,
       outputU: 'outputUtest' ,
       outputV: 'outputVtest' ,
@@ -463,19 +477,9 @@ export default {
       q: {required, isPrime},
       N: {required, validN},
       d: {required, validD},
-      a00: {required, between: between(0, this.q-1) },
-      a10: {required, between: between(0, this.q-1) },
-      a01: {required, between: between(0, this.q-1) },
-      a11: {required, between: between(0, this.q-1) },
-      a00Values: {required, validArrayLength, validArrayValues},
-      a10Values: {required, validArrayLength, validArrayValues},
-      a01Values: {required, validArrayLength, validArrayValues},
-      a11Values: {required, validArrayLength, validArrayValues},
-      matrixGroup: [ 'a00Values', 'a01Values', 'a10Values', 'a11Values'],
-      /*s: {$each: between(0, this.q-1)}*/
+      AValues: {required, validArrayLength, validArrayValues, between: between(0, this.q-1)},
     }
   },
-  
   methods: {
     generateAll: function(){
       this.generateQ();
@@ -498,58 +502,59 @@ export default {
       } 
       else this.generateQ();
     },
-    validateQ: function(num){
-      if(num>100){
-        //q ist größer als 350 (unerwünscht)
-        this.qCheck='q ist größer als 350 (unerwünscht)';
-      }
-      else if(!this.isPrime(num)){
-        //q muss eine Primzahl sein
-        this.qCheck='q muss eine Primzahl sein';
-      }
-      else {
-        //q ist okay 
-        this.qCheck='';
-      }
-    },
-    validateParam: function(param){
-      if(param<0){
-        //param muss positiv sein
-      } 
-      else if(param>=this.q){
-        //param muss kleiner als q sein 
-      }
-      else {
-        //param ist okay
-      }
-    },
     generateA: function(){
-      this.a00= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a01= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a10= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a11= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+      for(let i=0; i<4; i++){
+        for(let j=0; j<4; j++){
+          for(let k=0; k<this.N; k++){
+            this.AValues[i][j][k] = this.modCenterX(Math.floor(Math.random()*(this.q*0.8)+this.q*0.2));
+          }
+          this.AString[i][j] = this.parsePolToString(this.AValues[i][j]);
+        }
+      }
     },
     generateS: function(){
-      this.updateArray(this.s, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.s, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        for(let j=0; j<this.N; j++){
+          this.sValues[i][j] = (Math.ceil(Math.random()*5) - 3);
+        }
+        this.sString[i] = this.parsePolToString(this.sValues[i]);
+      }
     },
     generateE: function(){
-      this.updateArray(this.e, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.e, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        for(let j=0; j<this.N; j++){
+          this.eValues[i][j] = (Math.ceil(Math.random()*5) - 3);
+        }
+        this.eString[i] = this.parsePolToString(this.eValues[i]);
+      }
     },
     generateR: function(){
-      this.updateArray(this.r, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.r, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        for(let j=0; j<this.N; j++){
+          this.rValues[i][j] = (Math.ceil(Math.random()*5) - 3);
+        }
+        this.rString[i] = this.parsePolToString(this.rValues[i]);
+      }
     },
     generateE1: function(){
-      this.updateArray(this.e1, 0, Math.ceil(Math.random()*4));
-      this.updateArray(this.e1, 1, Math.ceil(Math.random()*4));
+      for(let i=0; i<4; i++){
+        for(let j=0; j<this.N; j++){
+          this.e1Values[i][j] = (Math.ceil(Math.random()*5) - 3);
+        }
+        this.e1String[i] = this.parsePolToString(this.e1Values[i]);
+      }
     },
     generateE2: function(){
-      this.e2 = Math.ceil(Math.random()*4);
+      for(let i=0; i<this.N; i++){
+        this.e2Values[i] = (Math.ceil(Math.random()*5) - 3);
+      }
+      this.e2String = this.parsePolToString(this.e2Values);
     },
     generateM: function(){
-      this.m = Math.floor(Math.random()*2);
+      for(let i=0; i<this.N; i++){
+        this.mValues[i] = Math.floor(Math.random()*2);
+      }
+      this.mString = this.parsePolToString(this.mValues);
     },
     calcAll: function(){
       this.calcT();
@@ -566,10 +571,15 @@ export default {
       this.buildOutputM();
     },
     calcT: function(){
-      let erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
-      this.updateArray(this.t, 0, this.modX(erg0, this.q));
-      var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
-      this.updateArray(this.t, 1, this.modX(erg1, this.q));
+      for(let i=0; i<this.d; i++){
+        let result = []; //Ist result im richtigen format?
+        for(let j=0; j<this.d; j++){
+          result = this.addPol( this.mulPolWithModN(this.AValues[i][j],this.sValues[j]) , result);
+        }
+        result = this.addPol(this.eValues[i], result);
+        result = this.modCenterX(result);
+        this.tValues[i]= result;
+      }
     },
     calcU: function(){
       var erg0 = +(this.a00 * this.r[0] + this.a01 * this.r[1] + this.e1[0]);
@@ -602,11 +612,16 @@ export default {
       }
     },
     buildOutputT: function(){
-      if(!this.showFormula){
-        this.outputT= "$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$";
-      } else {
-        this.outputT= "$\\vec{t} = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$";
+      this.outputT= "$\\vec{t} = ";
+      if(this.showFormula){
+        this.outputT += "A*\\vec{s}+\\vec{e} = ";
       }
+      this.outputT +=  "\\begin{pmatrix}";
+      this.outputT += this.parsePolToString(this.tValues[0]);
+      for(let i=1; i<this.d; i++){
+        this.outputT += " \\cr " + this.parsePolToString(this.tValues[i]);
+      }
+      this.outputT += " \\end{pmatrix}$"
     },
     buildOutputU: function(){
       if(!this.showFormula){
@@ -638,24 +653,37 @@ export default {
     },
     parseStringToPol: function(string){
       let array = string.split(',').map(Number);
+      array.reverse();
       return array;
     },
-    updateArray: function(arr, index, value){
-      Vue.set(arr, index, value);
+    parsePolToString: function(array){
+      array.reverse();
+      let ret="" + array[0];
+      for(let i=1; i<this.N; i++){
+        ret += ", " + array[i];
+      }
+      return ret;
     },
-    mulPolWithModD: function(pol1, pol2){
-      let result = [];
-      for(let i=0; i<this.d; i++){
-        for(let j=0; j<this.d; j++){
-          if(i+j<this.d){
-            result[i+j]+=pol1[i]*pol2[j];
+    mulPolWithModN: function(pol1, pol2){
+      let ret = [];
+      for(let i=0; i<this.N; i++){
+        for(let j=0; j<this.N; j++){
+          if(i+j<this.N){
+            ret[i+j]+=pol1[i]*pol2[j];
           }
-          else if(i+j>=this.d){
-            result[i+j-this.d]-=pol1[i]*pol2[j];
+          else if(i+j>=this.N){
+            ret[i+j-this.N]-=pol1[i]*pol2[j];
           }
         }
       }
-      return result;
+      return ret;
+    },
+    addPol: function(pol1, pol2){
+      let ret=[];
+      for(let i=0; i<this.N; i++){
+        ret[i]=pol1[i]+ pol2[i];
+      }
+      return ret;
     },
     modX: function(value, mod){
       while(value>=mod){
@@ -663,6 +691,15 @@ export default {
       }
       while(value<0){
         value+=mod;
+      }
+      return value;
+    },
+    modCenterX: function(value){
+      while(value>(this.q/2)){
+        value-=this.q;
+      }
+      while(value<(-this.q/2)){
+        value+=this.q;
       }
       return value;
     },
@@ -694,7 +731,7 @@ SPAN.td
 { display:table-cell; width: 10px;}
 
 .minput{
-  width: 70px;
+  width: 90px;
 }
 
 .vinput{

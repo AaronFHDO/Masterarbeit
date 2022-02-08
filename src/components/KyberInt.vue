@@ -1,5 +1,5 @@
 <template>
-  <ion-content id="kyber2x2">
+  <ion-content id="kyberInt">
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
@@ -254,7 +254,7 @@
             </ion-row>
             <ion-row>
               <ion-col>
-                <ion-label> e2= </ion-label>
+                <ion-label><vue-mathjax :formula="outputE2"></vue-mathjax> = </ion-label>
                 <input class="minput" type="number" v-model.number="e2" @focus="$v.e2.$touch();"/>
                 <ion-item v-if="$v.e2.$anyError" class="error">
                   Wert muss >0 und &lt;q sein.
@@ -287,7 +287,7 @@
                 <ion-button v-on:click="generateAll(); calcAll()">Generiere Alles</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button v-on:click="generateAfterQ(); calcAll(); q += 1; q-= 1;">Generiere nach q</ion-button>
+                <ion-button v-on:click="generateAfterQ(); calcAll(); q += 1; q-= 1;">Generiere ab A</ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -398,10 +398,8 @@ export default {
   components: {
     "vue-mathjax": VueMathjax
   },
-  name: 'MainRLWE',
-  el: '#kyber2x2',
-  props: {
-  },
+  name: 'MainKyberInt',
+  el: '#kyberInt',
   data() {
     return {
       q: 97 ,
@@ -445,15 +443,15 @@ export default {
       A: {
         $each:{
           $each:{
-            required, between: between(0, this.q-1)
+            required, between: between(-this.q/2, this.q/2)
           }
         }
       },
-      s:{$each:{required, between: between(0, this.q-1)}},
-      e:{$each:{required, between: between(0, this.q-1)}},
-      e1:{$each:{required, between: between(0, this.q-1)}},
-      e2:{required, between: between(0, this.q-1)},
-      r:{$each:{required, between: between(0, this.q-1)}},
+      s:{$each:{required, between: between(-this.q/2, this.q/2)}},
+      e:{$each:{required, between: between(-this.q/2, this.q/2)}},
+      e1:{$each:{required, between: between(-this.q/2, this.q/2)}},
+      e2:{required, between: between(-this.q/2, this.q/2)},
+      r:{$each:{required, between: between(-this.q/2, this.q/2)}},
     }
   },
   
@@ -479,64 +477,35 @@ export default {
       } 
       else this.generateQ();
     },
-    validateQ: function(num){
-      if(num>100){
-        //q ist größer als 350 (unerwünscht)
-        this.qCheck='q ist größer als 350 (unerwünscht)';
-      }
-      else if(!this.isPrime(num)){
-        //q muss eine Primzahl sein
-        this.qCheck='q muss eine Primzahl sein';
-      }
-      else {
-        //q ist okay 
-        this.qCheck='';
-      }
-    },
-    validateParam: function(param){
-      if(param<0){
-        //param muss positiv sein
-      } 
-      else if(param>=this.q){
-        //param muss kleiner als q sein 
-      }
-      else {
-        //param ist okay
-      }
-    },
     generateA: function(){
       for(let i=0; i<4; i++){
         for(let j=0; j<4; j++){
-          this.A[i][j] = Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
+          this.A[i][j] = this.modCenterX(Math.floor(Math.random()*(this.q*0.8)+this.q*0.2));
         }
       }
-      /*this.a00= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a01= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a10= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);
-      this.a11= Math.floor(Math.random()*(this.q*0.8)+this.q*0.2);*/
     },
     generateS: function(){
       for(let i=0; i<4; i++){
-        this.s[i] = Math.ceil(Math.random()*4);
+        this.s[i] = Math.ceil(Math.random()*5) - 3;
       }
     },
     generateE: function(){
       for(let i=0; i<4; i++){
-        this.e[i] = Math.ceil(Math.random()*4);
+        this.e[i] = Math.ceil(Math.random()*5) - 3;
       }
     },
     generateR: function(){
       for(let i=0; i<4; i++){
-        this.r[i] = Math.ceil(Math.random()*4);
+        this.r[i] = Math.ceil(Math.random()*5) - 3;
       }
     },
     generateE1: function(){
       for(let i=0; i<4; i++){
-        this.e1[i] = Math.ceil(Math.random()*4);
+        this.e1[i] = Math.ceil(Math.random()*5) - 3;
       }
     },
     generateE2: function(){
-      this.e2 = Math.ceil(Math.random()*4);
+      this.e2 = Math.ceil(Math.random()*5) - 3;
     },
     generateM: function(){
       this.m = Math.floor(Math.random()*2);
@@ -565,10 +534,6 @@ export default {
         result = this.modCenterX(result);
         this.t[i]= result;
       }
-      /*let erg0 = +(this.a00 * this.s[0] + this.a10 * this.s[1] + this.e[0]);
-      this.updateArray(this.t, 0, this.modX(erg0, this.q));
-      var erg1 = +(this.a01 * this.s[0] + this.a11 * this.s[1] + this.e[1]);
-      this.updateArray(this.t, 1, this.modX(erg1, this.q));*/
     },
     calcU: function(){
       for(let i=0; i<this.d; i++){
@@ -580,11 +545,6 @@ export default {
         result = this.modCenterX(result);
         this.u[i]= result;
       }
-
-      /*var erg0 = +(this.a00 * this.r[0] + this.a01 * this.r[1] + this.e1[0]);
-      this.updateArray(this.u, 0, this.modX(erg0, this.q));
-      var erg1 = +(this.a10 * this.r[0] + this.a11 * this.r[1] + this.e1[1]);
-      this.updateArray(this.u, 1, this.modX(erg1, this.q));*/
     },
     calcV: function(){
       let result = 0;
@@ -595,8 +555,6 @@ export default {
       result += Math.round((this.q/2)*this.m)
       result = this.modCenterX(result);
       this.v = result;
-      /*var erg0 = +(this.t[0] * this.r[0] + this.t[1] * this.r[1] + this.e2+ Math.round((this.q/2)*this.m));
-      this.v = this.modX(erg0, this.q);*/
     },
     calcM: function(){
       let result = 0;
@@ -633,8 +591,6 @@ export default {
         this.outputT += " \\cr " + this.t[i];
       }
       this.outputT += " \\end{pmatrix}$"
-
-
       /*if(!this.showFormula){
         this.outputT= "$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$";
       } else {
@@ -651,13 +607,6 @@ export default {
         this.outputU += " \\cr " + this.u[i];
       }
       this.outputU += " \\end{pmatrix}$"
-      /*if(!this.showFormula){
-        this.outputU= "$\\vec{u} = \\begin{pmatrix} " + 
-        this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
-      } else {
-        this.outputU= "$\\vec{u} = A^{T} * \\vec{r} + \\vec{e_1} =\\begin{pmatrix} " + 
-        this.u[0] + " \\cr " + this.u[1] +" \\end{pmatrix}$";
-      }*/
     },
     buildOutputV: function(){
       this.outputV= "$v = ";
@@ -665,13 +614,6 @@ export default {
         this.outputV += "\\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil = ";
       }
       this.outputV += this.v +"$";
-
-
-      /*if(!this.showFormula){
-        this.outputV= "$v = " + this.v +"$";
-      } else {
-        this.outputV= "$v = \\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil =" + this.v +"$";
-      }*/
     },
     buildOutputM: function(){
       this.outputM= "$m = ";
@@ -679,13 +621,6 @@ export default {
         this.outputM += "Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = ";
       }
       this.outputM += this.mResult +"$";
-
-      /*if(!this.showFormula){
-        this.outputM= "$m = " + this.mResult +"$";
-      } else {
-        this.outputM= "$m = Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = " 
-        + this.mResult +"$";
-      }*/
     },
     updateArray: function(arr, index, value){
       Vue.set(arr, index, value);
