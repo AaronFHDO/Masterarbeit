@@ -112,7 +112,7 @@
                       </span>
                     </div>
                   </div>
-                  <div class="error" v-if="$v.A.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                  <div class="error" v-if="$v.A.$anyError">Werte müssen >(-q/2) und &lt;(q/2) sein.</div>
                 </div>
               </ion-col>
               
@@ -149,7 +149,7 @@
                       </span>
                      </div>
                    </div>
-                   <div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                   <div class="error" v-if="$v.s.$anyError">Werte müssen >(-q/2) und &lt;(q/2) sein.</div>
                 </div>
               </ion-col>
               <ion-col>
@@ -177,7 +177,7 @@
                       </span>
                      </div>
                    </div>
-                   <div class="error" v-if="$v.e.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                   <div class="error" v-if="$v.e.$anyError">Werte müssen >(-q/2) und &lt;(q/2) sein.</div>
                 </div>
               </ion-col>
               <ion-col>
@@ -216,7 +216,7 @@
                       </span>
                      </div>
                    </div>
-                   <div class="error" v-if="$v.e1.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                   <div class="error" v-if="$v.e1.$anyError">Werte müssen >(-q/2) und &lt;(q/2) sein.</div>
                 </div>
               </ion-col>
               <ion-col>
@@ -244,7 +244,7 @@
                       </span>
                      </div>
                    </div>
-                   <div class="error" v-if="$v.r.$anyError">Werte müssen >0 und &lt;q sein.</div>
+                   <div class="error" v-if="$v.r.$anyError">Werte müssen >(-q/2) und &lt;(q/2) sein.</div>
                 </div>
               </ion-col>
               <ion-col>
