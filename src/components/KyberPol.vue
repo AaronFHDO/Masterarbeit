@@ -287,10 +287,50 @@
                               @change="
                                 sValues[3] = parseStringToPol(sString[3])
                               "
-                          /></span>
+                          /></span>                          
                         </div>
                       </div>
+                    </span>  
+                    <span class="td">
+                      <label for="mvalues" position="fixed">
+                        =
+                      </label>
                     </span>
+                    <span class="td">
+                      <div class="table mvalues" id="mvalues">
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[0]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[1]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 3" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[2]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 4" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[3]}}
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </span>                 
+                    <!--span>
+                      {{sPolOutput}}
+                    </span-->
                   </div>
                 </div>
                 <!--div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div-->
@@ -349,6 +389,43 @@
                         </div>
                       </div>
                     </span>
+                    <span class="td">
+                      <label for="mvalues" position="fixed">
+                        =
+                      </label>
+                    </span>
+                    <span class="td">
+                      <div class="table mvalues" id="mvalues">
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{ePolOutput[0]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{ePolOutput[1]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 3" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{ePolOutput[2]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 4" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{ePolOutput[3]}}
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </span> 
                   </div>
                 </div>
               </div>
@@ -416,6 +493,43 @@
                         </div>
                       </div>
                     </span>
+                    <span class="td">
+                      <label for="mvalues" position="fixed">
+                        =
+                      </label>
+                    </span>
+                    <span class="td">
+                      <div class="table mvalues" id="mvalues">
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{e1PolOutput[0]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{e1PolOutput[1]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 3" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{e1PolOutput[2]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 4" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{e1PolOutput[3]}}
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </span> 
                   </div>
                 </div>
               </div>
@@ -473,6 +587,43 @@
                         </div>
                       </div>
                     </span>
+                    <span class="td">
+                      <label for="mvalues" position="fixed">
+                        =
+                      </label>
+                    </span>
+                    <span class="td">
+                      <div class="table mvalues" id="mvalues">
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[0]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[1]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 3" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[2]}}
+                            </div>
+                          </span>
+                        </div>
+                        <div v-if="d >= 4" class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{sPolOutput[3]}}
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </span> 
                   </div>
                 </div>
               </div>
@@ -483,14 +634,38 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-label
-                ><vue-mathjax :formula="outputE2"></vue-mathjax> =
-              </ion-label>
-              <input
-                class="vinput"
-                v-model="e2String"
-                @change="e2Values = parseStringToPol(e2String)"
-              />
+              <div class="matrix">
+                <div class="table">
+                  <div class="tr">
+                    <span class="td">
+                    <ion-label
+                      ><vue-mathjax :formula="outputE2"></vue-mathjax> =
+                    </ion-label>
+                    <input
+                      class="vinput"
+                      v-model="e2String"
+                      @change="e2Values = parseStringToPol(e2String)"
+                    />
+                    </span>
+                    <span class="td">
+                      <label for="mvalues" position="fixed">
+                        =
+                      </label>
+                    </span>
+                    <span class="td">
+                      <div class="table" id="mvalues">
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{e2PolOutput[0]}}
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
               <!--ion-item v-if="$v.e2.$anyError" class="error">
                   Wert muss >0 und &lt;q sein.
                 </!--ion-item-->
@@ -498,12 +673,36 @@
             </ion-col>
 
             <ion-col>
-              <ion-label> m = </ion-label>
-              <input
-                class="vinput"
-                v-model="mString"
-                @change="mValues = parseStringToPol(mString)"
-              />
+              <div class="matrix">
+                <div class="table">
+                  <div class="tr">
+                    <span class="td">
+                    <ion-label> m = </ion-label>
+                    <input
+                      class="vinput"
+                      v-model="mString"
+                      @change="mValues = parseStringToPol(mString)"
+                    />
+                    </span>
+                    <span class="td">
+                      <label for="mvalues" position="fixed">
+                        =
+                      </label>
+                    </span>
+                    <span class="td">
+                      <div class="table" id="mvalues">
+                        <div class="tr">
+                          <span class="td">
+                            <div class="polOutput">
+                              {{mPolOutput[0]}}
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
               <!--ion-item v-if="!$v.m.validM" class="error">
                   m muss 0 oder 1 sein
                 </!--ion-item-->
@@ -686,7 +885,7 @@ export default {
         ["1,3,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
         ["1,4,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
       ],
-      AValues: [
+      /*AValues: [
         [
           [1, 1, 1, 1],
           [2, 2, 2, 2],
@@ -711,37 +910,12 @@ export default {
           [3, 3, 3, 3],
           [4, 4, 4, 4],
         ],
-      ],
+      ],*/
       sString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
-      sValues: [
-        [1, 1, 1, 1],
-        [2, 2, 2, 2],
-        [3, 3, 3, 3],
-        [4, 4, 4, 4],
-      ],
       eString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
-      eValues: [
-        [1, 1, 1, 1],
-        [2, 2, 2, 2],
-        [3, 3, 3, 3],
-        [4, 4, 4, 4],
-      ],
       e1String: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
-      e1Values: [
-        [1, 1, 1, 1],
-        [2, 2, 2, 2],
-        [3, 3, 3, 3],
-        [4, 4, 4, 4],
-      ],
       e2String: "1,2,3,4",
-      e2Values: [0, 0, 0, 0],
       rString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
-      rValues: [
-        [1, 1, 1, 1],
-        [2, 2, 2, 2],
-        [3, 3, 3, 3],
-        [4, 4, 4, 4],
-      ],
       tValues: [
         [1, 2, 3, 4],
         [5, 6, 7, 8],
@@ -751,7 +925,6 @@ export default {
       uValues: [[], [], [], []],
       vValues: [],
       mString: "1, 0, 0, 1",
-      mValues: [],
       mResultValues: [],
       outputT: "outputTtest",
       outputU: "outputUtest",
@@ -768,13 +941,23 @@ export default {
     };
   },
 
-  /*computed: {
-    sValues: function(){
-      
+  computed: {
+    AValues: function(){return this.parseStringMatrixToPolMatrix(this.AString);},
+    sValues: function(){return this.parseStringVectorToPolVector(this.sString);},
+    eValues: function(){return this.parseStringVectorToPolVector(this.eString);},
+    e1Values: function(){return this.parseStringVectorToPolVector(this.e1String);},
+    rValues: function(){return this.parseStringVectorToPolVector(this.rString);},
+    e2Values: function(){return this.parseStringToPol(this.e2String);},
+    mValues: function(){return this.parseStringToPol(this.mString);},
 
-      return this.parsePolToString(this.sValues);
-    }
-  },*/
+    sPolOutput: function(){return this.parsePolVectortoPolOutputVector(this.sValues);},
+    ePolOutput: function(){return this.parsePolVectortoPolOutputVector(this.eValues);},
+    e1PolOutput: function(){return this.parsePolVectortoPolOutputVector(this.e1Values);},
+    rPolOutput: function(){return this.parsePolVectortoPolOutputVector(this.rValues);},
+
+    e2PolOutput: function(){return this.parseSinglePoltoPolOutputVector(this.e2Values);},
+    mPolOutput: function(){return this.parseSinglePoltoPolOutputVector(this.mValues);},
+  },
 
   validations() {
     return {
@@ -802,6 +985,7 @@ export default {
       this.generateE1();
       this.generateE2();
       this.generateM();
+      this.updatePolOutputs();
     },
     generateQ: function () {
       var randomValue = Math.ceil(20 + Math.random() * 280);
@@ -928,11 +1112,8 @@ export default {
       for (let i = 0; i < this.d; i++) {
         calc = this.addPol(this.mulPolWithModN(this.sValues[i], this.uValues[i]),calc);
       }
-      for (let i = 0; i < this.N; i++) {
-        console.log("mvalue vor mod", result[i]);
+      for (let i = 0; i < this.N; i++) {       
         result[i]= this.modCenterX(result[i] - calc[i]);
-        console.log("mvalue nach mod", result[i]);
-
         if (result[i] >(-this.q/4) && result[i]<(this.q*1/4)) {
           //result[j] ist im obersten oder untersten Viertel, also um 0 herum
           this.mResultValues[i] = 0;
@@ -962,7 +1143,8 @@ export default {
       for (let i = 1; i < this.d; i++) {
         this.outputT += " \\cr " + this.parsePolToString(this.tValues[i]);
       }
-      this.outputT += " \\end{pmatrix}$";
+      this.outputT += " \\end{pmatrix}";
+      this.outputT += this.addPolVectorOutput(this.tValues);
     },
     buildOutputU: function () {
       this.outputU = "$\\vec{u} = ";
@@ -974,7 +1156,8 @@ export default {
       for (let i = 1; i < this.d; i++) {
         this.outputU += " \\cr " + this.parsePolToString(this.uValues[i]);
       }
-      this.outputU += " \\end{pmatrix}$";
+      this.outputU += " \\end{pmatrix}";
+      this.outputU += this.addPolVectorOutput(this.uValues);
     },
     buildOutputV: function () {
       this.outputV = "$v = ";
@@ -983,7 +1166,10 @@ export default {
       }
       this.outputV += "\\begin{pmatrix}";
       this.outputV += this.parsePolToString(this.vValues);
-      this.outputV += " \\end{pmatrix}$";
+      this.outputV += " \\end{pmatrix}  = \\begin{pmatrix}";
+      this.outputV += this.addPolOutput(this.vValues);
+      this.outputV += " \\end{pmatrix}$"
+
     },
     buildOutputM: function () {
       this.outputM = "$m = ";
@@ -992,20 +1178,53 @@ export default {
       }
       this.outputM += "\\begin{pmatrix}";
       this.outputM += this.parsePolToString(this.mResultValues);
-      this.outputM += " \\end{pmatrix}$";
+      this.outputM += " \\end{pmatrix} = \\begin{pmatrix}";
+      let setPlus = false;
+      for(let j=this.N-1; j>=0; j--){
+        if(this.mResultValues[j]==1 && j>0){
+          if(j>0){this.outputM += "X"}
+          if(j>1){this.outputM += "^{" + j + "}"}
+          setPlus=true;
+        }
+        if(this.mResultValues[j]==1 && j==0){
+          this.outputM += "1";
+        }
+        if(j>0 && this.mResultValues[j-1]>0 && setPlus){
+          this.outputM += "+";
+        }
+      }
+      this.outputM += "\\end{pmatrix}$";
     },
-    buildPolRegex: function () {
-      this.polRegex = "/[0-9]*(,[0-9]*){" + this.d - 1 + "}$/";
+    addPolOutput: function(pol){
+      let ret="";
+      for(let j=this.N-1; j>=0; j--){
+        ret+= pol[j];
+        if(j>0){ret+= "X"}
+        if(j>1){ret+= "^{" + j + "}"}
+        if(j>0 && pol[j-1]>0){
+          ret+= "+"
+        }
+      }
+      return ret;
+    },
+    addPolVectorOutput: function(polVec){
+      let ret= "";
+      ret += " = \\begin{pmatrix}"
+      ret += this.addPolOutput(polVec[0]);
+      for (let i = 1; i < this.d; i++) {
+        ret += " \\cr ";
+        ret += this.addPolOutput(polVec[i]);
+      }
+      ret += " \\end{pmatrix}$"
+      return ret;
     },
     parseStringToPol: function (string) {
       let array = string.split(",").map(Number);
-      console.log("array vor reverse:", array);
       array.reverse();
-      console.log("array nach reverse:", array);
       return array;
     },
     parsePolToString: function (array) {
-      array.reverse(); //Array drehen für konventierung
+      array.reverse(); //Array drehen für konventierung (Call by reference)
       let ret = "" + array[0];
       for (let i = 1; i < this.N; i++) {
         ret += "," + array[i];
@@ -1013,11 +1232,74 @@ export default {
       array.reverse(); //Ursprungsarray wieder herstellen
       return ret;
     },
-    /*parsePolVectorToStringVector: function (array){
-      for(let i=0; i<this.d; i++){
-
+    parsePolToPolOutput: function(pol){
+      let ret= "";
+      let setPlus=false;
+        for(let i=this.N-1; i>=0; i--){
+          if(pol[i]!=0){
+            ret += " " + pol[i];
+            setPlus=true;
+            if(i!=0){ret += "X"}
+            switch(i){
+              case 7: ret += " \u2077";break;
+              case 6: ret += " \u2076";break;
+              case 5: ret += " \u2075";break;
+              case 4: ret += " \u2074";break;
+              case 3: ret += " \u00B3";break;
+              case 2: ret += " \u00B2";break;
+            }
+          } 
+          if(pol[i-1]==0){ret+= "    "}
+          if(i>0 && pol[i-1]>0 && setPlus){ret+= " +"}
+          if(pol[i-1]<0){ret+= " "}
+        }
+      
+      return ret;
+    },
+    parseSinglePoltoPolOutputVector: function(singlePol){//wrapper um computed setter zu umgehen
+      let ret = Array(1).fill("")
+      ret[0] = this.parsePolToPolOutput(singlePol);
+      return ret;
+    },
+    parsePolVectortoPolOutputVector: function(polVector){
+      let ret = Array(4).fill("")
+      for(let i=0; i<4; i++){
+        ret[i] = this.parsePolToPolOutput(polVector[i]);
       }
-    },*/
+      return ret;
+    },
+    parsePolVectorToStringVector: function (polVec, stringVec){
+      for(let i=0; i<this.d; i++){
+        stringVec[i] = this.parsePolToString(polVec[i]);
+      }
+      return stringVec;
+    },
+    parseStringVectorToPolVector: function (stringVec){
+      let polVec = Array(4).fill(Array(this.N).fill(0));
+      for(let i=0; i<this.d; i++){
+        polVec[i] = this.parseStringToPol(stringVec[i]);
+      }
+      return polVec;
+    },
+    parseStringMatrixToPolMatrix: function(stringMatrix){
+      let polMatrix = Array(4).fill(Array(4).fill(Array(this.N).fill(0)));
+      for(let i=0; i<this.d; i++){
+        polMatrix[i] = this.parseStringVectorToPolVector(stringMatrix[i]);
+      }
+      return polMatrix;
+    },
+
+    updatePolOutputs: function(){
+      for(let i=0; i<4; i++){
+        this.sPolOutput[i]= this.parsePolToPolOutput(this.sValues[i]);
+        this.ePolOutput[i]= this.parsePolToPolOutput(this.eValues[i]);
+        this.e1PolOutput[i]= this.parsePolToPolOutput(this.e1Values[i]);
+        this.rPolOutput[i]= this.parsePolToPolOutput(this.rValues[i]);
+      }
+      this.e2PolOutput = this.parsePolToPolOutput(this.e2Values);
+      this.mPolOutput = this.parsePolToPolOutput(this.mValues);
+    },
+
     mulPolWithModN: function (pol1, pol2) {
       let ret = Array(this.N).fill(0);
       for (let i = 0; i < this.N; i++) {
@@ -1029,7 +1311,6 @@ export default {
           }
         }
       }
-      console.log("ret nach rechnung" + ret);
       return ret;
     },
     addPol: function (pol1, pol2) {
@@ -1082,6 +1363,7 @@ export default {
 <style scoped>
 label {
   margin-right: 8px;
+  margin-left: 8px;
 }
 
 DIV.table {
@@ -1090,6 +1372,10 @@ DIV.table {
 FORM.tr,
 DIV.tr {
   display: table-row;
+}
+FORM.tc,
+DIV.tc {
+  display: table-column;
 }
 SPAN.td {
   display: table-cell;
@@ -1106,6 +1392,12 @@ SPAN.td {
 .vinput {
   width: 110px;
 }
+
+.polOutput {
+  margin: 8px;
+  
+}
+
 input {
   border-color: gray;
   margin: 8px;
