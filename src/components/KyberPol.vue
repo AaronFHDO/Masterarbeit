@@ -51,27 +51,28 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-label> q: </ion-label>
+              <ion-label> q =</ion-label>
               <input class="ninput" type="number" v-model.number="q" />
               <ion-item v-if="!$v.q.isPrime" class="error">
                 q muss eine Primzahl sein
               </ion-item>
             </ion-col>
             <ion-col>
-              <ion-label> N: </ion-label>
-              <input class="ninput" type="number" v-model.number="N" />
-              <ion-item v-if="!$v.N.validN" class="error">
-                N sollte 2 , 4 oder 8 sein.
-              </ion-item>
+              <ion-label> N = </ion-label>
+              <select class="ninput" v-model.number="N" @change="generateAfterQ(); N += 1, N-=1;">
+                <option value="2">2</option>              
+                <option value="4">4</option>
+                <option value="8">8</option>
+              </select>
             </ion-col>
             <ion-col>
-              <ion-label> d: </ion-label>
-              <input class="ninput" type="number" v-model.number="d" />
-              <ion-item v-if="!$v.d.validD" class="error">
-                d muss 2, 3 oder 4 sein
-              </ion-item>
+              <ion-label> d = </ion-label>
+              <select class="ninput" v-model.number="d">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
             </ion-col>
-            <ion-col></ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
@@ -88,34 +89,21 @@
                             <input
                               class="minput"
                               v-model="AString[0][0]"
-                              @change="
-                                AValues[0][0] = parseStringToPol(AString[0][0])
-                              "
                           /></span>
-                          <!-- reihenfolge nicht deterministisch. was tun? setzen von values zentralisieren und vor berechnung ausführen? was ist mit anzeige von polynomschreibweise? durch string erzeugen? strings mit computed?-->
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[0][1]"
-                              @change="
-                                AValues[0][1] = parseStringToPol(AString[0][1])
-                              "
                           /></span>
                           <span v-if="d >= 3" class="td">
                             <input
                               class="minput"
                               v-model="AString[0][2]"
-                              @change="
-                                AValues[0][2] = parseStringToPol(AString[0][2])
-                              "
                           /></span>
                           <span v-if="d >= 4" class="td">
                             <input
                               class="minput"
                               v-model="AString[0][3]"
-                              @change="
-                                AValues[0][3] = parseStringToPol(AString[0][3])
-                              "
                           /></span>
                         </div>
                         <div class="tr">
@@ -123,33 +111,21 @@
                             <input
                               class="minput"
                               v-model="AString[1][0]"
-                              @change="
-                                AValues[1][0] = parseStringToPol(AString[1][0])
-                              "
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[1][1]"
-                              @change="
-                                AValues[1][1] = parseStringToPol(AString[1][1])
-                              "
                           /></span>
                           <span v-if="d >= 3" class="td">
                             <input
                               class="minput"
                               v-model="AString[1][2]"
-                              @change="
-                                AValues[1][2] = parseStringToPol(AString[1][2])
-                              "
                           /></span>
                           <span v-if="d >= 4" class="td">
                             <input
                               class="minput"
                               v-model="AString[1][3]"
-                              @change="
-                                AValues[1][3] = parseStringToPol(AString[1][3])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 3" class="tr">
@@ -157,33 +133,21 @@
                             <input
                               class="minput"
                               v-model="AString[2][0]"
-                              @change="
-                                AValues[2][0] = parseStringToPol(AString[2][0])
-                              "
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[2][1]"
-                              @change="
-                                AValues[2][1] = parseStringToPol(AString[2][1])
-                              "
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[2][2]"
-                              @change="
-                                AValues[2][2] = parseStringToPol(AString[2][2])
-                              "
                           /></span>
                           <span v-if="d >= 4" class="td">
                             <input
                               class="minput"
                               v-model="AString[2][3]"
-                              @change="
-                                AValues[2][3] = parseStringToPol(AString[2][3])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 4" class="tr">
@@ -191,39 +155,23 @@
                             <input
                               class="minput"
                               v-model="AString[3][0]"
-                              @change="
-                                AValues[3][0] = parseStringToPol(AString[3][0])
-                              "
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[3][1]"
-                              @change="
-                                AValues[3][1] = parseStringToPol(AString[3][1])
-                              "
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[3][2]"
-                              @change="
-                                AValues[3][2] = parseStringToPol(AString[3][2])
-                              "
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[3][3]"
-                              @change="
-                                AValues[3][3] = parseStringToPol(AString[3][3])
-                              "
                           /></span>
                         </div>
-                        <!--div class="tr">                               
-                               <span class="td"><input class="minput" :value="a01String" @change="a01String = $event.target.value; a01Values = parseStringToPol(a01String); $v.a01.$touch();"/></span>
-                               <span class="td"><input class="minput" :value="a11String" @change="a11String = $event.target.value; a11Values = parseStringToPol(a11String); $v.a11.$touch();"/></span>
-                           </!--div-->
                       </div>
                     </span>
                   </div>
@@ -253,10 +201,7 @@
                           <span class="td">
                             <input
                               class="vinput"
-                              v-model="sString[0]"
-                              @change="
-                                sValues[0] = parseStringToPol(sString[0])
-                              "
+                              v-model="sString[0]"                              
                           /></span>
                         </div>
                         <div class="tr">
@@ -264,9 +209,6 @@
                             <input
                               class="vinput"
                               v-model="sString[1]"
-                              @change="
-                                sValues[1] = parseStringToPol(sString[1])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 3" class="tr">
@@ -274,9 +216,6 @@
                             <input
                               class="vinput"
                               v-model="sString[2]"
-                              @change="
-                                sValues[2] = parseStringToPol(sString[2])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 4" class="tr">
@@ -284,9 +223,6 @@
                             <input
                               class="vinput"
                               v-model="sString[3]"
-                              @change="
-                                sValues[3] = parseStringToPol(sString[3])
-                              "
                           /></span>                          
                         </div>
                       </div>
@@ -328,9 +264,6 @@
                         </div>
                       </div>
                     </span>                 
-                    <!--span>
-                      {{sPolOutput}}
-                    </span-->
                   </div>
                 </div>
                 <!--div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div-->
@@ -352,9 +285,6 @@
                             <input
                               class="vinput"
                               v-model="eString[0]"
-                              @change="
-                                eValues[0] = parseStringToPol(eString[0])
-                              "
                           /></span>
                         </div>
                         <div class="tr">
@@ -362,9 +292,6 @@
                             <input
                               class="vinput"
                               v-model="eString[1]"
-                              @change="
-                                eValues[1] = parseStringToPol(eString[1])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 3" class="tr">
@@ -372,9 +299,6 @@
                             <input
                               class="vinput"
                               v-model="eString[2]"
-                              @change="
-                                eValues[2] = parseStringToPol(eString[2])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 4" class="tr">
@@ -382,9 +306,6 @@
                             <input
                               class="vinput"
                               v-model="eString[3]"
-                              @change="
-                                eValues[3] = parseStringToPol(eString[3])
-                              "
                           /></span>
                         </div>
                       </div>
@@ -456,9 +377,6 @@
                             <input
                               class="vinput"
                               v-model="e1String[0]"
-                              @change="
-                                e1Values[0] = parseStringToPol(e1String[0])
-                              "
                           /></span>
                         </div>
                         <div class="tr">
@@ -466,9 +384,6 @@
                             <input
                               class="vinput"
                               v-model="e1String[1]"
-                              @change="
-                                e1Values[1] = parseStringToPol(e1String[1])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 3" class="tr">
@@ -476,9 +391,6 @@
                             <input
                               class="vinput"
                               v-model="e1String[2]"
-                              @change="
-                                e1Values[2] = parseStringToPol(e1String[2])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 4" class="tr">
@@ -486,9 +398,6 @@
                             <input
                               class="vinput"
                               v-model="e1String[3]"
-                              @change="
-                                e1Values[3] = parseStringToPol(e1String[3])
-                              "
                           /></span>
                         </div>
                       </div>
@@ -550,9 +459,6 @@
                             <input
                               class="vinput"
                               v-model="rString[0]"
-                              @change="
-                                rValues[0] = parseStringToPol(rString[0])
-                              "
                           /></span>
                         </div>
                         <div class="tr">
@@ -560,9 +466,6 @@
                             <input
                               class="vinput"
                               v-model="rString[1]"
-                              @change="
-                                rValues[1] = parseStringToPol(rString[1])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 3" class="tr">
@@ -570,9 +473,6 @@
                             <input
                               class="vinput"
                               v-model="rString[2]"
-                              @change="
-                                rValues[2] = parseStringToPol(rString[2])
-                              "
                           /></span>
                         </div>
                         <div v-if="d >= 4" class="tr">
@@ -580,9 +480,6 @@
                             <input
                               class="vinput"
                               v-model="rString[3]"
-                              @change="
-                                rValues[3] = parseStringToPol(rString[3])
-                              "
                           /></span>
                         </div>
                       </div>
@@ -597,28 +494,28 @@
                         <div class="tr">
                           <span class="td">
                             <div class="polOutput">
-                              {{sPolOutput[0]}}
+                              {{rPolOutput[0]}}
                             </div>
                           </span>
                         </div>
                         <div class="tr">
                           <span class="td">
                             <div class="polOutput">
-                              {{sPolOutput[1]}}
+                              {{rPolOutput[1]}}
                             </div>
                           </span>
                         </div>
                         <div v-if="d >= 3" class="tr">
                           <span class="td">
                             <div class="polOutput">
-                              {{sPolOutput[2]}}
+                              {{rPolOutput[2]}}
                             </div>
                           </span>
                         </div>
                         <div v-if="d >= 4" class="tr">
                           <span class="td">
                             <div class="polOutput">
-                              {{sPolOutput[3]}}
+                              {{rPolOutput[3]}}
                             </div>
                           </span>
                         </div>
@@ -644,7 +541,6 @@
                     <input
                       class="vinput"
                       v-model="e2String"
-                      @change="e2Values = parseStringToPol(e2String)"
                     />
                     </span>
                     <span class="td">
@@ -681,7 +577,6 @@
                     <input
                       class="vinput"
                       v-model="mString"
-                      @change="mValues = parseStringToPol(mString)"
                     />
                     </span>
                     <span class="td">
@@ -916,12 +811,7 @@ export default {
       e1String: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
       e2String: "1,2,3,4",
       rString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
-      tValues: [
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-      ],
+      tValues: [[], [], [], []],
       uValues: [[], [], [], []],
       vValues: [],
       mString: "1, 0, 0, 1",
@@ -1000,18 +890,22 @@ export default {
           for (let k = 0; k < this.N; k++) {
             this.AValues[i][j][k] = this.modCenterX(
               Math.floor(Math.random() * (this.q * 0.8) + this.q * 0.2)
-            );
+             );
           }
           this.AString[i][j] = this.parsePolToString(this.AValues[i][j]);
         }
       }
     },
     generateS: function () {
+      this.sValues=Array(4).fill(Array(this.N).fill(0));
       for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < this.N; j++) {
-          this.sValues[i][j] = Math.ceil(Math.random() * 5) - 3;
-        }
+        //do{
+          for (let j = 0; j < this.N; j++) {
+            this.sValues[i][j] = Math.ceil(Math.random() * 5) - 3;
+          }
+        //} while (this.checkZeroPol(this.sValues[i]));
         this.sString[i] = this.parsePolToString(this.sValues[i]);
+        console.log("s parsen an stelle " + i + " aus " + this.sValues[i]);
       }
     },
     generateE: function () {
@@ -1112,6 +1006,7 @@ export default {
       for (let i = 0; i < this.d; i++) {
         calc = this.addPol(this.mulPolWithModN(this.sValues[i], this.uValues[i]),calc);
       }
+      this.mResultValues = Array(this.N).fill(0);
       for (let i = 0; i < this.N; i++) {       
         result[i]= this.modCenterX(result[i] - calc[i]);
         if (result[i] >(-this.q/4) && result[i]<(this.q*1/4)) {
@@ -1263,7 +1158,7 @@ export default {
     },
     parsePolVectortoPolOutputVector: function(polVector){
       let ret = Array(4).fill("")
-      for(let i=0; i<4; i++){
+      for(let i=0; i<this.d; i++){
         ret[i] = this.parsePolToPolOutput(polVector[i]);
       }
       return ret;
@@ -1353,6 +1248,15 @@ export default {
     isPrime: function (num) {
       for (var i = 2; i < num; i++) if (num % i === 0) return false;
       return true;
+    },
+    checkZeroPol: function(pol){
+      let allZero=true;
+      for(let i=0; i<this.N; i++){
+        if(pol[i]!=0){
+          allZero=false;
+        }
+      }
+      return allZero;
     },
   },
 };
