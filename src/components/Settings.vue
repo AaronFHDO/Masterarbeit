@@ -14,8 +14,10 @@
         <ion-card-title>Version</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        1.1 <br> 
+        <ion-text color="dark">
+        1.2 <br> 
         Laden Sie für die neueste Version die Seite mit Cache-Reset neu (z. B. mit "Strg" + "F5")
+        </ion-text>
       </ion-card-content>
     </ion-card>
   </ion-content>  
@@ -27,3 +29,9 @@ export default {
   name: 'Settings',
 };
 </script>
+<style scoped>
+ion-text{
+  font-size: 13pt;
+  color: black;
+}
+</style>

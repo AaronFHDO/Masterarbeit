@@ -14,23 +14,13 @@
         </ion-card-header>
 
         <ion-card-content>
-          Das hier ist die Kyber-Komponente. <br>
-          <br>
-          Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (Integer-) Kyber zu generieren,<br>
-          selbst zu erstellen und zu berechenen. <br>
+          Hier können Sie Aufgaben zu (Integer-) Kyber zu generieren,<br>
+          selbst erstellen und berechenen. <br>
           Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
           <br>
-          Parameter-Voraussetzungen: q muss eine Primzahl sein, d muss 2, 3 oder 4 sein, m muss 0 oder 1 sein, alle anderen Werte müssen zwischen 0 und q-1 liegen<br>
-          Parameter-Empfehlungen: q sollte mind. 20 sein, in A sollten große Werte (mind. 0,2q) und in 
-          <vue-mathjax :formula="vectorS"></vue-mathjax>,
-          <vue-mathjax :formula="vectorE"></vue-mathjax>, 
-          <vue-mathjax :formula="vectorE1"></vue-mathjax>,
-          <vue-mathjax :formula="outputE2"></vue-mathjax> und 
-          <vue-mathjax :formula="vectorR"></vue-mathjax> 
-          kleine Werte (1-5) verwendet werden<br>
-          Alle Voraussetzungen und Empfehlungen sind bei der automatischen Generierung eingehalten. <br>
+          Alle Parameter-Voraussetzungen und Empfehlungen sind af der Überblick-Seite zu finden und werden bei der automatischen Generierung eingehalten. <br>
           Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit kleinen Parametern gerechnet wird. <br>
-          In allen Formeln wird implizit (mod q) gerechnet.
+          In allen Formeln wird implizit (mod q) mit um 0 zentrierter Schreibweise gerechnet.
         </ion-card-content>
       </ion-card>
 
@@ -58,15 +48,12 @@
                 </ion-item>
               </ion-col>
               <ion-col>
-                <ion-label> d: </ion-label>
-                <input class="minput" type="number" v-model.number="d" @focus="$v.d.$touch();" @change="updateValidators();"/>
-                <!--ion-item>
-                  <ion-input type="number" :value="d" 
-                  @change="d = +$event.target.value; "></ion-input>
-                </ion-item-->
-                <ion-item v-if="!$v.d.validD" class="error">
-                  d muss 2, 3 oder 4 sein
-                </ion-item>
+                <ion-label> d = </ion-label>
+                <select class="ninput" v-model.number="d">
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -88,7 +75,6 @@
                               <span class="td"> <input class="minput" type="number" v-model.number="A[0][1]" @focus="$v.A.$each[0].$each[1].$touch();"/></span>
                               <span v-if="d>=3" class="td"> <input class="minput" type="number" v-model.number="A[0][2]" @focus="$v.A.$each[0].$each[2].$touch();"/></span>
                               <span v-if="d>=4" class="td"> <input class="minput" type="number" v-model.number="A[0][3]" @focus="$v.A.$each[0].$each[3].$touch();"/></span>
-                              <!--span v-if="d>=4" class="td"> <input class="minput" type="number" :value="A[0][3]" @change="A[0][3] = +$event.target.value; $v.a10.$touch();"/></span-->
                           </div>
                           <div class="tr">
                               <span class="td"> <input class="minput" type="number" v-model.number="A[1][0]" @focus="$v.A.$each[1].$each[0].$touch();"/></span>
@@ -144,7 +130,6 @@
                            <div v-if="d>=4" class="tr">
                               <span class="td"><input class="minput" type="number" v-model.number="s[3]" @focus="$v.s.$each[3].$touch();"/></span>                               
                            </div>
-                           <!--span class="td"><input class="minput" type="number" :value="s[3]" @change="updateArray(s, 3, +$event.target.value); $v.s.$touch();"/></!--span-->
                         </div>
                       </span>
                      </div>
@@ -317,52 +302,78 @@
             <ion-col>
               <ion-button v-if="!showResults" v-on:click="showResults=true; calcAll(); ">Ergebnisse anzeigen</ion-button>
               <ion-button v-if="showResults" v-on:click="showResults=false">Ergebnisse verbergen</ion-button>
-            </ion-col>
-            
+            </ion-col>           
           </ion-row>
         </ion-grid>
+      </ion-card-header>
         <div v-if="showResults">
-        <ion-item-divider></ion-item-divider>
-        <ion-card-subtitle>Alice</ion-card-subtitle>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <vue-mathjax :formula="outputT">
-              </vue-mathjax>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-card-subtitle>Bob</ion-card-subtitle>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <vue-mathjax :formula="outputU">
-              </vue-mathjax>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <vue-mathjax :formula="outputV">
-              </vue-mathjax>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-card-subtitle>Alice</ion-card-subtitle>
-        <ion-grid>
-          <ion-row>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <vue-mathjax :formula="outputM">
-              </vue-mathjax>
-              <div v-if="decryptIssue" class="center error">
-                Entschlüsselungsfehler wegen ungünstiger Parameter
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-subtitle>Alice</ion-card-subtitle>  
+              </ion-col>
+              <ion-col>
+                <ion-card-subtitle>Öffentlich</ion-card-subtitle>
+              </ion-col>
+              <ion-col>
+                <ion-card-subtitle>Bob</ion-card-subtitle>
+              </ion-col>
+            </ion-row>
+            <ion-item-divider></ion-item-divider>
+            <ion-row>
+              <ion-col>
+                Alice berechnet 
+                <vue-mathjax :formula="outputT"></vue-mathjax>
+              </ion-col>
+              <ion-col>
+                <vue-mathjax :formula="sendT"></vue-mathjax>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-item-divider></ion-item-divider>
+            <ion-row>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+                <ion-col>
+                  Bob berechnet 
+                </ion-col>
+                <ion-col>
+                  <vue-mathjax :formula="outputU"> </vue-mathjax>
+                </ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+                <vue-mathjax :formula="sendUV"> </vue-mathjax>
+              </ion-col>
+              <ion-col>
+                <ion-col>
+                  und
+                </ion-col>
+                <ion-col>
+                  <vue-mathjax :formula="outputV"> </vue-mathjax>
+                </ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-item-divider></ion-item-divider>
+            <ion-row>
+              <ion-col>
+                Alice berechnet Bobs Nachricht
+                <vue-mathjax :formula="outputM"></vue-mathjax>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </div>
-      </ion-card-header> 
     </ion-card>    
   </ion-content>
 </template>
@@ -429,6 +440,8 @@ export default {
       vectorE1: '$\\vec{e_1}$',
       outputE2: '$e_2$',
       vectorR: '$\\vec{r}$',
+      sendT: '$\\vec{t} \\Longrightarrow$',
+      sendUV: '$\\Longleftarrow \\vec{u}, \\vec{v} $',
       showResults: false ,
       showFormula: false ,
       decryptIssue: false ,
@@ -480,29 +493,37 @@ export default {
     generateA: function(){
       for(let i=0; i<4; i++){
         for(let j=0; j<4; j++){
-          this.A[i][j] = this.modCenterX(Math.floor(Math.random()*(this.q*0.8)+this.q*0.2));
+          this.A[i][j] = this.modCenterX(Math.floor(Math.random()*(this.q*0.8)+this.q*0.1));
         }
       }
     },
     generateS: function(){
-      for(let i=0; i<4; i++){
-        this.s[i] = Math.ceil(Math.random()*5) - 3;
-      }
+      do{
+        for(let i=0; i<4; i++){
+          this.s[i] = Math.ceil(Math.random()*5) - 3;
+        }
+      } while (this.checkZeroVector(this.s));
     },
     generateE: function(){
-      for(let i=0; i<4; i++){
-        this.e[i] = Math.ceil(Math.random()*5) - 3;
-      }
+      do{
+        for(let i=0; i<4; i++){
+          this.e[i] = Math.ceil(Math.random()*5) - 3;
+        }
+      } while (this.checkZeroVector(this.e));
     },
     generateR: function(){
-      for(let i=0; i<4; i++){
-        this.r[i] = Math.ceil(Math.random()*5) - 3;
-      }
+      do{
+        for(let i=0; i<4; i++){
+          this.r[i] = Math.ceil(Math.random()*5) - 3;
+        }
+      } while (this.checkZeroVector(this.r));
     },
     generateE1: function(){
-      for(let i=0; i<4; i++){
-        this.e1[i] = Math.ceil(Math.random()*5) - 3;
-      }
+      do{
+        for(let i=0; i<4; i++){
+          this.e1[i] = Math.ceil(Math.random()*5) - 3;
+        }
+      } while (this.checkZeroVector(this.e1));
     },
     generateE2: function(){
       this.e2 = Math.ceil(Math.random()*5) - 3;
@@ -591,16 +612,11 @@ export default {
         this.outputT += " \\cr " + this.t[i];
       }
       this.outputT += " \\end{pmatrix}$"
-      /*if(!this.showFormula){
-        this.outputT= "$\\vec{t} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] +" \\end{pmatrix}$";
-      } else {
-        this.outputT= "$\\vec{t} = A*\\vec{s}+\\vec{e} = \\begin{pmatrix} " + this.t[0] + " \\cr " + this.t[1] + " \\end{pmatrix}$";
-      }*/
     },
     buildOutputU: function(){
       this.outputU= "$\\vec{u} = ";
       if(this.showFormula){
-        this.outputU += "A^{T} * \\vec{r} + \\vec{e_1} ";
+        this.outputU += "A^{T} * \\vec{r} + \\vec{e_1} =";
       }
       this.outputU +=  "\\begin{pmatrix}" + this.u[0];
       for(let i=1; i<this.d; i++){
@@ -661,6 +677,15 @@ export default {
         this.$v.r.$each[i].$touch();
       }  
     },
+    checkZeroVector: function(pol){
+      let allZero=true;
+      for(let i=0; i<this.d; i++){
+        if(pol[i]!=0){
+          allZero=false;
+        }
+      }
+      return allZero;
+    },
   },
 }
 </script>
@@ -685,6 +710,11 @@ SPAN.td
 .minput{
   width: 45px;
 }
+
+.ninput {
+  width: 50px;
+}
+
 input{
   border-color: gray;
 }
@@ -720,5 +750,9 @@ input:focus{
 
 .error {
   color: red;
+}
+ion-card-content, ion-col, ion-card-subtitle{
+  font-size: 13pt;
+  color: black;
 }
 </style>

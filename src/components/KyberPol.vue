@@ -14,29 +14,13 @@
       </ion-card-header>
 
       <ion-card-content>
-        Das hier ist die Kyber-Komponente. <br />
-        <br />
-        Nutzern wird hier die Möglichkeit gegeben, Aufgaben zu (Polynom-) Kyber
-        zu generieren,<br />
-        selbst zu erstellen und zu berechenen. <br />
-        Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der
-        Entschlüsselung durch Alice dargestellt.<br />
-        <br />
-        Parameter-Voraussetzungen: q muss eine Primzahl sein, alle anderen Werte
-        müssen zwischen 0 und q-1 liegen, m muss 0 oder 1 sein <br />
-        Parameter-Empfehlungen: q sollte mind. 20 sein, in A sollten große Werte
-        (mind. 0,2q) und in
-        <vue-mathjax :formula="vectorS"></vue-mathjax>,
-        <vue-mathjax :formula="vectorE"></vue-mathjax>,
-        <vue-mathjax :formula="vectorE1"></vue-mathjax>,
-        <vue-mathjax :formula="outputE2"></vue-mathjax> und
-        <vue-mathjax :formula="vectorR"></vue-mathjax>
-        kleine Werte (1-5) verwendet werden<br />
-        Alle Voraussetzungen und Empfehlungen sind bei der automatischen
-        Generierung eingehalten. <br />
-        Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit
-        kleinen Parametern gerechnet wird. <br />
-        In allen Formeln wird implizit (mod q) gerechnet.
+        Hier können Sie Aufgaben zu (Integer-) Kyber zu generieren,<br>
+        selbst erstellen und berechenen. <br>
+        Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
+        <br>
+        Alle Parameter-Voraussetzungen und Empfehlungen sind af der Überblick-Seite zu finden und werden bei der automatischen Generierung eingehalten. <br>
+        Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit kleinen Parametern gerechnet wird. <br>
+        In allen Formeln wird implizit (mod q) mit um 0 zentrierter Schreibweise gerechnet.
       </ion-card-content>
     </ion-card>
 
@@ -89,21 +73,25 @@
                             <input
                               class="minput"
                               v-model="AString[0][0]"
+                              @focus="$v.AValues.$each[0].$each[0].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[0][1]"
+                              @focus="$v.AValues.$each[0].$each[1].$touch();"
                           /></span>
                           <span v-if="d >= 3" class="td">
                             <input
                               class="minput"
                               v-model="AString[0][2]"
+                              @focus="$v.AValues.$each[0].$each[2].$touch();"
                           /></span>
                           <span v-if="d >= 4" class="td">
                             <input
                               class="minput"
                               v-model="AString[0][3]"
+                              @focus="$v.AValues.$each[0].$each[3].$touch();"
                           /></span>
                         </div>
                         <div class="tr">
@@ -111,21 +99,25 @@
                             <input
                               class="minput"
                               v-model="AString[1][0]"
+                              @focus="$v.AValues.$each[1].$each[0].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[1][1]"
+                              @focus="$v.AValues.$each[1].$each[1].$touch();"
                           /></span>
                           <span v-if="d >= 3" class="td">
                             <input
                               class="minput"
                               v-model="AString[1][2]"
+                              @focus="$v.AValues.$each[1].$each[2].$touch();"
                           /></span>
                           <span v-if="d >= 4" class="td">
                             <input
                               class="minput"
                               v-model="AString[1][3]"
+                              @focus="$v.AValues.$each[1].$each[3].$touch();"
                           /></span>
                         </div>
                         <div v-if="d >= 3" class="tr">
@@ -133,21 +125,25 @@
                             <input
                               class="minput"
                               v-model="AString[2][0]"
+                              @focus="$v.AValues.$each[2].$each[0].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[2][1]"
+                              @focus="$v.AValues.$each[2].$each[1].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[2][2]"
+                              @focus="$v.AValues.$each[2].$each[2].$touch();"
                           /></span>
                           <span v-if="d >= 4" class="td">
                             <input
                               class="minput"
                               v-model="AString[2][3]"
+                              @focus="$v.AValues.$each[2].$each[3].$touch();"
                           /></span>
                         </div>
                         <div v-if="d >= 4" class="tr">
@@ -155,28 +151,65 @@
                             <input
                               class="minput"
                               v-model="AString[3][0]"
+                              @focus="$v.AValues.$each[3].$each[0].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[3][1]"
+                              @focus="$v.AValues.$each[3].$each[1].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[3][2]"
+                              @focus="$v.AValues.$each[3].$each[2].$touch();"
                           /></span>
                           <span class="td">
                             <input
                               class="minput"
                               v-model="AString[3][3]"
+                              @focus="$v.AValues.$each[3].$each[3].$touch();"
                           /></span>
                         </div>
                       </div>
                     </span>
                   </div>
                 </div>
-                <!--div class="error" v-if="!$v.a00Values.validArrayLength">Anzahl Elemente von a00 stimmt nicht mit d überein.</!--div-->
+                
+                <div class="error" v-if="!$v.AValues.$each[0].$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (A11)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (A12)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (A13)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (A14)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (A21)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (A22)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (A23)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (A24)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (A31)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (A32)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (A33)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (A34)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (A41)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (A42)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (A43)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (A44)</div>
+
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A11)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A12)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A13)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[0].$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A14)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A21)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A22)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A23)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[1].$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A24)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A31)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A32)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A33)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[2].$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A34)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A41)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A42)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A43)</div>
+                <div class="error" v-else-if="!$v.AValues.$each[3].$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (A44)</div>
               </div>
             </ion-col>
           </ion-row>
@@ -266,6 +299,15 @@
                     </span>                 
                   </div>
                 </div>
+                <div class="error" v-if="!$v.sValues.$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (s1)</div>
+                <div class="error" v-else-if="!$v.sValues.$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (s2)</div>
+                <div class="error" v-else-if="!$v.sValues.$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (s3)</div>
+                <div class="error" v-else-if="!$v.sValues.$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (s4)</div>
+
+                <div class="error" v-else-if="!$v.sValues.$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (s1)</div>
+                <div class="error" v-else-if="!$v.sValues.$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (s2)</div>
+                <div class="error" v-else-if="!$v.sValues.$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (s3)</div>
+                <div class="error" v-else-if="!$v.sValues.$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (s4)</div>
                 <!--div class="error" v-if="$v.s.$anyError">Werte müssen >0 und &lt;q sein.</div-->
               </div>
             </ion-col>
@@ -349,6 +391,15 @@
                     </span> 
                   </div>
                 </div>
+                <div class="error" v-if="!$v.eValues.$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (e1)</div>
+                <div class="error" v-else-if="!$v.eValues.$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (e2)</div>
+                <div class="error" v-else-if="!$v.eValues.$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (e3)</div>
+                <div class="error" v-else-if="!$v.eValues.$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (e4)</div>
+
+                <div class="error" v-else-if="!$v.eValues.$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e1)</div>
+                <div class="error" v-else-if="!$v.eValues.$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e2)</div>
+                <div class="error" v-else-if="!$v.eValues.$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e3)</div>
+                <div class="error" v-else-if="!$v.eValues.$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e4)</div>
               </div>
             </ion-col>
             <ion-col> </ion-col>
@@ -441,6 +492,15 @@
                     </span> 
                   </div>
                 </div>
+                <div class="error" v-if="!$v.e1Values.$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (e1)</div>
+                <div class="error" v-else-if="!$v.e1Values.$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (e2)</div>
+                <div class="error" v-else-if="!$v.e1Values.$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (e3)</div>
+                <div class="error" v-else-if="!$v.e1Values.$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (e4)</div>
+
+                <div class="error" v-else-if="!$v.e1Values.$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e1)</div>
+                <div class="error" v-else-if="!$v.e1Values.$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e2)</div>
+                <div class="error" v-else-if="!$v.e1Values.$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e3)</div>
+                <div class="error" v-else-if="!$v.e1Values.$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (e4)</div>
               </div>
             </ion-col>
             <ion-col>
@@ -523,6 +583,15 @@
                     </span> 
                   </div>
                 </div>
+                <div class="error" v-if="!$v.rValues.$each[0].validArrayLength">Polynom muss N Koeffizienten haben. (r1)</div>
+                <div class="error" v-else-if="!$v.rValues.$each[1].validArrayLength">Polynom muss N Koeffizienten haben. (r2)</div>
+                <div class="error" v-else-if="!$v.rValues.$each[2].validArrayLength">Polynom muss N Koeffizienten haben. (r3)</div>
+                <div class="error" v-else-if="!$v.rValues.$each[3].validArrayLength">Polynom muss N Koeffizienten haben. (r4)</div>
+
+                <div class="error" v-else-if="!$v.rValues.$each[0].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (r1)</div>
+                <div class="error" v-else-if="!$v.rValues.$each[1].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (r2)</div>
+                <div class="error" v-else-if="!$v.rValues.$each[2].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (r3)</div>
+                <div class="error" v-else-if="!$v.rValues.$each[3].validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein. (r4)</div>
               </div>
             </ion-col>
             <ion-col> </ion-col>
@@ -561,6 +630,8 @@
                     </span>
                   </div>
                 </div>
+                <div class="error" v-if="!$v.e2Values.validArrayLength">Polynom muss N Koeffizienten haben.</div>
+                <div class="error" v-else-if="!$v.e2Values.validArrayValues">Koeffizienten müssen >(-q/2) und &lt;(q/2) sein.</div>
               </div>
               <!--ion-item v-if="$v.e2.$anyError" class="error">
                   Wert muss >0 und &lt;q sein.
@@ -579,6 +650,7 @@
                       v-model="mString"
                     />
                     </span>
+                    
                     <span class="td">
                       <label for="mvalues" position="fixed">
                         =
@@ -598,9 +670,8 @@
                   </div>
                 </div>
               </div>
-              <!--ion-item v-if="!$v.m.validM" class="error">
-                  m muss 0 oder 1 sein
-                </!--ion-item-->
+              <div class="error" v-if="!$v.mValues.validArrayLength">m muss N Bitwerte haben.</div>
+              <div class="error" v-else-if="!$v.mValues.validM">Koeffizienten von m müssen Bitwerte sein. (0 oder 1)</div>
             </ion-col>
             <ion-col> </ion-col>
             <ion-col> </ion-col>
@@ -634,6 +705,7 @@
     </ion-card>
 
     <ion-card>
+      
       <ion-card-header>
         <ion-grid>
           <ion-row>
@@ -678,7 +750,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div v-if="showResults">
+        <!--div v-if="showResults">
           <ion-card-subtitle>Alice</ion-card-subtitle>
           <ion-grid>
             <ion-row>
@@ -712,15 +784,86 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+        </div-->
+        <div v-if="showResults">
+          <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-subtitle>Alice</ion-card-subtitle>  
+              </ion-col>
+              <ion-col>
+                <ion-card-subtitle>Öffentlich</ion-card-subtitle>
+              </ion-col>
+              <ion-col>
+                <ion-card-subtitle>Bob</ion-card-subtitle>
+              </ion-col>
+            </ion-row>
+            <ion-item-divider></ion-item-divider>
+            <ion-row>
+              <ion-col>
+                Alice berechnet 
+                <vue-mathjax :formula="outputT"></vue-mathjax>
+              </ion-col>
+              <ion-col>
+                <vue-mathjax :formula="sendT"> </vue-mathjax>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-item-divider></ion-item-divider>
+            <ion-row>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+                <ion-col>
+                  Bob berechnet 
+                </ion-col>
+                <ion-col>
+                  <vue-mathjax :formula="outputU"> </vue-mathjax>
+                </ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+                <vue-mathjax :formula="sendUV"> </vue-mathjax>
+              </ion-col>
+              <ion-col>
+                <ion-col>
+                  und
+                </ion-col>
+                <ion-col>
+                  <vue-mathjax :formula="outputV"> </vue-mathjax>
+                </ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-item-divider></ion-item-divider>
+            <ion-row>
+              <ion-col>
+                Alice berechnet Bobs Nachricht
+                <vue-mathjax :formula="outputM"></vue-mathjax>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          </ion-card-content>
         </div>
       </ion-card-header>
+      
     </ion-card>
   </ion-content>
 </template>
 
 <script>
 import { VueMathjax } from "vue-mathjax";
-import { required, between } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 
 function isPrime(num) {
   for (var i = 2; i < num; i++) {
@@ -729,20 +872,6 @@ function isPrime(num) {
     }
   }
   return true;
-}
-
-function validN() {
-  if (this.N == 2 || this.N == 4 || this.N == 8) {
-    return true;
-  }
-  return false;
-}
-
-function validD() {
-  if (this.d == 2 || this.d == 3 || this.d == 4) {
-    return true;
-  }
-  return false;
 }
 
 function validArrayLength(array) {
@@ -755,8 +884,20 @@ function validArrayLength(array) {
 function validArrayValues(array) {
   for (let elem of array) {
     if (isNaN(elem)) {
+      
       return false;
-    } else if (elem < 0 || elem >= this.q) {
+    } else if (elem < -this.q/2 || elem >= this.q/2) {
+      return false;
+    } else if (elem == undefined){
+      return false;
+    }
+  }
+  return true;
+}
+
+function validM(){
+  for(let i= 0; i<this.N; i++){
+    if(this.mValues[i]!= 0 && this.mValues[i]!= 1){
       return false;
     }
   }
@@ -780,32 +921,6 @@ export default {
         ["1,3,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
         ["1,4,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
       ],
-      /*AValues: [
-        [
-          [1, 1, 1, 1],
-          [2, 2, 2, 2],
-          [3, 3, 3, 3],
-          [4, 4, 4, 4],
-        ],
-        [
-          [1, 1, 1, 1],
-          [2, 2, 2, 2],
-          [3, 3, 3, 3],
-          [4, 4, 4, 4],
-        ],
-        [
-          [1, 1, 1, 1],
-          [2, 2, 2, 2],
-          [3, 3, 3, 3],
-          [4, 4, 4, 4],
-        ],
-        [
-          [1, 1, 1, 1],
-          [2, 2, 2, 2],
-          [3, 3, 3, 3],
-          [4, 4, 4, 4],
-        ],
-      ],*/
       sString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
       eString: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
       e1String: ["1,1,1,1", "2,2,2,2", "3,3,3,3", "4,4,4,4"],
@@ -825,6 +940,8 @@ export default {
       vectorE1: "$\\vec{e_1}$",
       outputE2: "$e_2$",
       vectorR: "$\\vec{r}$",
+      sendT: '$\\vec{t} \\Longrightarrow$',
+      sendUV: '$\\Longleftarrow \\vec{u}, \\vec{v} $',
       showResults: false,
       showFormula: false,
       decryptIssue: false,
@@ -852,14 +969,43 @@ export default {
   validations() {
     return {
       q: { required, isPrime },
-      N: { required, validN },
-      d: { required, validD },
       AValues: {
-        required,
-        validArrayLength,
-        validArrayValues,
-        between: between(0, this.q - 1),
+        $each:{
+          $each:{
+            validArrayValues,
+            validArrayLength,
+          }
+        }
       },
+      sValues: {
+        $each:{
+          validArrayValues,
+          validArrayLength,
+        }
+      },
+      eValues: {
+        $each:{
+          validArrayValues,
+          validArrayLength,
+        }
+      },
+      e1Values: {
+        $each:{
+          validArrayValues,
+          validArrayLength,
+        }
+      },
+      rValues: {
+        $each:{
+          validArrayValues,
+          validArrayLength,
+        }
+      },
+      e2Values: {
+        validArrayValues,
+        validArrayLength,
+      },
+      mValues:{validArrayLength, validM},
     };
   },
   methods: {
@@ -889,7 +1035,7 @@ export default {
         for (let j = 0; j < 4; j++) {
           for (let k = 0; k < this.N; k++) {
             this.AValues[i][j][k] = this.modCenterX(
-              Math.floor(Math.random() * (this.q * 0.8) + this.q * 0.2)
+              Math.floor(Math.random() * (this.q * 0.8) + this.q * 0.1)
              );
           }
           this.AString[i][j] = this.parsePolToString(this.AValues[i][j]);
@@ -899,49 +1045,59 @@ export default {
     generateS: function () {
       this.sValues=Array(4).fill(Array(this.N).fill(0));
       for (let i = 0; i < 4; i++) {
-        //do{
+        do{
           for (let j = 0; j < this.N; j++) {
             this.sValues[i][j] = Math.ceil(Math.random() * 5) - 3;
           }
-        //} while (this.checkZeroPol(this.sValues[i]));
+        } while (this.checkZeroPol(this.sValues[i]));
         this.sString[i] = this.parsePolToString(this.sValues[i]);
         console.log("s parsen an stelle " + i + " aus " + this.sValues[i]);
       }
     },
     generateE: function () {
       for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < this.N; j++) {
-          this.eValues[i][j] = Math.ceil(Math.random() * 5) - 3;
-        }
+        do{
+          for (let j = 0; j < this.N; j++) {
+            this.eValues[i][j] = Math.ceil(Math.random() * 5) - 3;
+          }
+        } while (this.checkZeroPol(this.eValues[i]));
         this.eString[i] = this.parsePolToString(this.eValues[i]);
       }
     },
     generateR: function () {
       for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < this.N; j++) {
-          this.rValues[i][j] = Math.ceil(Math.random() * 5) - 3;
-        }
+        do{
+          for (let j = 0; j < this.N; j++) {
+            this.rValues[i][j] = Math.ceil(Math.random() * 5) - 3;
+          }
+        } while (this.checkZeroPol(this.rValues[i]));
         this.rString[i] = this.parsePolToString(this.rValues[i]);
       }
     },
     generateE1: function () {
       for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < this.N; j++) {
-          this.e1Values[i][j] = Math.ceil(Math.random() * 5) - 3;
-        }
+        do{
+          for (let j = 0; j < this.N; j++) {
+            this.e1Values[i][j] = Math.ceil(Math.random() * 5) - 3;
+          }
+        } while (this.checkZeroPol(this.e1Values[i]));
         this.e1String[i] = this.parsePolToString(this.e1Values[i]);
       }
     },
     generateE2: function () {
-      for (let i = 0; i < this.N; i++) {
-        this.e2Values[i] = Math.ceil(Math.random() * 5) - 3;
-      }
+      do{
+        for (let i = 0; i < this.N; i++) {
+          this.e2Values[i] = Math.ceil(Math.random() * 5) - 3;
+        }
+      } while (this.checkZeroPol(this.e2Values));
       this.e2String = this.parsePolToString(this.e2Values);
     },
     generateM: function () {
-      for (let i = 0; i < this.N; i++) {
-        this.mValues[i] = Math.floor(Math.random() * 2);
-      }
+      do{
+        for (let i = 0; i < this.N; i++) {
+          this.mValues[i] = Math.floor(Math.random() * 2);
+        }
+      } while (this.checkZeroPol(this.mValues));
       this.mString = this.parsePolToString(this.mValues);
     },
     calcAll: function () {
@@ -1057,7 +1213,7 @@ export default {
     buildOutputV: function () {
       this.outputV = "$v = ";
       if (this.showFormula) {
-        this.outputV += "\\vec{t}^T * \\vec{r} + e_2 + \\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil = ";
+        this.outputV += "\\vec{t}^T * \\vec{r} + e_2 +  Enc(m)  = ";
       }
       this.outputV += "\\begin{pmatrix}";
       this.outputV += this.parsePolToString(this.vValues);
@@ -1069,7 +1225,7 @@ export default {
     buildOutputM: function () {
       this.outputM = "$m = ";
       if (this.showFormula) {
-        this.outputM += "Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases}  0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = ";
+        this.outputM += "Dec(v-\\vec{s}^T * \\vec{u}) = \\begin{cases} 0 & \\text{für $-\\frac{q}{4}\\leq (v-\\vec{s}^T * \\vec{u}) \\leq \\frac{q}{4} $} \\newline 1 & \\text{für $\\frac{q}{4}\\lt (v-\\vec{s}^T * \\vec{u}) \\lt \\frac{3q}{4} $} \\end{cases}\\Bigg\\} = ";
       }
       this.outputM += "\\begin{pmatrix}";
       this.outputM += this.parsePolToString(this.mResultValues);
@@ -1114,7 +1270,7 @@ export default {
       return ret;
     },
     parseStringToPol: function (string) {
-      let array = string.split(",").map(Number);
+      let array = string.split(' ').join('').split(",").filter(element => element).map(Number);
       array.reverse();
       return array;
     },
@@ -1131,7 +1287,7 @@ export default {
       let ret= "";
       let setPlus=false;
         for(let i=this.N-1; i>=0; i--){
-          if(pol[i]!=0){
+          if(pol[i]!=0 && pol[i]!= undefined){
             ret += " " + pol[i];
             setPlus=true;
             if(i!=0){ret += "X"}
@@ -1298,7 +1454,7 @@ SPAN.td {
 }
 
 .polOutput {
-  margin: 8px;
+  margin: 7px;
   
 }
 
@@ -1341,4 +1497,12 @@ input:focus {
 .error {
   color: red;
 }
+
+ion-card-content, ion-col, ion-card-subtitle{
+  font-size: 13pt;
+  color: black;
+}
+.polOutput{
+  font-size: 12pt;
+  color: black;}
 </style>
