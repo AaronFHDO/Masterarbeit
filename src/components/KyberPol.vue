@@ -14,11 +14,10 @@
       </ion-card-header>
 
       <ion-card-content>
-        Hier können Sie Aufgaben zu (Integer-) Kyber zu generieren,<br>
-        selbst erstellen und berechenen. <br>
+        Hier können Sie Aufgaben zu (Integer-) Kyber zu generieren, selbst erstellen und berechenen. <br>
         Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
         <br>
-        Alle Parameter-Voraussetzungen und Empfehlungen sind af der Überblick-Seite zu finden und werden bei der automatischen Generierung eingehalten. <br>
+        Alle Parameter-Voraussetzungen und Empfehlungen sind auf der Überblick-Seite zu finden und werden bei der automatischen Generierung eingehalten. <br>
         Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit kleinen Parametern gerechnet wird. <br>
         In allen Formeln wird implizit (mod q) mit um 0 zentrierter Schreibweise gerechnet.
       </ion-card-content>
@@ -43,7 +42,7 @@
             </ion-col>
             <ion-col>
               <ion-label> N = </ion-label>
-              <select class="ninput" v-model.number="N" @change="generateAfterQ(); N += 1, N-=1;">
+              <select class="ninput" v-model.number="N" @change="generateAfterQ(); N += 1, N-=1; calcAll()">
                 <option value="2">2</option>              
                 <option value="4">4</option>
                 <option value="8">8</option>
@@ -51,7 +50,7 @@
             </ion-col>
             <ion-col>
               <ion-label> d = </ion-label>
-              <select class="ninput" v-model.number="d">
+              <select class="ninput" v-model.number="d" @change="calcAll()">
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -170,10 +169,58 @@
                               class="minput"
                               v-model="AString[3][3]"
                               @focus="$v.AValues.$each[3].$each[3].$touch();"
-                          /></span>
+                          /></span> 
                         </div>
                       </div>
                     </span>
+                    <div v-if="d == 2">
+                      <span class="td">
+                        <label for="mvalues" position="fixed">
+                          =
+                        </label>
+                      </span>
+                          <span class="td">
+                            <div class="table mvalues" id="mvalues">
+                              <div class="tr">
+                                <span class="td">
+                                  <div class="polOutput">
+                                    {{APolOutput[0][0]}}
+                                  </div>
+                                </span>
+                                <span class="td">
+                                  <div class="polOutput">
+                                    ,
+                                  </div>
+                                </span>
+                                <span class="td">
+                                  <div class="polOutput">
+                                    {{APolOutput[0][1]}}
+                                  </div>
+                                </span>
+                              </div>
+                              
+
+
+                              <div class="tr">
+                                <span class="td">
+                                  <div class="polOutput">
+                                    {{APolOutput[1][0]}}
+                                  </div>
+                                </span>
+                                <span class="td">
+                                  <div class="polOutput">
+                                    ,
+                                  </div>
+                                </span>
+                                <span class="td">
+                                  <div class="polOutput">
+                                    {{APolOutput[1][1]}}
+                                  </div>
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+                    </div>
                   </div>
                 </div>
                 
@@ -750,41 +797,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <!--div v-if="showResults">
-          <ion-card-subtitle>Alice</ion-card-subtitle>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <vue-mathjax :formula="outputT"> </vue-mathjax>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <ion-card-subtitle>Bob</ion-card-subtitle>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <vue-mathjax :formula="outputU"> </vue-mathjax>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <vue-mathjax :formula="outputV"> </vue-mathjax>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <ion-card-subtitle>Alice</ion-card-subtitle>
-          <ion-grid>
-            <ion-row> </ion-row>
-            <ion-row>
-              <ion-col>
-                <vue-mathjax :formula="outputM"> </vue-mathjax>
-                <div v-if="decryptIssue" class="center error">
-                  Entschlüsselungsfehler wegen ungünstiger Parameter
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div-->
+
         <div v-if="showResults">
           <ion-card-content>
           <ion-grid>
@@ -846,6 +859,9 @@
               <ion-col>
                 Alice berechnet Bobs Nachricht
                 <vue-mathjax :formula="outputM"></vue-mathjax>
+                <div v-if="!$v.mResultValues.correctM" class="error">
+                  Entschlüsselungsfehler wegen ungünstiger Parameter
+                </div>
               </ion-col>
               <ion-col>
               </ion-col>
@@ -904,6 +920,15 @@ function validM(){
   return true;
 }
 
+function correctM(){
+  for(let i=0; i<this.N; i++){
+    if (this.mResultValues[i] != this.mValues[i]){
+      return false;
+    }
+  }
+  return true;
+}
+
 export default {
   components: {
     "vue-mathjax": VueMathjax,
@@ -941,10 +966,9 @@ export default {
       outputE2: "$e_2$",
       vectorR: "$\\vec{r}$",
       sendT: '$\\vec{t} \\Longrightarrow$',
-      sendUV: '$\\Longleftarrow \\vec{u}, \\vec{v} $',
+      sendUV: '$\\Longleftarrow \\vec{u}, v $',
       showResults: false,
       showFormula: false,
-      decryptIssue: false,
     };
   },
 
@@ -957,6 +981,7 @@ export default {
     e2Values: function(){return this.parseStringToPol(this.e2String);},
     mValues: function(){return this.parseStringToPol(this.mString);},
 
+    APolOutput: function(){return this.parsePolMatrixtoPolOutputMatrix(this.AValues);},
     sPolOutput: function(){return this.parsePolVectortoPolOutputVector(this.sValues);},
     ePolOutput: function(){return this.parsePolVectortoPolOutputVector(this.eValues);},
     e1PolOutput: function(){return this.parsePolVectortoPolOutputVector(this.e1Values);},
@@ -1006,6 +1031,7 @@ export default {
         validArrayLength,
       },
       mValues:{validArrayLength, validM},
+      mResultValues: {correctM},
     };
   },
   methods: {
@@ -1105,7 +1131,6 @@ export default {
       this.calcU();
       this.calcV();
       this.calcM();
-      this.checkDecryptIssues();
       this.buildTexOutputs();
     },
     buildTexOutputs: function () {
@@ -1175,13 +1200,6 @@ export default {
           //Kontrollausgabe für Unzulässige Ergebnisse
           this.mResultValues[i] = 2;
         }
-      }
-    },
-    checkDecryptIssues: function () {
-      if (this.mResult != this.m) {
-        this.decryptIssue = true;
-      } else {
-        this.decryptIssue = false;
       }
     },
     buildOutputT: function () {
@@ -1308,14 +1326,21 @@ export default {
       return ret;
     },
     parseSinglePoltoPolOutputVector: function(singlePol){//wrapper um computed setter zu umgehen
-      let ret = Array(1).fill("")
+      let ret = Array(1).fill("");
       ret[0] = this.parsePolToPolOutput(singlePol);
       return ret;
     },
     parsePolVectortoPolOutputVector: function(polVector){
-      let ret = Array(4).fill("")
+      let ret = Array(4).fill("");
       for(let i=0; i<this.d; i++){
         ret[i] = this.parsePolToPolOutput(polVector[i]);
+      }
+      return ret;
+    },
+    parsePolMatrixtoPolOutputMatrix: function(polMatrix){
+      let ret = Array(2).fill(Array(2).fill(""));
+      for(let i=0; i<2; i++){
+        ret[i] = this.parsePolVectortoPolOutputVector(polMatrix[i]);
       }
       return ret;
     },
@@ -1349,6 +1374,11 @@ export default {
       }
       this.e2PolOutput = this.parsePolToPolOutput(this.e2Values);
       this.mPolOutput = this.parsePolToPolOutput(this.mValues);
+      for(let i=0; i<2; i++){
+        for(let j=0; j<2; j++){
+            this.APolOutput[i][j]= this.parsePolToPolOutput(this.AValues[i][j]);
+        }
+      }
     },
 
     mulPolWithModN: function (pol1, pol2) {

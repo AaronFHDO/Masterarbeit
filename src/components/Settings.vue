@@ -15,8 +15,10 @@
       </ion-card-header>
       <ion-card-content>
         <ion-text color="dark">
-        1.2 <br> 
-        Laden Sie für die neueste Version die Seite mit Cache-Reset neu (z. B. mit "Strg" + "F5")
+        1.3 <br> 
+        (Zur Überprüfung der Aktualität der PWA entweder
+        einen Cache-Reset in Ihrem Browser oder ein
+        Swipe-Down in der App durchführen.)
         </ion-text>
       </ion-card-content>
     </ion-card>

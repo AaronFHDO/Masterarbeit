@@ -28,7 +28,7 @@
         Die folgende Abbildung zeigt den Ablauf der Kyber-Ver- und Entschlüsselung. <br>
         Dabei möchte Bob eine verschlüsselte Nachricht an Alice senden. <br>
         <br>
-        <img src="../../public/img/KyberAblauf.png">
+        <img src="../../public/img/KyberAblaufSVG.svg">
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -60,7 +60,9 @@
         m bzw. alle Koeffizienten von m müssen Bitwerte (0 oder 1) sein. Alle Polynome müssen N Koeffzienten haben (auch Nullen müssen geschrieben werden). <br>
         N ist als 2 , 4 oder 8 wählbar. d ist als 2 ,3 oder 4 wählbar. <br>
         <br>
-        Empfehlungen: q sollte zwischen 20 und 300 liegen. Alle beträge der Werte in A sollten zwischen 10% und 50% von q liegen. Alle Werte der Vektoren und von e2 sollten &ge; -2 und &le; 2 sein.
+        Empfehlungen: q sollte zwischen 20 und 300 liegen. Alle beträge der Werte in A sollten zwischen 10% und 50% von q liegen. Alle Werte der Vektoren und von e2 sollten &ge; -2 und &le; 2 sein. <br>
+        Auch mit korrekter Berechnung kann es bei dem Verfahren zu Fehlern bei der Entschlüsselung kommen. Alice berechnet dann nicht die gleiche Nachricht, die von Bob versendet wurde. <br>
+        Dies kann bei ungünstiger Parameterverteilung geschehen (z. B. bei kleinen q (&lt;100)) oder großen Fehler-Werten und lässt sich beim Auswählen der Parameter provozieren.
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -72,7 +74,7 @@
         Bei dem Polynom-Kyber-Verfahren ist jedoch zu beachten, dass Enc und Dec Koeffizienten-weise auszuführen sind. <br>
         Das bedeutet, dass Enc bspw. mit q = 11, N = 4 und m = 1,0,1,0 mit <vue-mathjax :formula="encOutput"></vue-mathjax> für jeden Koeffizienten einzeln berechnet wird, abhängig von m an diesem Koeffizienten. <br>
         Mit den beschriebenen Parametern ist also Enc(1,0,1,0) = (6,0,6,0) ={{encResultOutput}} <br>
-        Dementsprechend wird bei Dec die Entscheidung nach 0 oder 1 für jeden Koeffizienten von m einzeln getroffen.
+        Dementsprechend wird bei Dec die Entscheidung nach 0 oder 1 für jeden Koeffizienten von m einzeln getroffen. <br>
       </ion-card-content>
     </ion-card>
     <ion-card>

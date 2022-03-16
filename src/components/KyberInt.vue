@@ -14,11 +14,10 @@
         </ion-card-header>
 
         <ion-card-content>
-          Hier können Sie Aufgaben zu (Integer-) Kyber zu generieren,<br>
-          selbst erstellen und berechenen. <br>
+          Hier können Sie Aufgaben zu (Integer-) Kyber zu generieren, selbst erstellen und berechenen. <br>
           Der Ablauf des Verfahrens wird mit der Verschlüsselung durch Bob und der Entschlüsselung durch Alice dargestellt.<br>
           <br>
-          Alle Parameter-Voraussetzungen und Empfehlungen sind af der Überblick-Seite zu finden und werden bei der automatischen Generierung eingehalten. <br>
+          Alle Parameter-Voraussetzungen und Empfehlungen sind auf der Überblick-Seite zu finden und werden bei der automatischen Generierung eingehalten. <br>
           Es können bei der Entschlüsselung dennoch Fehler auftreten, da mit kleinen Parametern gerechnet wird. <br>
           In allen Formeln wird implizit (mod q) mit um 0 zentrierter Schreibweise gerechnet.
         </ion-card-content>
@@ -441,7 +440,7 @@ export default {
       outputE2: '$e_2$',
       vectorR: '$\\vec{r}$',
       sendT: '$\\vec{t} \\Longrightarrow$',
-      sendUV: '$\\Longleftarrow \\vec{u}, \\vec{v} $',
+      sendUV: '$\\Longleftarrow \\vec{u}, v $',
       showResults: false ,
       showFormula: false ,
       decryptIssue: false ,
