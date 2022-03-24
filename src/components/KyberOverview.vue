@@ -38,13 +38,14 @@
       <ion-card-content>
         Bei dem Kyber-Verfahren kommen viele Parameter zum Einsatz. Hier gibt es einen kurzen Überblick über diese Parameter: <br>
         Bei Integer-Kyber sind zunächst die Primzahl q, die Dimension d und die von der Dimension abhängige quadratische Matrix A öffentlich gegeben. <br>
-        Alice verfügt außerdem über ihren privaten Schlüssel s und den von ihr generierten Fehler e. <br>
-        Bob verfügt über die von ihm generierten Fehler e1 und e2 sowie r und seine zu verschlüsselnde Nachricht m, die an Alice gesendet werden soll.<br>
-        Alice berechnet sich zunächst ihren öffentlichen Schlüssel t. Diesen verwendet Bob um seinen öffentlichen Schlüssel u zu berechnen. <br>
-        Außerdem verschlüsselt er mit t auch seine Nachricht m zum dem Cipher v. Diesen kann Alice dann mit Hilfe von Bobs u und ihrem s entschüsseln. <br>
+        Alice verfügt außerdem über ihren privaten Schlüssel <vue-mathjax :formula="vectorS"></vue-mathjax> und den von ihr generierten Fehler <vue-mathjax :formula="vectorE"></vue-mathjax>. <br>
+        Bob verfügt über die von ihm generierten Fehler <vue-mathjax :formula="vectorE1"></vue-mathjax> und <vue-mathjax :formula="outputE2"></vue-mathjax> sowie den Vektor <vue-mathjax :formula="vectorR"></vue-mathjax> und seine zu verschlüsselnde Nachricht m, die an Alice gesendet werden soll.<br>
+        Alice berechnet sich zunächst ihren öffentlichen Schlüssel <vue-mathjax :formula="vectorT"></vue-mathjax>. Diesen verwendet Bob um seinen öffentlichen Schlüssel <vue-mathjax :formula="vectorU"></vue-mathjax> zu berechnen. <br>
+        Außerdem verschlüsselt er mit <vue-mathjax :formula="vectorT"></vue-mathjax> auch seine Nachricht m zum dem Cipher v. Diesen kann Alice dann mit Hilfe von Bobs <vue-mathjax :formula="vectorU"></vue-mathjax> und ihrem <vue-mathjax :formula="vectorS"></vue-mathjax> entschüsseln. <br>
         <br> 
         Bei Polynom-Kyber kommt noch der Polynomgrad N hinzu. Dieser bestimmt den maximalen Grad aller Polynome, die hier anstelle der Integerwerte verwendet werden.<br>
-        Für N = 4 besteht e2 also z. B. nicht mehr aus einem einzigen Integerwert, sondern aus einem Polynom vom Grad 3, also mit 4 verschiedenen Koeffizienten vom Grad 3 bis 0.
+        Für N = 4 besteht <vue-mathjax :formula="outputE2"></vue-mathjax> also z. B. nicht mehr aus einem einzigen Integerwert, sondern aus einem Polynom vom Grad 3, also mit 4 verschiedenen Koeffizienten vom Grad 3 bis 0. <br>
+        Diese Polynome werden mit Komma-Schreibweise in die Eingabefelder eingetragen, wobei die Werte zwischen den Kommata den jeweiligen Koeffizienten entsprechen, also z. B. (6,0,6,0) ={{encResultOutput}}
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -56,11 +57,11 @@
         Außerdem ist es ratsam die Parameter in bestimmten Bereichen zu wählen, um ein erfolgreiches Verfahren zu gewährleisten. <br>
         Im Folgenden sind alle Parametervoraussetzungen und -empfehlungen aufgelistet. (Beim Generieren von Aufgaben sind diese immer erfüllt.) <br>
         <br>
-        Voraussetzungen: q muss eine Primzahl sein. Alle Werte der Matrix, der Vektoren und e2 müssen >(-q/2) und &lt;(q/2) sein (um 0 zentrierte Schreibweise). <br>
+        Voraussetzungen: q muss eine Primzahl sein. Alle Werte der Matrix, der Vektoren und <vue-mathjax :formula="outputE2"></vue-mathjax> müssen >(-q/2) und &lt;(q/2) sein (um 0 zentrierte Schreibweise). <br>
         m bzw. alle Koeffizienten von m müssen Bitwerte (0 oder 1) sein. Alle Polynome müssen N Koeffzienten haben (auch Nullen müssen geschrieben werden). <br>
         N ist als 2 , 4 oder 8 wählbar. d ist als 2 ,3 oder 4 wählbar. <br>
         <br>
-        Empfehlungen: q sollte zwischen 20 und 300 liegen. Alle beträge der Werte in A sollten zwischen 10% und 50% von q liegen. Alle Werte der Vektoren und von e2 sollten &ge; -2 und &le; 2 sein. <br>
+        Empfehlungen: q sollte zwischen 20 und 300 liegen. Alle beträge der Werte in A sollten zwischen 10% und 50% von q liegen. Alle Werte der Vektoren und von <vue-mathjax :formula="outputE2"></vue-mathjax> sollten (&ge; -2) und (&le; 2) sein. <br>
         Auch mit korrekter Berechnung kann es bei dem Verfahren zu Fehlern bei der Entschlüsselung kommen. Alice berechnet dann nicht die gleiche Nachricht, die von Bob versendet wurde. <br>
         Dies kann bei ungünstiger Parameterverteilung geschehen (z. B. bei kleinen q (&lt;100)) oder großen Fehler-Werten und lässt sich beim Auswählen der Parameter provozieren.
       </ion-card-content>
@@ -103,7 +104,14 @@ export default {
   data(){
     return{
       encOutput: '$\\bigg \\lfloor \\frac{q}{2} * m \\bigg \\rceil$',
-      encResultOutput: ' 6X\u00B3 + 6X '
+      encResultOutput: ' 6X\u00B3 + 6X ',
+      vectorS: "$\\vec{s}$",
+      vectorE: "$\\vec{e}$",
+      vectorE1: "$\\vec{e_1}$",
+      outputE2: "$e_2$",
+      vectorR: "$\\vec{r}$",
+      vectorT: "$\\vec{t}$",
+      vectorU: "$\\vec{u}$",
     }
   }
 }
