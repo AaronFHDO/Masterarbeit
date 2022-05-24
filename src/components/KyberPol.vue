@@ -1293,7 +1293,7 @@ export default {
       return array;
     },
     parsePolToString: function (array) {
-      array.reverse(); //Array drehen für konventierung (Call by reference)
+      array.reverse(); //Array drehen vor Konventierung
       let ret = "" + array[0];
       for (let i = 1; i < this.N; i++) {
         ret += "," + array[i];
@@ -1317,12 +1317,10 @@ export default {
               case 3: ret += " \u00B3";break;
               case 2: ret += " \u00B2";break;
             }
-          } 
-          if(pol[i-1]==0){ret+= "    "}
+          }
           if(i>0 && pol[i-1]>0 && setPlus){ret+= " +"}
           if(pol[i-1]<0){ret+= " "}
         }
-      
       return ret;
     },
     parseSinglePoltoPolOutputVector: function(singlePol){//wrapper um computed setter zu umgehen

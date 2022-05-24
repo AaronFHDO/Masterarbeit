@@ -61,7 +61,7 @@
         m bzw. alle Koeffizienten von m müssen Bitwerte (0 oder 1) sein. Alle Polynome müssen N Koeffzienten haben (auch Nullen müssen geschrieben werden). <br>
         N ist als 2 , 4 oder 8 wählbar. d ist als 2 ,3 oder 4 wählbar. <br>
         <br>
-        Empfehlungen: q sollte zwischen 20 und 300 liegen. Alle beträge der Werte in A sollten zwischen 10% und 50% von q liegen. Alle Werte der Vektoren und von <vue-mathjax :formula="outputE2"></vue-mathjax> sollten (&ge; -2) und (&le; 2) sein. <br>
+        Empfehlungen: q sollte zwischen 20 und 300 liegen. Alle Beträge der Werte in A sollten zwischen 10% und 50% von q liegen. Alle Werte der Vektoren und von <vue-mathjax :formula="outputE2"></vue-mathjax> sollten (&ge; -2) und (&le; 2) sein. <br>
         Auch mit korrekter Berechnung kann es bei dem Verfahren zu Fehlern bei der Entschlüsselung kommen. Alice berechnet dann nicht die gleiche Nachricht, die von Bob versendet wurde. <br>
         Dies kann bei ungünstiger Parameterverteilung geschehen (z. B. bei kleinen q (&lt;100)) oder großen Fehler-Werten und lässt sich beim Auswählen der Parameter provozieren.
       </ion-card-content>
@@ -92,7 +92,7 @@
         Unterlagen zu Kyber:<br>
         Kyber Original Paper, 2018: <a href="https://repository.ubn.ru.nl/bitstream/handle/2066/195423/195423pre.pdf?sequence=1&isAllowed=y">CRYSTALS Kyber</a><br>
         Kyber Vorstellungs-Folien: <a href="https://cryptojedi.org/peter/data/nistpqc-20190823.pdf">Kyber-Folien</a><br>
-        Kyber Spezifikation: <a href="https://pq-crystals.org/kyber/data/kyber-specification-round3-20210131.pdf">Algorithm Specifications And Supporting Documentation</a><br>
+        Kyber Spezifikation: <a href="https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf">Algorithm Specifications And Supporting Documentation</a><br>
       </ion-card-content>
     </ion-card>
   </ion-content>

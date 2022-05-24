@@ -36,7 +36,7 @@
             <ion-row>
               <ion-col>
                 
-                  <ion-label> q: </ion-label>
+                  <ion-label> q = </ion-label>
                   <input class="minput" type="number" v-model.number="q" @focus="$v.q.$touch();"/>
                   <!--ion-item>
                   <ion-input type="number" :value="q" 
@@ -48,7 +48,7 @@
               </ion-col>
               <ion-col>
                 <ion-label> d = </ion-label>
-                <select class="ninput" v-model.number="d">
+                <select class="ninput" v-model.number="d" @change="calcAll()">
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -70,10 +70,10 @@
                       <span class="td">
                         <div class="table mvalues" id="mvalues">
                           <div class="tr">
-                              <span class="td"> <input class="minput" type="number" v-model.number="A[0][0]" @focus="$v.A.$each[0].$each[0].$touch();"/></span>
-                              <span class="td"> <input class="minput" type="number" v-model.number="A[0][1]" @focus="$v.A.$each[0].$each[1].$touch();"/></span>
-                              <span v-if="d>=3" class="td"> <input class="minput" type="number" v-model.number="A[0][2]" @focus="$v.A.$each[0].$each[2].$touch();"/></span>
-                              <span v-if="d>=4" class="td"> <input class="minput" type="number" v-model.number="A[0][3]" @focus="$v.A.$each[0].$each[3].$touch();"/></span>
+                              <span class="td">             <input class="minput" type="number" v-model.number="A[0][0]"              @focus="$v.A.$each[0].$each[0].$touch();"/></span>
+                              <span class="td">             <input class="minput" type="number" v-model.number="A[0][1]"              @focus="$v.A.$each[0].$each[1].$touch();"/></span>
+                              <span v-if="d>=3" class="td"> <input class="minput" type="number" v-model.number="A[0][2]"  @focus="$v.A.$each[0].$each[2].$touch();"/></span>
+                              <span v-if="d>=4" class="td"> <input class="minput" type="number" v-model.number="A[0][3]"  @focus="$v.A.$each[0].$each[3].$touch();"/></span>
                           </div>
                           <div class="tr">
                               <span class="td"> <input class="minput" type="number" v-model.number="A[1][0]" @focus="$v.A.$each[1].$each[0].$touch();"/></span>
@@ -250,7 +250,7 @@
               </ion-col>
               
               <ion-col>
-                <ion-label> m: </ion-label>
+                <ion-label> m = </ion-label>
                 <input class="minput" type="number" v-model.number="m" @focus="$v.m.$touch();"/>
                 <ion-item v-if="!$v.m.validM" class="error">
                   m muss 0 oder 1 sein
@@ -582,11 +582,10 @@ export default {
         result += this.s[i] * this.u[i];
       }
       result = this.modCenterX(this.v-result)
-      
-      if (result>(-this.q/4) && result<(this.q*1/4)){ //comp ist im obersten oder untersten Viertel, also um 0 herum 
+      if (result>(-this.q/4) && result<(this.q*1/4)){ //res im obersten oder untersten Viertel, also um 0
         this.mResult = 0;
       }
-      else if(result>=(this.q*1/4) || result<=(-this.q/4)){ // comp ist mittig, also um q/2 herum
+      else if(result>=(this.q*1/4) || result<=(-this.q/4)){ //res mittig, also um q/2
         this.mResult = 1;
       }
       else { //Kontrollausgabe für Unzulässige Ergebnisse
