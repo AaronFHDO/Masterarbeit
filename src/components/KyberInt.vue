@@ -409,7 +409,6 @@ export default {
     "vue-mathjax": VueMathjax
   },
   name: 'MainKyberInt',
-  el: '#kyberInt',
   data() {
     return {
       q: 97 ,
