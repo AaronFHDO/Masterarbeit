@@ -15,7 +15,7 @@
       </ion-card-header>
       <ion-card-content>
         <ion-text color="dark">
-        1.4 <br> 
+        1.5 <br> 
         (Zur Überprüfung der Aktualität der PWA entweder
         einen Cache-Reset in Ihrem Browser oder ein
         Swipe-Down in der App durchführen.)

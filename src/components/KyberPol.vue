@@ -934,7 +934,6 @@ export default {
     "vue-mathjax": VueMathjax,
   },
   name: "MainKyberPol",
-  el: "#kyberPol",
   data() {
     return {
       q: 97,
@@ -1077,7 +1076,6 @@ export default {
           }
         } while (this.checkZeroPol(this.sValues[i]));
         this.sString[i] = this.parsePolToString(this.sValues[i]);
-        console.log("s parsen an stelle " + i + " aus " + this.sValues[i]);
       }
     },
     generateE: function () {
